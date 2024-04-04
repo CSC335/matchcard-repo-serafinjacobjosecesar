@@ -13,4 +13,8 @@ public class AccountCollections {
 		accounts.add(newAccount);
 	}
 	
+	public Boolean contains(Account accountToCheck) {
+		return accounts.contains(accountToCheck);
+	}
+	
 }
