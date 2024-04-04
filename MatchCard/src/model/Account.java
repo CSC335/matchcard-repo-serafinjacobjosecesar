@@ -2,7 +2,7 @@ package model;
 
 public class Account {
 	private String userName,password;
-	private int longestStreak, currStreak, hiScore, currScore;
+	private int longestStreak, currStreak, hiScore, currScore, points;
 	private Boolean hadMatch;
 	
 	public Account(String userName, String password) {
@@ -12,6 +12,7 @@ public class Account {
 		currStreak = 0;
 		hiScore = 0;
 		currScore = 0;
+		points = 0;
 		hadMatch = false;
 	}
 	
@@ -30,6 +31,7 @@ public class Account {
 	public void updateCurrScore() {
 		if (hadMatch) {
 			currScore++;
+			updatePoints();
 			updateCurrStreak();
 		} else {
 			updateCurrStreak();
@@ -54,5 +56,13 @@ public class Account {
 		
 	private void resetStreak() {
 		currStreak = 0;
+	}
+	
+	private void updatePoints() {
+		if (currStreak < 2) {
+			points++;
+			return;
+		}
+		points += (points + currStreak);
 	}
 }

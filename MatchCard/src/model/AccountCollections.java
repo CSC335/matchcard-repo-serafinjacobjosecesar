@@ -1,5 +1,16 @@
 package model;
 
-public class AccountCollections {
+import java.util.ArrayList;
 
+public class AccountCollections {
+	private ArrayList<Account> accounts;
+	
+	public AccountCollections() {
+		accounts = new ArrayList<Account>();
+	}
+	
+	public void addAccount(Account newAccount) {
+		accounts.add(newAccount);
+	}
+	
 }

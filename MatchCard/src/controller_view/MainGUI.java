@@ -3,10 +3,7 @@ package controller_view;
 import java.time.LocalDate;
 import java.util.Optional;
 
-/**
- * This app should contain all elements by the end of Sprint 2
- * The starter code only shows the minimum 
- */
+
 
 import javafx.application.Application;
 import javafx.application.Platform;

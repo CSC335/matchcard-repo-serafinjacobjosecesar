@@ -34,7 +34,6 @@ public class LoginPane extends BorderPane {
 		VBox loginFields = new VBox();
 		HBox userNameField = new HBox();
 		HBox passwordField = new HBox();
-		HBox playButtonField = new HBox();
 
 		userNameField.getChildren().addAll(userName, nameEntry);
 		passwordField.getChildren().addAll(password, passEntry);
@@ -45,9 +44,8 @@ public class LoginPane extends BorderPane {
 
 		userNameField.setAlignment(Pos.CENTER);
 		passwordField.setAlignment(Pos.CENTER);
-		playButtonField.setAlignment(Pos.CENTER);
 
-		loginFields.getChildren().addAll(playButtonField, userNameField, passwordField, login, sysReply, logout);
+		loginFields.getChildren().addAll(userNameField, passwordField, login, sysReply, logout);
 		loginFields.setAlignment(Pos.CENTER);
 
 		return loginFields;
