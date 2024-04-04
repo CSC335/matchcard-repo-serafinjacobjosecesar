@@ -2,7 +2,7 @@ package model;
 
 import javafx.scene.image.Image;
 
-public abstract class Card {
+public class Card {
 	
 	// private Image image = new Image("file:doge.jpeg", false);
 	private Image picture;
@@ -16,15 +16,18 @@ public abstract class Card {
 		this.type = type;
 	}
 	
-	public abstract Image getImage();
+	public Image getImage() {
+		return picture;
+	}
 	
-	public abstract boolean sameComparison(Card card1);
-		
-//		return (this.Name.compareTo(Name)==0  && typeComparsion(card1)) ? true: false;
+	public boolean sameComparison(Card card1) {
+		return (this.Name.compareTo(Name)==0  && typeComparsion(card1)) ? true: false;
+	}
 	
-	
-	public abstract boolean typeComparsion(Card card1);
-//		return (this.type.compareTo(card1.Name) ==0) ? true: false;
+	public boolean typeComparsion(Card card1) {
+		return (this.type.compareTo(card1.Name) ==0) ? true: false;
+	}
+//		
 //	}
 	
 	
