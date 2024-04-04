@@ -16,19 +16,16 @@ public abstract class Card {
 		this.type = type;
 	}
 	
-	public Image getImage() {
-		return picture;
-	}
+	public abstract Image getImage();
+	
+	public abstract boolean sameComparison(Card card1);
+		
+//		return (this.Name.compareTo(Name)==0  && typeComparsion(card1)) ? true: false;
 	
 	
-	public boolean sameComparison(Card card1) {
-		//String result = (x > y) ? "x is greater" : "y is greater";
-		return (this.Name.compareTo(Name)==0  && typeComparsion(card1)) ? true: false;
-	}
-	
-	public boolean typeComparsion(Card card1) {
-		return (this.type.compareTo(card1.Name) ==0) ? true: false;
-	}
+	public abstract boolean typeComparsion(Card card1);
+//		return (this.type.compareTo(card1.Name) ==0) ? true: false;
+//	}
 	
 	
 	
