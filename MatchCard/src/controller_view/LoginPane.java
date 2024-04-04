@@ -1,3 +1,4 @@
+package controller_view;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,7 +22,6 @@ public class LoginPane extends BorderPane {
 	private Button login = new Button("Login");
 	private Button logout = new Button("Logout");
 	private Label sysReply = new Label();
-
 
 	public LoginPane() {
 
