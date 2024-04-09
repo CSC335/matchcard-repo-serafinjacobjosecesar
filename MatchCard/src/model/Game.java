@@ -6,9 +6,8 @@ public class Game {
 	private Card[][] gameBoard;
 	private CardCollections deck;
 	private ArrayList<Card> toCompare;
-	private int compareLength = 2;
 	
-	public Game() {
+	public Game(Account player) {
 		gameBoard = new Card[3][2];
 		deck = new CardCollections();
 		deck.shuffle();

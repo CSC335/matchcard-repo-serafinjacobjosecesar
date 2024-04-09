@@ -7,7 +7,7 @@ public class Account {
 	
 	public Account(String userName, String password) {
 		this.userName = userName;
-		this.password = password;
+	    this.password = password;
 		longestStreak = 0;
 		currStreak = 0;
 		hiScore = 0;
