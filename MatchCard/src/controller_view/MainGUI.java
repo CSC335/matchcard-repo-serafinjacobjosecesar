@@ -33,7 +33,7 @@ public class MainGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		LayoutGUI();
-		Scene scene = new Scene(everything, 800, 900);
+		Scene scene = new Scene(everything, 400, 500);
 		primaryStage.setScene(scene);
 
 		primaryStage.setResizable(false);
