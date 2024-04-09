@@ -65,4 +65,12 @@ public class Account {
 		}
 		points += (points + currStreak);
 	}
+
+	public Object getUsername() {
+		return userName;
+	}
+
+	public Object getPassWord() {
+		return password;
+	}
 }

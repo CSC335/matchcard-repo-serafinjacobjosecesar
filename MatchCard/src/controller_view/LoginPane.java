@@ -1,54 +1,126 @@
 package controller_view;
-import javafx.scene.layout.BorderPane;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+
+import java.util.ArrayList;
+import java.util.Optional;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import model.Account;
+import model.AccountCollections;
 
 public class LoginPane extends BorderPane {
+	Account currentAcc = null;
+	GridPane gridPane = new GridPane();
+	int numOfSongs = 0;
+	ArrayList<Account> accounts = new ArrayList<Account>();
+	AccountCollections accountCollections = new AccountCollections();
+	
+	Label accountNameLabel = new Label("Acccount Name");
+	Label passWordLabel = new Label("Password");
+	String str = String.format("Login First");
+	Label strLabel = new Label(str);
 
-	private Label userName = new Label("Account Name");
-	private TextField nameEntry = new TextField();
-	private Label password = new Label("Password");
-	private PasswordField passEntry = new PasswordField();
-	private Button login = new Button("Login");
-	private Button logout = new Button("Logout");
-	private Label sysReply = new Label();
+	TextField nameField = new TextField("");
+	PasswordField passwordField = new PasswordField();
+
+	Button selSong1 = new Button("Select Song 1");
+	Button selSong2 = new Button("Select Song 2");
+	Button loginB = new Button("Login");
+	Button logOutB = new Button("Log out");
+	Button createAcc = new Button("Create new Account");
 
 	public LoginPane() {
+		gridPane.setHgap(10);
+		gridPane.setVgap(5);
 
-		VBox loginComps = configLogin();
-		this.setCenter(loginComps);
+		gridPane.add(accountNameLabel, 2, 3);
+		gridPane.add(passWordLabel, 2, 4);
 
+		gridPane.add(nameField, 3, 3);
+		gridPane.add(passwordField, 3, 4);
+
+		gridPane.add(loginB, 4, 3);
+		gridPane.add(strLabel, 3, 1);
+		gridPane.add(logOutB, 4, 4);
+		gridPane.add(createAcc, 3, 5);
+		setButtonHandler();
+		this.setCenter(gridPane);
 	}
 
-	private VBox configLogin() {
-		VBox loginFields = new VBox();
-		HBox userNameField = new HBox();
-		HBox passwordField = new HBox();
+	public void setButtonHandler() {
 
-		userNameField.getChildren().addAll(userName, nameEntry);
-		passwordField.getChildren().addAll(password, passEntry);
-		HBox.setMargin(userName, new Insets(20, 5, 5, 30));
-		HBox.setMargin(nameEntry, new Insets(20, 30, 5, 5));
-		HBox.setMargin(password, new Insets(10, 5, 10, 30));
-		HBox.setMargin(passEntry, new Insets(10, 30, 15, 5));
+		loginB.setOnAction(event -> {
+			// Clear Names after log in
+			boolean flag = false;
+			String user = nameField.getText();
+			String passW = passwordField.getText();
+			accounts = accountCollections.returnAccounts();			
+			for (Account acc : accounts) {
+				if (acc.getUsername().equals(user) && acc.getPassWord().equals(passW)) {
+					currentAcc = acc;
+					flag = true;
+					nameField.setText("");
+					passwordField.setText("");
+					strLabel.setText("Succesfully Logged in");
+				}
+			}
 
-		userNameField.setAlignment(Pos.CENTER);
-		passwordField.setAlignment(Pos.CENTER);
+			if (!flag) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("No account found");
+				Optional<ButtonType> result = alert.showAndWait();
+				strLabel.setText("No account found");
+				nameField.setText("");
+				passwordField.setText("");
+			}
 
-		loginFields.getChildren().addAll(userNameField, passwordField, login, sysReply, logout);
-		loginFields.setAlignment(Pos.CENTER);
+		});
 
-		return loginFields;
+		logOutB.setOnAction(event -> {
+			currentAcc = null;
+			nameField.setText("");
+			passwordField.setText("");
+		});
+
+		createAcc.setOnAction(event -> {
+			String name = nameField.getText();
+			String passWord = passwordField.getText();
+
+			if (!checkAcc(name)) {
+				Account newAcc = new Account(name, passWord);
+				currentAcc = newAcc;
+				accountCollections.addAccount(newAcc);
+				strLabel.setText("User Created");
+				nameField.setText("");
+				passwordField.setText("");
+			}
+			else {
+				currentAcc = null;
+				nameField.setText("");
+				passwordField.setText("");
+				strLabel.setText("Invalid");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setHeaderText(null);
+				alert.setContentText("Account with username " + name + " already exists. Please login.");
+				Optional<ButtonType> result = alert.showAndWait();
+			}
+		});
+	}
+
+	private boolean checkAcc(String name) {
+		for (Account acc : accounts) {
+			if (acc.getUsername().equals(name)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

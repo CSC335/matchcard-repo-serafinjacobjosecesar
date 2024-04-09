@@ -17,4 +17,7 @@ public class AccountCollections {
 		return accounts.contains(accountToCheck);
 	}
 	
+	public ArrayList<Account> returnAccounts() {
+		return accounts;
+	}
 }
