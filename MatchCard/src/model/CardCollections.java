@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.scene.image.Image;
 
@@ -9,7 +10,6 @@ public class CardCollections {
 	
 	public CardCollections() {
 		Cards = new ArrayList<Card>();
-		
 	}
 	
 	public void addCard(Card card) {
@@ -38,8 +38,12 @@ public class CardCollections {
 		Image image4 = new Image("file:Zebra.jpg", false);
 		Card zebra = new Card(image4, "Zebra", "Animal");
 		AnimalsCards.addCard(zebra);
-		
 		return AnimalsCards;
+	}
+	
+	public ArrayList<Card> shuffle(){
+		Collections.shuffle(Cards);	
+		return Cards;
 	}
 	
 }
