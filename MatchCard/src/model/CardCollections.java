@@ -41,6 +41,8 @@ public class CardCollections {
 		return AnimalsCards;
 	}
 	
+	
+	
 	public ArrayList<Card> shuffle(){
 		Collections.shuffle(Cards);	
 		return Cards;
