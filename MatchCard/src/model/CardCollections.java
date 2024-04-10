@@ -52,7 +52,8 @@ public class CardCollections {
 		    fileName = "file:" + userDir + "/Card Images/";
 		} 
 		else {
-			
+			userDir = userDir.replace('\\', '/');
+			fileName = "file:/" + userDir + "/Card Images/";
 		}
 		
 		
