@@ -37,6 +37,10 @@ public class Game {
 		return gameboard.getGameBoardArr();
 	}
 	
+	public GameBoard getGameBoardObj() {
+		return gameboard;
+	}
+	
 	/*
 	public Card getCard(int row, int col) {
 		return gameBoard[row][col];

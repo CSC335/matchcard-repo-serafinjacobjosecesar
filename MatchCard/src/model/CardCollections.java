@@ -31,18 +31,43 @@ public class CardCollections {
 		
 		//double cards so they could have pairs inside the deck
 		
+		/*
+		 
+		 
+		if (userDir.substring(0, 1).equals("/")) {
+		    fileName = "file:" + userDir + "/songfiles/" + currSong.getPathfile();
+		} else {
+		        userDir = userDir.replace('\', '/');
+		    fileName = "file:/" + userDir + "/songfiles/" + currSong.getPathfile();}
+		userDir = System.getProperty("user.dir")
+		double '\" not ""
+		replace "/songfiles/" with "/Card Images/"
+		
+		
+		*/
+		String userDir = System.getProperty("user.dir");
+		String fileName = "";
+		
+		if (userDir.substring(0, 1).equals("/")) {
+		    fileName = "file:" + userDir + "/Card Images/";
+		} 
+		else {
+			
+		}
+		
+		
 
-		Image image1 = new Image(getClass().getResourceAsStream("/chameleon.jpg"));
+		Image image1 = new Image(fileName+"chameleon.jpg",300,300,false,false);
 		Card chameleon = new Card(image1, "Chameleon", "Animal");
 		AnimalsCards.addCard(chameleon);
 		AnimalsCards.addCard(chameleon);
 		
-		Image image2 = new Image(getClass().getResourceAsStream("/monkey.jpg"));
+		Image image2 = new Image(fileName+"monkey.jpg",300,300,false,false);
 		Card monkey = new Card(image2, "Monkey", "Animal");
 		AnimalsCards.addCard(monkey);
 		AnimalsCards.addCard(monkey);
 		
-		Image image3 = new Image(getClass().getResourceAsStream("/pig.jpg"));
+		Image image3 = new Image(fileName+"pig.jpg",300,300,false,false);
 		Card pig = new Card(image3, "Pig", "Animal");
 		AnimalsCards.addCard(pig);
 		AnimalsCards.addCard(pig);
