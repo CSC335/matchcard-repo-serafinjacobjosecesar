@@ -2,6 +2,8 @@ package controller_view;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -23,14 +25,12 @@ public class LoginPane extends BorderPane {
 	
 	Label accountNameLabel = new Label("Acccount Name");
 	Label passWordLabel = new Label("Password");
-	String str = String.format("Login First");
+	String str = "Login First";
 	Label strLabel = new Label(str);
 
 	TextField nameField = new TextField("");
 	PasswordField passwordField = new PasswordField();
 
-	Button selSong1 = new Button("Select Song 1");
-	Button selSong2 = new Button("Select Song 2");
 	Button loginB = new Button("Login");
 	Button logOutB = new Button("Log out");
 	Button createAcc = new Button("Create new Account");

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,25 +29,45 @@ public class MainGUI extends Application {
 
 	private LoginPane loginPane;
 	private BorderPane everything;
+	private Button testBut;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		everything = new BorderPane();
+		loginPane = new LoginPane();
 		LayoutGUI();
-		Scene scene = new Scene(everything, 400, 500);
-		primaryStage.setScene(scene);
 
+		Scene loginScene = new Scene(loginPane, 400, 500);
+		Scene mainScene = new Scene(everything,1000,1000);
+		primaryStage.setScene(loginScene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
+		
+		loginPane.loginB.addEventFilter(ActionEvent.ACTION, event -> {
+			if (loginPane.currentAcc != null) {
+				new Thread(() -> {
+				    try {
+				        Thread.sleep(1000);
+		                Platform.runLater(() -> primaryStage.setScene(mainScene));
+				    } catch (InterruptedException e) {
+				        e.printStackTrace();
+				    }
+				}).start();
+			}
+		});
 	}
 
 	private void LayoutGUI() {
-		everything = new BorderPane();
-		loginPane = new LoginPane();
-
+		// login pane
 		loginPane.setPadding(new Insets(10));
-		everything.setBottom(loginPane);
+		
+		testBut = new Button("Test Button");
+		everything.setCenter(testBut);
+
+	}
+
+	public void setLoginHandler(Stage primaryStage) {
 
 	}
 
