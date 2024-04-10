@@ -80,7 +80,6 @@ public class LoginPane extends BorderPane {
 				nameField.setText("");
 				passwordField.setText("");
 			}
-
 		});
 
 		logOutB.setOnAction(event -> {
