@@ -43,7 +43,8 @@ public class Card {
 	
 	
 	public boolean sameComparison(Card card1) {
-		return (this.Name.compareTo(Name)==0  && typeComparsion(card1)) ? true: false;
+		
+		return this.Name.equals(card1.Name);
 	}
 	
 	public boolean typeComparsion(Card card1) {

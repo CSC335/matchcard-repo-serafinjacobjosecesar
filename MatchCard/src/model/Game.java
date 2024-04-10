@@ -7,7 +7,6 @@ public class Game {
 	private Card[][] gameboardArrRep;
 	//private Card[][] gameBoard;
 	private CardCollections deck;
-	private ArrayList<Card> toCompare;
 	
 	public Game(Account player) {
 		//gameBoard = new Card[3][2];
@@ -47,6 +46,7 @@ public class Game {
 	}
 	*/
 	
+	/*
 	public void addToCompare(Card currCard) {
 		toCompare.add(currCard);
 	
@@ -61,5 +61,6 @@ public class Game {
 	public ArrayList<Card> getToCompare(){
 		return toCompare;
 	}
+	*/
 	
 }

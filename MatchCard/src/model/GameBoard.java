@@ -26,6 +26,8 @@ public class GameBoard extends BorderPane{
 	private VBox outsideContainer = new VBox();
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
+	private ArrayList<int[]> toCompare = new ArrayList<>();;
+	
 	
 	public GameBoard(CardCollections uniqueCards, int cols, int rows) {
 		// TODO construct takes in the deck of uniqueCards needed and the grid that
@@ -52,6 +54,34 @@ public class GameBoard extends BorderPane{
 	 * cards if they are not a match 	
 	 */
 	}
+	
+	public void check() {
+	/*
+	 * once toCompare has 2 cards to compare it checks their name and 
+	 * if thay are a match then the cards disappear from the board
+	 * else both cards get flipped and enabled for flipping 	
+	 */
+	
+		if(toCompare.size()==2) {
+			int [] stCardCords = toCompare.get(0);
+			int [] ndCardCords = toCompare.get(1);
+			
+			if(gameBoardArr[stCardCords[0]][stCardCords[1]].sameComparison(gameBoardArr[ndCardCords[0]][ndCardCords[1]])) {
+				System.out.println("they are a match");
+				boardButtons[stCardCords[0]][stCardCords[1]].setDisable(true);
+				boardButtons[stCardCords[0]][stCardCords[1]].setVisible(false);
+				
+				boardButtons[ndCardCords[0]][ndCardCords[1]].setDisable(true);
+				boardButtons[ndCardCords[0]][ndCardCords[1]].setVisible(false);
+			}
+			else {
+				gameBoardArr[stCardCords[0]][stCardCords[1]].flip();
+				gameBoardArr[ndCardCords[0]][ndCardCords[1]].flip();
+				System.out.println("they are not a match");
+			}
+			toCompare.clear();
+		}
+	}
 
 	private void intializeArrCards(CardCollections uniqueCards,int cols,int rows) {
 		int currCard = 0;
@@ -76,9 +106,9 @@ public class GameBoard extends BorderPane{
 				final int col = j;
 				
 				
-				Card currCard = gameBoardArr[i][j];
+				final Card currCard = gameBoardArr[i][j];
 				
-				boardButtons[i][j] = new Button(currCard.getName());
+				boardButtons[i][j] = new Button();
 				
 				ImageView imgView = new ImageView(currCard.getImage());
 				boardButtons[i][j].setGraphic(imgView);
@@ -93,14 +123,17 @@ public class GameBoard extends BorderPane{
 					
 					int boardY = row;
 					int boardX = col;
+					int [] cords = {row,col};
 					
+					// flipped is a boolean in card when false shows BACK face 
 					if(!currCard.isItFlipped()) {
 						currCard.flip();
 						System.out.println("FRONT");
+						toCompare.add(cords);
+						check();
 					}
 					else {
-						currCard.flip();
-						System.out.println("BACK");
+						System.out.println("Nothing happened");
 					}
 					
 					//for debug purposes 
