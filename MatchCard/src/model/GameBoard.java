@@ -84,7 +84,7 @@ public class GameBoard extends BorderPane{
 				boardButtons[i][j].setGraphic(imgView);
 				
 				
-				boardButtons[i][j].setId("button" + i + "x" + j +" - "+ currCard.getName());
+				boardButtons[i][j].setId(currCard.getName());
 				buttonPane.add(boardButtons[i][j], j, i);
 				boardButtons[i][j].setMinSize(300, 300);
 				

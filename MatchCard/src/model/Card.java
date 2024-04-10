@@ -32,6 +32,7 @@ public class Card {
 		return this.Name;
 	}
 	
+	
 	public void flip(){
 		this.flipped = !this.flipped;
 	}
