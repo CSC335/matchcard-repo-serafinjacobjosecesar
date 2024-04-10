@@ -97,7 +97,7 @@ public class GameBoard extends BorderPane{
 					if(!currCard.isItFlipped()) {
 						currCard.flip();
 						System.out.println("FRONT");
-					}
+					}git
 					else {
 						currCard.flip();
 						System.out.println("BACK");
