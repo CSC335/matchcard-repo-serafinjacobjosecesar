@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -20,6 +21,9 @@ import javafx.scene.text.Font;
 
 
 public class GameBoard extends BorderPane{
+	//
+
+	
 	
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -30,6 +34,7 @@ public class GameBoard extends BorderPane{
 	
 	
 	public GameBoard(CardCollections uniqueCards, int cols, int rows) {
+
 		// TODO construct takes in the deck of uniqueCards needed and the grid that
 		//need to be made (cols X rows)
 		
@@ -49,6 +54,26 @@ public class GameBoard extends BorderPane{
 	}
 	
 	public void flip() {
+		System.out.println("Called");
+		int [] stCardCords = toCompare.get(0);
+		int [] ndCardCords = toCompare.get(1);
+//		
+//		
+		
+//		
+		Card card1 = gameBoardArr[stCardCords[0]][stCardCords[1]];
+		ImageView backView1 = new ImageView(card1.getBackOfCard());
+		boardButtons[stCardCords[0]][stCardCords[1]].setGraphic(backView1);
+		
+		Card card2 = gameBoardArr[ndCardCords[0]][ndCardCords[1]];
+		ImageView backView2 = new ImageView(card2.getBackOfCard());
+		boardButtons[ndCardCords[0]][ndCardCords[1]].setGraphic(backView2);
+		
+		
+		
+		
+		
+		
 	/*
 	 * will be used for future iteration for the game flipping down both
 	 * cards if they are not a match 	
@@ -78,6 +103,7 @@ public class GameBoard extends BorderPane{
 				gameBoardArr[stCardCords[0]][stCardCords[1]].flip();
 				gameBoardArr[ndCardCords[0]][ndCardCords[1]].flip();
 				System.out.println("they are not a match");
+				flip();
 			}
 			toCompare.clear();
 		}
@@ -110,8 +136,9 @@ public class GameBoard extends BorderPane{
 				
 				boardButtons[i][j] = new Button();
 				
-				ImageView imgView = new ImageView(currCard.getImage());
-				boardButtons[i][j].setGraphic(imgView);
+				ImageView backView = new ImageView(currCard.getBackOfCard());
+				ImageView frontView = new ImageView(currCard.getImage());
+				boardButtons[i][j].setGraphic(backView);
 				
 				
 				boardButtons[i][j].setId(currCard.getName());
@@ -127,10 +154,23 @@ public class GameBoard extends BorderPane{
 					
 					// flipped is a boolean in card when false shows BACK face 
 					if(!currCard.isItFlipped()) {
+						boardButtons[row][col].setGraphic(frontView);
 						currCard.flip();
 						System.out.println("FRONT");
 						toCompare.add(cords);
-						check();
+						new Thread(() -> {
+						    try {
+						        Thread.sleep(1000);
+						        Platform.runLater(() -> {
+				                    check();
+				                });
+						    } catch (InterruptedException e) {
+						        e.printStackTrace();
+						    }
+						}).start();
+//						check();
+						
+						
 					}
 					else {
 						System.out.println("Nothing happened");
@@ -155,6 +195,8 @@ public class GameBoard extends BorderPane{
 		this.setCenter(outsideContainer);
 
 	}
+	
+	
 	
 	
 }
