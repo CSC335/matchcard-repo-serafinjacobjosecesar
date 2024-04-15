@@ -60,34 +60,22 @@ public class CardCollections {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/";
 		}
-		
-		
 
 		Image image1 = new Image(fileName+"chameleon.jpg",300,300,false,false);
 		Card chameleon1 = new Card(image1, "Chameleon", "Animal");
 		AnimalsCards.addCard(chameleon1);
 		AnimalsCards.addCard(chameleon1.getPair());
 		
-		
-//		Card chameleon2 = new Card(image1, "Chameleon", "Animal");
-//		AnimalsCards.addCard(chameleon2);
-		
-		
 		Image image2 = new Image(fileName+"monkey.jpg",300,300,false,false);
 		Card monkey1 = new Card(image2, "Monkey", "Animal");
 		AnimalsCards.addCard(monkey1);
 		AnimalsCards.addCard(monkey1.getPair());
 		
-//		Card monkey2 = new Card(image2, "Monkey", "Animal");
-//		AnimalsCards.addCard(monkey2);
-		
 		Image image3 = new Image(fileName+"pig.jpg",300,300,false,false);
 		Card pig1 = new Card(image3, "Pig", "Animal");
 		AnimalsCards.addCard(pig1);
 		AnimalsCards.addCard(pig1.getPair());
-		
-//		Card pig2 = new Card(image3, "Pig", "Animal");
-//		AnimalsCards.addCard(pig2);
+
 		
 		//TODO temperarily disabled for testing 2x3
 		/*
