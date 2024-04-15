@@ -101,7 +101,8 @@ public class GameBoard extends BorderPane{
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-
+				
+				//Allows for row and col to be available in event
 				final int row = i;
 				final int col = j;
 				
@@ -125,6 +126,12 @@ public class GameBoard extends BorderPane{
 					int boardX = col;
 					int [] cords = {row,col};
 					
+					//for debug purposes - START {
+					System.out.println("this is the Pos: " + boardY + " x " + boardX);
+					String id = boardButtons[row][col].getId();
+					System.out.println("This is the id:"+id + "\n\n");
+					//for debug purposes - END }
+					
 					// flipped is a boolean in card when false shows BACK face 
 					if(!currCard.isItFlipped()) {
 						currCard.flip();
@@ -134,13 +141,7 @@ public class GameBoard extends BorderPane{
 					}
 					else {
 						System.out.println("Nothing happened");
-					}
-					
-					//for debug purposes 
-					
-					System.out.println("this is the Pos: " + boardY + " x " + boardX);
-					String id = boardButtons[row][col].getId();
-					System.out.println("This is the id:"+id + "\n\n");
+					} 
 				});
 			}
 		}
