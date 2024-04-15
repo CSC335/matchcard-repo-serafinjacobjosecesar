@@ -92,8 +92,7 @@ public class CardCollections {
 			System.out.println("ISSUE: GET_COLLECTION");
 			return null;
 		}
-		return (CardCollections) AnimalsCards.getArrayList().subList(0, num);
-			
+		return (CardCollections) AnimalsCards.getArrayList().subList(0, num);	
 	}
 	
 	

@@ -11,6 +11,7 @@ public abstract class AbstractCardCollection {
 	private int size;
 	
 	public AbstractCardCollection() {
+		this.Cards = new ArrayList<Card>();
 	}
 	
 	public ArrayList<Card> getArrayList(){
@@ -18,13 +19,13 @@ public abstract class AbstractCardCollection {
 	}
 	
 	public int getSize() {
-		return size;
+		return Cards.size();
 	}
 	
 	public void addCard(Card card) {
 		Cards.add(card);
 		size++;
-	}
+	};
 	
 	public Card getCard(int index) {
 		return Cards.get(index);
