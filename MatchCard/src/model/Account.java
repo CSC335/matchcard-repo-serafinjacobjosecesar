@@ -1,6 +1,8 @@
 package model;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 	private String userName,password;
 	private int longestStreak, currStreak, hiScore, currScore, points;
 	private Boolean hadMatch;
