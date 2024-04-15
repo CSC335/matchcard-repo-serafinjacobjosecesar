@@ -1,5 +1,8 @@
 package controller_view;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -64,13 +67,16 @@ public class MainGUI extends Application {
 		
 		testBut = new Button("Test Button");
 		everything.setCenter(testBut);
-
+		
 	}
 
-	public void setLoginHandler(Stage primaryStage) {
-
+	private void save(Stage stage) {
+		File accFile = new File("accounts.ser");
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(accFile))) {
+			out.writeObject(loginPane.accountCollections);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
-
 }

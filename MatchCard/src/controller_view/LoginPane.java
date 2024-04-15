@@ -91,8 +91,11 @@ public class LoginPane extends BorderPane {
 		createAcc.setOnAction(event -> {
 			String name = nameField.getText();
 			String passWord = passwordField.getText();
-
-			if (!checkAcc(name)) {
+			if (name == "" || passWord == "") {
+				strLabel.setText("Invalid username or password");
+			}
+			
+			else if (!checkAcc(name)) {
 				Account newAcc = new Account(name, passWord);
 				currentAcc = newAcc;
 				accountCollections.addAccount(newAcc);
