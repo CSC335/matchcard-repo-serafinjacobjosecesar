@@ -38,7 +38,6 @@ public class Card {
 		return this.Name;
 	}
 	
-	
 	public void flip(){
 		this.flipped = !this.flipped;
 	}
@@ -71,12 +70,6 @@ public class Card {
 
 		Image image1 = new Image(fileName+str+".jpg",300,300,false,false);
 		return image1;
-	}
-//		
-//	}
-	
-	
-	
-	
+	}	
 
 }

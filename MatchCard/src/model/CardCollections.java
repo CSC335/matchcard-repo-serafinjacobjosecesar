@@ -7,10 +7,15 @@ import javafx.scene.image.Image;
 
 public class CardCollections {
 	private ArrayList<Card> Cards;
+	private CardCollections AnimalsCards;
 	private int size;
 	
 	public CardCollections() {
 		Cards = new ArrayList<Card>();
+	}
+	
+	public ArrayList<Card> getArrayList(){
+		return this.Cards;
 	}
 	
 	public int getSize() {
@@ -90,6 +95,17 @@ public class CardCollections {
 		*/
 		return AnimalsCards;
 	}
+	
+	public CardCollections getCollection(int num) {
+		if (num > Cards.size()) {
+			System.out.println("ISSUE: GET_COLLECTION");
+			return null;
+		}
+		return (CardCollections) AnimalsCards.getArrayList().subList(0, num);
+			
+	}
+	
+	
 	
 	
 	

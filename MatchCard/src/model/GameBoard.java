@@ -53,26 +53,22 @@ public class GameBoard extends BorderPane{
 		return gameBoardArr;
 	}
 	
+	/** flip - Flips both cards from the toCompare array to the back side of the card
+	 */
 	public void flip() {
 		System.out.println("Called");
 		int [] stCardCords = toCompare.get(0);
 		int [] ndCardCords = toCompare.get(1);
-//		
-//		
-		
-//		
+
 		Card card1 = gameBoardArr[stCardCords[0]][stCardCords[1]];
+		card1.flip();
 		ImageView backView1 = new ImageView(card1.getBackOfCard());
 		boardButtons[stCardCords[0]][stCardCords[1]].setGraphic(backView1);
 		
 		Card card2 = gameBoardArr[ndCardCords[0]][ndCardCords[1]];
+		card2.flip();
 		ImageView backView2 = new ImageView(card2.getBackOfCard());
 		boardButtons[ndCardCords[0]][ndCardCords[1]].setGraphic(backView2);
-		
-		
-		
-		
-		
 		
 	/*
 	 * will be used for future iteration for the game flipping down both
@@ -100,8 +96,6 @@ public class GameBoard extends BorderPane{
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setVisible(false);
 			}
 			else {
-				gameBoardArr[stCardCords[0]][stCardCords[1]].flip();
-				gameBoardArr[ndCardCords[0]][ndCardCords[1]].flip();
 				System.out.println("they are not a match");
 				flip();
 			}
@@ -160,6 +154,7 @@ public class GameBoard extends BorderPane{
 						toCompare.add(cords);
 						new Thread(() -> {
 						    try {
+						    	// Makes a pause so both cards face up, (shows the frontView)
 						        Thread.sleep(1000);
 						        Platform.runLater(() -> {
 				                    check();
@@ -167,9 +162,7 @@ public class GameBoard extends BorderPane{
 						    } catch (InterruptedException e) {
 						        e.printStackTrace();
 						    }
-						}).start();
-//						check();
-						
+						}).start();						
 						
 					}
 					else {
