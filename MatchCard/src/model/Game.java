@@ -7,6 +7,7 @@ public class Game {
 	private Card[][] gameboardArrRep;
 	//private Card[][] gameBoard;
 	private CardCollections deck;
+	private int numberOfPairs;
 	
 	public Game(Account player) {
 		//gameBoard = new Card[3][2];
@@ -29,6 +30,7 @@ public class Game {
 			deck.shuffle();
 		}
 		*/
+		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
 	}
 
@@ -62,5 +64,11 @@ public class Game {
 		return toCompare;
 	}
 	*/
+	public void updatePairs() {
+		numberOfPairs--;
+	}
 	
+	public boolean isWin() {
+		return numberOfPairs == 0;
+	}
 }
