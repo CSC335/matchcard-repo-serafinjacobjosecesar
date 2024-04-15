@@ -12,6 +12,7 @@ public class Card {
 	private boolean flipped;
 	private String boardPos;
 	
+	
 	public Card(Image img, String name, String type) {
 		this.Name = name;
 		this.picture = img;
@@ -24,6 +25,12 @@ public class Card {
 	public void setId(String id) {
 		this.boardPos = id;
 	}
+	
+	public Card getPair() {
+		Card pair = new Card(this.picture, this.Name, this.type);
+		return pair;
+	}
+	
 	
 	public Image getBackOfCard() {
 		return backOfCard;
