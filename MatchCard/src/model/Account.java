@@ -68,11 +68,14 @@ public class Account implements Serializable {
 		points += (points + currStreak);
 	}
 
-	public Object getUsername() {
+	public String getUsername() {
 		return userName;
 	}
 
-	public Object getPassWord() {
+	public String getPassWord() {
 		return password;
 	}
+	
+	
+
 }
