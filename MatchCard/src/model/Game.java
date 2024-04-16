@@ -39,11 +39,22 @@ public class Game {
 			gameboard = new GameBoard(deck,3,2);
 		});
 	}
-
+	
+	/**
+	* Getter for 2D array of Card objects that represent GameBoard object
+	*
+	* @return 2D array of Card objects that represent the GameBoard object
+	*/
 	public Card[][] getBoard(){
 		return gameboard.getGameBoardArr();
 	}
 	
+	
+	/**
+	* getter for GameBoard object
+	*
+	* @return A GameBoard object
+	*/
 	public GameBoard getGameBoardObj() {
 		return gameboard;
 	}
@@ -74,6 +85,7 @@ public class Game {
 		numberOfPairs--;
 	}
 	
+	// TODO provide javadoc for func
 	public boolean isWin() {
 		return numberOfPairs == 0;
 	}
