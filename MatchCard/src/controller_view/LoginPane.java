@@ -62,6 +62,11 @@ public class LoginPane extends BorderPane {
 		String labelStyle = "-fx-font-size: 16px; " + "-fx-text-fill: white;";
 		
 		String backgroundColor = "-fx-background-color: linear-gradient(to right top, #070747, #E34379);";
+		
+	    String textFieldStyle = "-fx-font-size: 16px; ";
+	    
+	    nameField.setStyle(textFieldStyle);
+	    passwordField.setStyle(textFieldStyle);
 		gridPane.setStyle(backgroundColor);
 		loginB.setStyle(buttonStyle);
 		logOutB.setStyle(buttonStyle);
@@ -70,6 +75,7 @@ public class LoginPane extends BorderPane {
 		accountNameLabel.setStyle(labelStyle);
 		passWordLabel.setStyle(labelStyle);
 		strLabel.setStyle(labelStyle);
+
 
 	}
 
