@@ -141,7 +141,16 @@ public class LoginPane extends BorderPane {
 			}
 		});
 	}
-
+	
+	
+	/**
+	* checks accounts an array of Account objects in order to find the account
+	* with the username that matches the attempted string 
+	*
+	* @param name a string attempting to find a username that matches it in accounts collection
+	*
+	* @return A boolean value if name is found inside any account inside accounts
+	*/
 	private boolean checkAcc(String name) {
 		for (Account acc : accounts) {
 			if (acc.getUsername().equals(name)) {
