@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -50,7 +51,7 @@ public class MainGUI extends Application {
 		LayoutMainMenu();
 		eventHandlers();
 
-		Scene loginScene = new Scene(loginPane, 400, 500);
+		Scene loginScene = new Scene(loginPane, 400, 400);
 		loginScene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
 		Scene mainScene = new Scene(everything,1000,1000);
 		primaryStage.setScene(loginScene);
@@ -103,15 +104,26 @@ public class MainGUI extends Application {
 		profile.setOnAction(event->{
 			Account currAccount = loginPane.currentAcc;
 			Label user = new Label(currAccount.getUsername());
-			Label longestStreak = new Label("Longest Streak: " + "0");
+			Label longestStreak = new Label("Longest Streak: " + String.valueOf(currAccount.getLongestStreak()));
+			Label highscore = new Label("HighScore: " + String.valueOf(currAccount.getHighScore()));
+			Button profileMainMenu = new Button("Main Menu");
+			TextField newPassWord =  new TextField("new Password");
+			Button changePassword = new Button("Change Password");
 			
+			profileMainMenu.setOnAction(event2->{
+				LayoutMainMenu();
+			});
+			
+			VBox statsPane = new VBox();
+			statsPane.setAlignment(Pos.CENTER);
+			statsPane.getChildren().addAll(user,longestStreak,highscore,newPassWord,changePassword,profileMainMenu);
+			everything.setCenter(statsPane);
 		});
 		quit.setOnAction(event->{
-			
 		});
 		
 	}
-
+	
 	private void save(Stage stage) {
 		File accFile = new File("accounts.ser");
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(accFile))) {

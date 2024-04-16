@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -139,6 +140,7 @@ public class GameBoard extends BorderPane{
 				boardButtons[i][j].setId(currCard.getName());
 				buttonPane.add(boardButtons[i][j], j, i);
 				boardButtons[i][j].setMinSize(300, 300);
+				boardButtons[i][j].setPadding(new Insets(0));
 				
 				//Initializes all the events for the button cards 
 				boardButtons[i][j].setOnAction((event)->{ 

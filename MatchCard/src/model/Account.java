@@ -76,6 +76,14 @@ public class Account implements Serializable {
 		return password;
 	}
 	
+	public int getLongestStreak() {
+		return longestStreak;
+	}
+	
+	public int getHighScore() {
+		return hiScore;
+	}
+	
 	
 
 }
