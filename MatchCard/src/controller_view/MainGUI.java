@@ -51,7 +51,7 @@ public class MainGUI extends Application {
 		LayoutMainMenu();
 		eventHandlers();
 
-		Scene loginScene = new Scene(loginPane, 400, 400);
+		Scene loginScene = new Scene(loginPane, 450, 450);
 		loginScene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
 		Scene mainScene = new Scene(everything,1000,1000);
 		primaryStage.setScene(loginScene);
