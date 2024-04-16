@@ -16,6 +16,10 @@ import javafx.scene.layout.GridPane;
 import model.Account;
 import model.AccountCollections;
 
+/**Public class that is used to generate a login pane in main GUI
+ * 
+ */
+
 public class LoginPane extends BorderPane {
 	Account currentAcc = null;
 	GridPane gridPane = new GridPane();
@@ -34,7 +38,10 @@ public class LoginPane extends BorderPane {
 	Button loginB = new Button("Login");
 	Button logOutB = new Button("Log out");
 	Button createAcc = new Button("Create new Account");
-
+	
+	/**
+	 * Constructor for login pane
+	 */
 	public LoginPane() {
 		setStyles();
 		gridPane.setHgap(10);
@@ -54,6 +61,9 @@ public class LoginPane extends BorderPane {
 		this.setCenter(gridPane);
 	}
 	
+	/**
+	 * Used to standardized style in login pane
+	 */
 	public void setStyles() {
 	    String buttonStyle = "-fx-background-color: #7e61ab; " +
                 "-fx-text-fill: white; " +
@@ -78,7 +88,10 @@ public class LoginPane extends BorderPane {
 
 
 	}
-
+	
+	/**
+	 * Action event handlers for login pane
+	 */
 	public void setButtonHandler() {
 
 		loginB.setOnAction(event -> {

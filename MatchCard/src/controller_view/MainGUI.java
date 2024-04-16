@@ -28,7 +28,9 @@ import javafx.stage.Stage;
 import model.Account;
 import model.Game;
 import model.GameBoard;
-
+/**
+ * Class represents the Main GUI, creates the required stages.
+ */
 public class MainGUI extends Application {
 
 	public static void main(String[] args) {
@@ -44,7 +46,13 @@ public class MainGUI extends Application {
 	private Button quit = new Button("Quit");
 	private Game game;
 	
-
+	/**
+	 * Standard Start method
+	 * 
+	 * @param primaryStage The primary stage viewed by user
+	 * 
+	 * throws exception if unable to create thread.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
@@ -86,7 +94,9 @@ public class MainGUI extends Application {
 //		everything.setCenter(playGame);
 //		
 //	}
-	
+	/**
+	 * LayoutMainMenu is responsible for creating design structures and placing them in stage
+	 */
 	public void LayoutMainMenu() {
 		/*
 		 * this is for the main menu after logging in 
@@ -111,6 +121,9 @@ public class MainGUI extends Application {
 		everything.setCenter(menuPane);
 	}
 	
+	/**
+	 * eventHandlers for main GUI
+	 */
 	private void eventHandlers() {
 		
 		playgame.setOnAction(event->{
@@ -201,6 +214,10 @@ public class MainGUI extends Application {
 		
 	}
 	
+	/**
+	 * Save writes to ser file to save account information
+	 * @param stage the stage object representing user window
+	 */
 	private void save(Stage stage) {
 		File accFile = new File("accounts.ser");
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(accFile))) {

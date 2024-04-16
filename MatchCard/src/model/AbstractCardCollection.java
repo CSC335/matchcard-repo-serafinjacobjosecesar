@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.scene.image.Image;
-
+/**
+ * Class represents a generic collection class for abstract card objects
+ */
 public abstract class AbstractCardCollection {
 
 	private ArrayList<Card> Cards;
 	private int size;
 	
+	/**
+	 * constructor for Abstract Card Collection
+	 */
 	public AbstractCardCollection() {
 		this.Cards = new ArrayList<Card>();
 	}
