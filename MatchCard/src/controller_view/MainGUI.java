@@ -216,7 +216,6 @@ public class MainGUI extends Application {
 	
 	/**
 	 * Save writes to ser file to save account information
-	 * @param stage the stage object representing user window
 	 */
 	private void save(Stage stage) {
 		File accFile = new File("accounts.ser");
