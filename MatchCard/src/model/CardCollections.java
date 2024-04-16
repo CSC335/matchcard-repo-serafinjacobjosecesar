@@ -14,23 +14,43 @@ public class CardCollections {
 		Cards = new ArrayList<Card>();
 	}
 	
+	/**
+	 * getArrayList - Gives back the arraylist
+	 * @return ArrayList of Card Objects
+	 */
 	public ArrayList<Card> getArrayList(){
 		return this.Cards;
 	}
 	
+	/**
+	 * getSize - Gives back the size of the Cards
+	 * @return int, the size of cards
+	 */
 	public int getSize() {
 		return size;
 	}
 	
+	/** addCard - Adds a Card object to the array list
+	 * 
+	 * @param Card object
+	 */
 	public void addCard(Card card) {
 		Cards.add(card);
 		size++;
 	}
 	
+	/** getCard - Gets the Card from the given index
+	 * @param index, int
+	 * @return Card object
+	 */
 	public Card getCard(int index) {
 		return Cards.get(index);
 	}
 	
+	/** 
+	 * 
+	 * @return
+	 */
 	public CardCollections getAnimalCollection() {
 		CardCollections AnimalsCards = new CardCollections();
 		
@@ -50,6 +70,7 @@ public class CardCollections {
 		
 		
 		*/
+		
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
 		
@@ -87,6 +108,11 @@ public class CardCollections {
 		return AnimalsCards;
 	}
 	
+	/**
+	 * getCollection - Returns a Sublist of the arraylist with num element
+	 * @param num - int
+	 * @return
+	 */
 	public CardCollections getCollection(int num) {
 		if (num > Cards.size()) {
 			System.out.println("ISSUE: GET_COLLECTION");
@@ -96,9 +122,10 @@ public class CardCollections {
 	}
 	
 	
-	
-	
-	
+	/** shuffle - Shuffles the cards in the arraylist, then returns it 
+	 * 
+	 * @return ArrayList of Card Objects
+	 */
 	public ArrayList<Card> shuffle(){
 		Collections.shuffle(Cards);	
 		return Cards;
