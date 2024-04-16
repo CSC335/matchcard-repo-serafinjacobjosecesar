@@ -57,6 +57,19 @@ public class MainGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
 		
+		//handles the stage closing 
+		quit.setOnAction(event -> {
+			System.out.println("Stage is closing");
+            // Call Platform.exit() to quit the application
+			save();
+            Platform.exit();
+        });
+		primaryStage.setOnCloseRequest(event -> {
+		    System.out.println("Stage is closing");
+		    // Save file
+		    save();
+		});
+		
 		// style for Main border pane HERE!!!
 		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
 		everything.setStyle(borderPaneStyle);
@@ -67,7 +80,7 @@ public class MainGUI extends Application {
 
 		Scene loginScene = new Scene(loginPane, 450, 450);
 		loginScene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
-		Scene mainScene = new Scene(everything,1000,1000);
+		Scene mainScene = new Scene(everything,950,800);
 		primaryStage.setScene(loginScene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
@@ -179,7 +192,7 @@ public class MainGUI extends Application {
 				Account currAcc = loginPane.currentAcc;
 				String newPass = newPasswordField.getText();
 				
-				String InvalidPassPromptStyle = "-fx-text-fill: #FF0000; "
+				String InvalidPassPromptStyle = "-fx-text-fill: #900D09; "
 						+ "-fx-font-size: 30px;";
 
 				if(newPass.equals("")) {
@@ -208,17 +221,13 @@ public class MainGUI extends Application {
 					profileMainMenu,newPasswordField,changePasswordButton);
 			everything.setCenter(statsPane);
 		});
-		quit.setOnAction(event->{
-			
-		});
 		
 	}
 	
 	/**
 	 * Save writes to ser file to save account information
-	 * @param stage the stage object representing user window
 	 */
-	private void save(Stage stage) {
+	private void save() {
 		File accFile = new File("accounts.ser");
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(accFile))) {
 			out.writeObject(loginPane.accountCollections);
