@@ -22,9 +22,6 @@ import javafx.scene.text.Font;
 
 
 public class GameBoard extends BorderPane{
-	//
-
-	
 	
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -32,15 +29,29 @@ public class GameBoard extends BorderPane{
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
 	private ArrayList<int[]> toCompare = new ArrayList<>();;
+	private int numOfPairs;
+	
+	private CardCollections deck;
+	private int colsForNewGame;
+	private int rowsForNewGame;
+	public Button returnMainMenu = new Button("Main Menu");
+	public Button newGame = new Button("New Game");
 	
 	
 	public GameBoard(CardCollections uniqueCards, int cols, int rows) {
 
-		// TODO construct takes in the deck of uniqueCards needed and the grid that
+		//construct takes in the deck of uniqueCards needed and the grid that
 		//need to be made (cols X rows)
 		
+		numOfPairs = uniqueCards.getSize()/2;
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
+		
+		//TODO change so that this is done within game 
+		deck = uniqueCards;
+		colsForNewGame = cols;
+		rowsForNewGame = rows;
+		//TODO
 		
 		//will make the gameBoardArr 
 		intializeArrCards(uniqueCards,cols,rows);
@@ -48,6 +59,16 @@ public class GameBoard extends BorderPane{
 		// will make the button board for Gameboard Gui
 		intializePanel(cols,rows);
 	}
+	
+	
+	//TODO this should be done within game 
+//	public void newGameBoard() {
+//		numOfPairs = deck.getSize()/2;
+//		outsideContainer.getChildren().clear();
+//		deck.shuffle();
+//		intializeArrCards(deck,colsForNewGame,rowsForNewGame);
+//		intializePanel(colsForNewGame,rowsForNewGame);
+//	}
 	
 	//2D representation of GameBoard Gui
 	public Card[][] getGameBoardArr(){
@@ -95,12 +116,17 @@ public class GameBoard extends BorderPane{
 				
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setDisable(true);
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setVisible(false);
+				numOfPairs--;
 			}
 			else {
 				System.out.println("they are not a match");
 				flip();
 			}
 			toCompare.clear();
+		}
+		
+		if(numOfPairs==0) {
+			win();
 		}
 	}
 
@@ -115,7 +141,7 @@ public class GameBoard extends BorderPane{
 	}
 
 	private void intializePanel(int cols, int rows) {
-		// TODO creates the gui buttons for the card game 
+		// creates the gui buttons for the card game 
 		
 		GridPane buttonPane = new GridPane();
 		Font font = new Font("Courier New", 32);
@@ -192,7 +218,33 @@ public class GameBoard extends BorderPane{
 
 	}
 	
-	
-	
-	
+	private void win() {
+		Label winPrompt = new Label("You Won!");
+		
+		//TODO implement !!!!
+		newGame.setOnAction(event->{
+			
+		});
+		
+		//TODO implement !!!!!
+		returnMainMenu.setOnAction(event->{
+			
+		});
+		
+		//Styles for win condition HERE !!!!!
+		String buttonStyles = "-fx-background-color: #424549; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 30px;";
+		
+		newGame.setStyle(buttonStyles);
+		returnMainMenu.setStyle(buttonStyles);
+		
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
+		//winPrompt.setAlignment(Pos.CENTER);
+		winPrompt.setStyle(labelStyles);
+		
+		outsideContainer.getChildren().clear();
+		outsideContainer.getChildren().addAll(winPrompt,newGame,returnMainMenu);
+		this.setCenter(outsideContainer);
+	}
 }

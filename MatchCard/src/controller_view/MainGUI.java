@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Account;
 import model.Game;
+import model.GameBoard;
 
 public class MainGUI extends Application {
 
@@ -47,6 +48,11 @@ public class MainGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
+		
+		// style for Main border pane HERE!!!
+		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
+		everything.setStyle(borderPaneStyle);
+		
 		loginPane = new LoginPane();
 		LayoutMainMenu();
 		eventHandlers();
@@ -81,13 +87,26 @@ public class MainGUI extends Application {
 //		
 //	}
 	
-	private void LayoutMainMenu() {
+	public void LayoutMainMenu() {
 		/*
-		 * this is for the main menu after loggin in 
+		 * this is for the main menu after logging in 
 		 */
 		
 		VBox menuPane = new VBox();
 		menuPane.setAlignment(Pos.CENTER);
+		
+		//Styles for MainMenu HERE !!!!!!
+		String buttonStyles = "-fx-background-color: #424549; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 30px;";
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
+		
+		mainMenu.setStyle(labelStyles);
+		playgame.setStyle(buttonStyles);
+		profile.setStyle(buttonStyles);
+		quit.setStyle(buttonStyles);
+		
+		menuPane.setSpacing(20);
 		menuPane.getChildren().addAll(mainMenu,playgame,profile,quit);
 		everything.setCenter(menuPane);
 	}
@@ -97,29 +116,87 @@ public class MainGUI extends Application {
 		playgame.setOnAction(event->{
 			
 			game = new Game(loginPane.currentAcc);
+			GameBoard gameBoard = game.getGameBoardObj();
 			everything.setCenter(game.getGameBoardObj());
 			
+			gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event2 -> {
+				LayoutMainMenu();
+			});
+			
+//			gameBoard.newGame.addEventFilter(ActionEvent.ACTION, event2 -> {
+//				game = new Game(loginPane.currentAcc);
+//				everything.setCenter(game.getGameBoardObj());
+//			});
 		});
 		
 		profile.setOnAction(event->{
+			final Label passwordChangePrompt = new Label();
 			Account currAccount = loginPane.currentAcc;
 			Label user = new Label(currAccount.getUsername());
 			Label longestStreak = new Label("Longest Streak: " + String.valueOf(currAccount.getLongestStreak()));
 			Label highscore = new Label("HighScore: " + String.valueOf(currAccount.getHighScore()));
 			Button profileMainMenu = new Button("Main Menu");
-			TextField newPassWord =  new TextField("new Password");
-			Button changePassword = new Button("Change Password");
+			final TextField newPasswordField =  new TextField();
+			Button changePasswordButton = new Button("Change Password");
+			
+			// Styling for stats page HERE !!!!
+			newPasswordField.setMaxWidth(100);
+			newPasswordField.setMaxHeight(50);
+			
+			String buttonStyles = "-fx-background-color: #424549; " +
+		                "-fx-text-fill: white; " +
+		                "-fx-font-size: 30px;";
+			
+			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
+			
+			 
+			profileMainMenu.setStyle(buttonStyles);
+			changePasswordButton.setStyle(buttonStyles);
+			
+			user.setStyle(labelStyles);
+			longestStreak.setStyle(labelStyles);
+			highscore.setStyle(labelStyles);
+			
 			
 			profileMainMenu.setOnAction(event2->{
 				LayoutMainMenu();
 			});
 			
+			changePasswordButton.setOnAction(event2->{
+				Account currAcc = loginPane.currentAcc;
+				String newPass = newPasswordField.getText();
+				
+				String InvalidPassPromptStyle = "-fx-text-fill: #FF0000; "
+						+ "-fx-font-size: 30px;";
+
+				if(newPass.equals("")) {
+					passwordChangePrompt.setStyle(InvalidPassPromptStyle);
+					passwordChangePrompt.setText("Invalid Password!");
+				}
+				else if(newPass.equals(currAcc.getPassWord())) {
+					passwordChangePrompt.setStyle(InvalidPassPromptStyle);
+					passwordChangePrompt.setText("Password Already in Use!");
+					newPasswordField.clear();
+				}
+				else {
+					currAcc.setPassword(newPass);
+					String passPromptStyle = "-fx-text-fill: white; "
+							+ "-fx-font-size: 30px;";
+					passwordChangePrompt.setStyle(passPromptStyle);
+					passwordChangePrompt.setText("Password Change Succesful!");
+					newPasswordField.clear();
+				}
+			});
+			
 			VBox statsPane = new VBox();
 			statsPane.setAlignment(Pos.CENTER);
-			statsPane.getChildren().addAll(user,longestStreak,highscore,newPassWord,changePassword,profileMainMenu);
+			statsPane.setSpacing(20);
+			statsPane.getChildren().addAll(passwordChangePrompt,user,longestStreak,highscore,
+					profileMainMenu,newPasswordField,changePasswordButton);
 			everything.setCenter(statsPane);
 		});
 		quit.setOnAction(event->{
+			
 		});
 		
 	}

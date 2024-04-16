@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
+
 public class Game {
 	private GameBoard gameboard;
 	private Card[][] gameboardArrRep;
@@ -32,6 +34,10 @@ public class Game {
 		*/
 		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
+		gameboard.newGame.addEventFilter(ActionEvent.ACTION, event2 -> {
+			deck.shuffle();
+			gameboard = new GameBoard(deck,3,2);
+		});
 	}
 
 	public Card[][] getBoard(){
