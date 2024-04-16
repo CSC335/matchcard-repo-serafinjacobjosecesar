@@ -36,6 +36,7 @@ public class LoginPane extends BorderPane {
 	Button createAcc = new Button("Create new Account");
 
 	public LoginPane() {
+		setStyles();
 		gridPane.setHgap(10);
 		gridPane.setVgap(5);
 
@@ -51,6 +52,25 @@ public class LoginPane extends BorderPane {
 		gridPane.add(createAcc, 3, 5);
 		setButtonHandler();
 		this.setCenter(gridPane);
+	}
+	
+	public void setStyles() {
+	    String buttonStyle = "-fx-background-color: #7e61ab; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 16px;";
+
+		String labelStyle = "-fx-font-size: 16px; " + "-fx-text-fill: white;";
+		
+		String backgroundColor = "-fx-background-color: linear-gradient(to right top, #070747, #E34379);";
+		gridPane.setStyle(backgroundColor);
+		loginB.setStyle(buttonStyle);
+		logOutB.setStyle(buttonStyle);
+		createAcc.setStyle(buttonStyle);
+		
+		accountNameLabel.setStyle(labelStyle);
+		passWordLabel.setStyle(labelStyle);
+		strLabel.setStyle(labelStyle);
+
 	}
 
 	public void setButtonHandler() {
@@ -92,7 +112,7 @@ public class LoginPane extends BorderPane {
 			String name = nameField.getText();
 			String passWord = passwordField.getText();
 			if (name == "" || passWord == "") {
-				strLabel.setText("Invalid username or password");
+				strLabel.setText("Invalid login");
 			}
 			
 			else if (!checkAcc(name)) {
@@ -107,7 +127,7 @@ public class LoginPane extends BorderPane {
 				currentAcc = null;
 				nameField.setText("");
 				passwordField.setText("");
-				strLabel.setText("Invalid");
+				strLabel.setText("Invalid login");
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setHeaderText(null);
 				alert.setContentText("Account with username " + name + " already exists. Please login.");
