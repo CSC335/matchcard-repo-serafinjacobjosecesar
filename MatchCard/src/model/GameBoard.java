@@ -71,11 +71,17 @@ public class GameBoard extends BorderPane{
 //	}
 	
 	//2D representation of GameBoard Gui
+	/**
+	* returns an instance of a 2D array of Card objects
+	*
+	* @return A 2D array of Card object of size ixj
+	*/
 	public Card[][] getGameBoardArr(){
 		return gameBoardArr;
 	}
 	
-	/** flip - Flips both cards from the toCompare array to the back side of the card
+	/*
+	 * flip - Flips both cards from the toCompare array to the back side of the card
 	 */
 	public void flip() {
 		System.out.println("Called");
