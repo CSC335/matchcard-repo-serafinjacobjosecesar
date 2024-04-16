@@ -17,7 +17,7 @@ public class Card {
 		this.Name = name;
 		this.picture = img;
 		this.type = type;
-		this.backOfCard = getFileName("back_of_card");
+		this.backOfCard = getFileName("matchCard(backClose)");
 		//this will help for the event handler to know when they are flipped or not
 		this.flipped = false;
 	}
