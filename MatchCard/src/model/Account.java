@@ -2,11 +2,22 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Account class that represents the user's account
+ * tracks longest streak, current streak, high score, current score
+ * and points.
+ */
+
 public class Account implements Serializable {
 	private String userName,password;
 	private int longestStreak, currStreak, hiScore, currScore, points;
 	private Boolean hadMatch;
 	
+	/**
+	 * Account constructor 
+	 * @param userName String that represents the account name
+	 * @param password String that represents the account password
+	 */
 	public Account(String userName, String password) {
 		this.userName = userName;
 	    this.password = password;
@@ -18,7 +29,10 @@ public class Account implements Serializable {
 		hadMatch = false;
 	}
 	
-	
+	/**
+	 * setPassword
+	 * @param newPassword
+	 */
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
 	}
