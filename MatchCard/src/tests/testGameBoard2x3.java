@@ -60,7 +60,7 @@ public class testGameBoard2x3 extends Application {
 		AnimalCollection deck = new AnimalCollection();
 		deck.shuffle();
 		
-		gameboard = new GameBoard(deck,3,2);
+//		gameboard = new GameBoard(deck,3,2);
 	}
 
 }

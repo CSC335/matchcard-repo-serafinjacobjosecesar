@@ -17,6 +17,6 @@ public class testboard {
 	
 	AbstractCardCollection deck = new AnimalCollection();
 	deck.shuffle();
-	GameBoard gameboard = new GameBoard(deck,3,2);
+//	GameBoard gameboard = new GameBoard(deck,3,2);
 	}
 }

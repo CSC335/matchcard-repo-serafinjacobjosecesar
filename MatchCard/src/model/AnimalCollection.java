@@ -19,11 +19,11 @@ public class AnimalCollection extends AbstractCardCollection {
 		String fileName = "";
 		
 		if (userDir.substring(0, 1).equals("/")) {
-		    fileName = "file:" + userDir + "/Card Images/";
+		    fileName = "file:" + userDir + "/Card Images/Animals/";
 		} 
 		else {
 			userDir = userDir.replace('\\', '/');
-			fileName = "file:/" + userDir + "/Card Images/";
+			fileName = "file:/" + userDir + "/Card Images/Animals/";
 		}
 
 		Image image1 = new Image(fileName+"chameleon(front).jpg",300,300,false,false);
