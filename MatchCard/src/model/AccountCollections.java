@@ -1,11 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * AccountCollections acts as the collection class for accounts
  * uses ArrayList<Account> as underlining data structure
  */
-public class AccountCollections {
+public class AccountCollections implements Serializable {
 	private ArrayList<Account> accounts;
 	
 	/**
@@ -39,5 +40,9 @@ public class AccountCollections {
 	 */
 	public ArrayList<Account> returnAccounts() {
 		return accounts;
+	}
+	
+	public void set(ArrayList<Account> arr) {
+		accounts = arr;
 	}
 }

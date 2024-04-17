@@ -1,9 +1,14 @@
 package controller_view;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -26,8 +31,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Account;
+import model.AccountCollections;
 import model.Game;
 import model.GameBoard;
+
 /**
  * Class represents the Main GUI, creates the required stages.
  */
@@ -57,7 +64,17 @@ public class MainGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
 		
-		//handles the stage closing 
+
+		
+		// style for Main border pane HERE!!!
+		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
+		everything.setStyle(borderPaneStyle);
+		
+		loginPane = new LoginPane();
+		
+		// pull saved accounts
+		getSavedAccounts();
+		// handles the stage closing 
 		quit.setOnAction(event -> {
 			System.out.println("Stage is closing");
             // Call Platform.exit() to quit the application
@@ -70,11 +87,6 @@ public class MainGUI extends Application {
 		    save();
 		});
 		
-		// style for Main border pane HERE!!!
-		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
-		everything.setStyle(borderPaneStyle);
-		
-		loginPane = new LoginPane();
 		LayoutMainMenu();
 		eventHandlers();
 
@@ -87,6 +99,7 @@ public class MainGUI extends Application {
 
 		
 		loginPane.loginB.addEventFilter(ActionEvent.ACTION, event -> {
+			System.out.print(loginPane.currentAcc);
 			if (loginPane.currentAcc != null) {
 				new Thread(() -> {
 				    try {
@@ -234,6 +247,26 @@ public class MainGUI extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void getSavedAccounts() {
+		FileInputStream fileIn;
+		try {
+			fileIn = new FileInputStream("accounts.ser");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}
+		
+		try (ObjectInputStream in = new ObjectInputStream(fileIn)) {
+			AccountCollections readAccounts = (AccountCollections) in.readObject();
+			loginPane.accountCollections = readAccounts;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// set accountCollections internal arrayList to ArrayList read in
 	}
 	
 }

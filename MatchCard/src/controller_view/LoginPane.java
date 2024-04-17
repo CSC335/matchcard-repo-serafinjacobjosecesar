@@ -101,6 +101,7 @@ public class LoginPane extends BorderPane {
 			String passW = passwordField.getText();
 			accounts = accountCollections.returnAccounts();			
 			for (Account acc : accounts) {
+				System.out.println(acc.getUsername() + acc.getPassWord());
 				if (acc.getUsername().equals(user) && acc.getPassWord().equals(passW)) {
 					currentAcc = acc;
 					flag = true;
@@ -138,7 +139,7 @@ public class LoginPane extends BorderPane {
 				Account newAcc = new Account(name, passWord);
 				currentAcc = newAcc;
 				accountCollections.addAccount(newAcc);
-				strLabel.setText("User Created");
+				strLabel.setText("User Created. Please sign in.");
 				nameField.setText("");
 				passwordField.setText("");
 			}
