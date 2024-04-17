@@ -134,7 +134,7 @@ public class GameBoard extends BorderPane{
 			else {
 				System.out.println("they are not a match");
 				flip();
-				playerInformation.setMatch(true);
+				playerInformation.setMatch(false);
 				playerInformation.updateCurrScore();
 			}
 			toCompare.clear();
