@@ -24,7 +24,7 @@ public class Game {
 		
 		deck = new AnimalCollection();
 		deck = deck.getSomeCards(3);
-		gameboard = new GameBoard(deck,3,2);
+		gameboard = new GameBoard(player,deck,3,2);
 		
 		/*
 		for (int i = 0; i < 2; i++) {
@@ -37,10 +37,7 @@ public class Game {
 		numberOfPairs = deck.size;
 //		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
-		gameboard.newGame.addEventFilter(ActionEvent.ACTION, event2 -> {
-			deck.shuffle();
-			gameboard = new GameBoard(deck,3,2);
-		});
+		
 	}
 	
 	/**
