@@ -90,7 +90,7 @@ public class Account implements Serializable {
 	/*
 	 * updateCurrStreak updates the current streak value
 	 */
-	private void win() {
+	public void win() {
 		hiScore++;
 	}
 	

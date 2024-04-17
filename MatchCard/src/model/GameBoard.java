@@ -142,6 +142,7 @@ public class GameBoard extends BorderPane{
 		System.out.println(numOfPairs);
 		if(numOfPairs==0) {
 			win();
+			playerInformation.win();
 		}
 		wait(false);
 	}
