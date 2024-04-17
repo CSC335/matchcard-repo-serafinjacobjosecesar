@@ -31,9 +31,7 @@ public class GameBoard extends BorderPane{
 	private ArrayList<int[]> toCompare = new ArrayList<>();;
 	private int numOfPairs;
 	
-	private CardCollections deck;
-	private int colsForNewGame;
-	private int rowsForNewGame;
+	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	
@@ -47,11 +45,6 @@ public class GameBoard extends BorderPane{
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
 		
-		//TODO change so that this is done within game 
-		deck = uniqueCards;
-		colsForNewGame = cols;
-		rowsForNewGame = rows;
-		//TODO
 		
 		//will make the gameBoardArr 
 		intializeArrCards(uniqueCards,cols,rows);
@@ -227,10 +220,6 @@ public class GameBoard extends BorderPane{
 	private void win() {
 		Label winPrompt = new Label("You Won!");
 		
-		//TODO implement !!!!
-		newGame.setOnAction(event->{
-			
-		});
 		
 		//TODO implement !!!!!
 		returnMainMenu.setOnAction(event->{
@@ -242,15 +231,15 @@ public class GameBoard extends BorderPane{
                 "-fx-text-fill: white; " +
                 "-fx-font-size: 30px;";
 		
-		newGame.setStyle(buttonStyles);
 		returnMainMenu.setStyle(buttonStyles);
 		
 		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
+		
 		//winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
 		
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(winPrompt,newGame,returnMainMenu);
+		outsideContainer.getChildren().addAll(winPrompt,returnMainMenu);
 		this.setCenter(outsideContainer);
 	}
 }
