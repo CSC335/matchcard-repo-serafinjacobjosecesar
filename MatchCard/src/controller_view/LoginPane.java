@@ -101,7 +101,6 @@ public class LoginPane extends BorderPane {
 			String passW = passwordField.getText();
 			accounts = accountCollections.returnAccounts();			
 			for (Account acc : accounts) {
-				System.out.println(acc.getUsername() + acc.getPassWord());
 				if (acc.getUsername().equals(user) && acc.getPassWord().equals(passW)) {
 					currentAcc = acc;
 					flag = true;

@@ -99,17 +99,16 @@ public class MainGUI extends Application {
 
 		
 		loginPane.loginB.addEventFilter(ActionEvent.ACTION, event -> {
-			System.out.print(loginPane.currentAcc);
-			if (loginPane.currentAcc != null) {
 				new Thread(() -> {
 				    try {
 				        Thread.sleep(1000);
-		                Platform.runLater(() -> primaryStage.setScene(mainScene));
+						if (loginPane.currentAcc != null) {
+							Platform.runLater(() -> primaryStage.setScene(mainScene));
+						}
 				    } catch (InterruptedException e) {
 				        e.printStackTrace();
 				    }
 				}).start();
-			}
 		});
 	}
 
