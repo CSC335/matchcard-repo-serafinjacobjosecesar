@@ -23,11 +23,7 @@ public class Game {
 //		deck.shuffle();
 		
 		deck = new AnimalCollection();
-		
-		deck.shuffle();
-		
-//		deck = deck.getSomeCards(3);
-//		deck.getSomeCards(3);
+		deck = deck.getSomeCards(3);
 		gameboard = new GameBoard(deck,3,2);
 		
 		/*
@@ -38,7 +34,8 @@ public class Game {
 			deck.shuffle();
 		}
 		*/
-		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
+		numberOfPairs = deck.size;
+//		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
 		gameboard.newGame.addEventFilter(ActionEvent.ACTION, event2 -> {
 			deck.shuffle();

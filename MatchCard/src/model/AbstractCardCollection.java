@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 public abstract class AbstractCardCollection {
 
 	protected ArrayList<Card> Cards;
+	protected ArrayList<Card> UniCards;
 	protected int size;
 	
 	/**
@@ -18,6 +19,7 @@ public abstract class AbstractCardCollection {
 	 */
 	public AbstractCardCollection() {
 		this.Cards = new ArrayList<Card>();
+		this.UniCards = new ArrayList<Card>();
 	}
 	
 	public void setAbstractCardCollection(ArrayList<Card> deck) {
@@ -34,6 +36,7 @@ public abstract class AbstractCardCollection {
 	
 	public void addCard(Card card) {
 		Cards.add(card);
+		UniCards.add(card);
 		size++;
 		Cards.add(card.getPair());
 	}
@@ -42,21 +45,26 @@ public abstract class AbstractCardCollection {
 		return Cards.get(index);
 	}
 	
-	public void remove() {
-		Card temp = getCard(0);
-		int i=0;
-		for (Card card : Cards) {
-			if (card.sameComparison(temp)) {
-				Cards.remove(i);
-			}
-			i++;
+	public ArrayList<Card> remove(int number) {
+		if (number > size) {
+			return Cards;
 		}
-		Cards.remove(0);
-		Cards.remove(0);
+		
+		Collections.shuffle(UniCards);	
+		ArrayList<Card> newDeck = new ArrayList<Card>();
+		size = number;
+		while (number > 0) {
+			Card temp = UniCards.get(number-1);
+			newDeck.add(temp);
+			newDeck.add(temp.getPair());
+			number--;
+		}
+		Cards = newDeck;
+		return Cards;
 	}
 		
 	public ArrayList<Card> shuffle(){
-		Collections.shuffle(Cards);	
+		Collections.shuffle(Cards);
 		return Cards;
 	}
 	

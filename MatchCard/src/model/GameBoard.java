@@ -50,6 +50,7 @@ public class GameBoard extends BorderPane{
 //		System.out.println(uniqueCards.getSize()/2);
 		// AbstractCardCollection counts only pairs
 		// thats why its no longer uniqueCards.getSize()/2
+		
 		numOfPairs = uniqueCards.getSize();
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
@@ -131,7 +132,7 @@ public class GameBoard extends BorderPane{
 			}
 			toCompare.clear();
 		}
-		
+		System.out.println(numOfPairs);
 		if(numOfPairs==0) {
 			win();
 		}
