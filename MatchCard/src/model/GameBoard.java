@@ -169,6 +169,7 @@ public class GameBoard extends BorderPane{
 				ImageView backView = new ImageView(currCard.getBackOfCard());
 				ImageView frontView = new ImageView(currCard.getImage());
 				boardButtons[i][j].setGraphic(backView);
+				//boardButtons[i][j].setPadding(new Insets(10));
 				
 				boardButtons[i][j].setId(currCard.getName());
 				buttonPane.add(boardButtons[i][j], j, i);
@@ -226,6 +227,8 @@ public class GameBoard extends BorderPane{
 		buttonPane.setAlignment(Pos.CENTER);
 		statusOfGame.setAlignment(Pos.CENTER);
 		moveContainer.setAlignment(Pos.CENTER);
+		buttonPane.setHgap(10);
+		buttonPane.setVgap(10);
 		outsideContainer.getChildren().addAll(buttonPane, moveContainer);
 		this.setCenter(outsideContainer);
 
