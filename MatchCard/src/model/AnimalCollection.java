@@ -38,7 +38,7 @@ public class AnimalCollection extends AbstractCardCollection {
 		Card pig1 = new Card(image3, "Pig", "Animal");
 		addCard(pig1);
 
-		Image image4 = new Image(fileName+"Zebra.jpeg",300,300,false,false);
+		Image image4 = new Image(fileName+"zebra(front).jpg",300,300,false,false);
 		Card zebra = new Card(image4, "Zebra", "Animal");
 		addCard(zebra);
 	}
