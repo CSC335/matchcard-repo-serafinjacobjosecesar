@@ -34,6 +34,7 @@ public class GameBoard extends BorderPane{
 	private int numOfPairs;
 	private int rows;
 	private int cols;
+	private Account playerInformation;
 	
 	
 	
@@ -41,7 +42,7 @@ public class GameBoard extends BorderPane{
 	public Button newGame = new Button("New Game");
 	
 	
-	public GameBoard(AbstractCardCollection uniqueCards, int cols, int rows) {
+	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows) {
 		this.cols = cols;
 		this.rows = rows;
 		//construct takes in the deck of uniqueCards needed and the grid that
@@ -51,6 +52,7 @@ public class GameBoard extends BorderPane{
 		// AbstractCardCollection counts only pairs
 		// thats why its no longer uniqueCards.getSize()/2
 		
+		playerInformation = player;
 		numOfPairs = uniqueCards.getSize();
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
@@ -125,15 +127,22 @@ public class GameBoard extends BorderPane{
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setDisable(true);
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setVisible(false);
 				numOfPairs--;
+				
+				playerInformation.setMatch(true);
+				playerInformation.updateCurrScore();
 			}
 			else {
 				System.out.println("they are not a match");
 				flip();
+				playerInformation.setMatch(false);
+				playerInformation.updateCurrScore();
 			}
 			toCompare.clear();
 		}
 		System.out.println(numOfPairs);
 		if(numOfPairs==0) {
+			playerInformation.setMatch(false);
+			playerInformation.win();
 			win();
 		}
 		wait(false);

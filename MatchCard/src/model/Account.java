@@ -87,6 +87,13 @@ public class Account implements Serializable {
 		}
 	}
 	
+	/*
+	 * updateCurrStreak updates the current streak value
+	 */
+	public void win() {
+		hiScore++;
+	}
+	
 	/**
 	 * update longest updates longest to current if current > longest
 	 */
