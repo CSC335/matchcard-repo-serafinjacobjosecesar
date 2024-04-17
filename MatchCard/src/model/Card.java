@@ -72,6 +72,10 @@ public class Card {
 		return this.Name;
 	}
 	
+	public String getType() {
+		return this.type;
+	}
+	
 	/**
 	 * flip inverts the flipped boolean status
 	 */

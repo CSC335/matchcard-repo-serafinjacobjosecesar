@@ -23,7 +23,11 @@ public class Game {
 //		deck.shuffle();
 		
 		deck = new AnimalCollection();
+		
 		deck.shuffle();
+		
+//		deck = deck.getSomeCards(3);
+//		deck.getSomeCards(3);
 		gameboard = new GameBoard(deck,3,2);
 		
 		/*

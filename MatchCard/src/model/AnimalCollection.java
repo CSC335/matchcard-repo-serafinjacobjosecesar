@@ -29,22 +29,40 @@ public class AnimalCollection extends AbstractCardCollection {
 		Image image1 = new Image(fileName+"chameleon(front).jpg",300,300,false,false);
 		Card chameleon1 = new Card(image1, "Chameleon", "Animal");
 		addCard(chameleon1);
-		addCard(chameleon1.getPair());
+//		addCard(chameleon1.getPair());
 		
 		Image image2 = new Image(fileName+"monkey(front).jpg",300,300,false,false);
 		Card monkey1 = new Card(image2, "Monkey", "Animal");
 		addCard(monkey1);
-		addCard(monkey1.getPair());
+//		addCard(monkey1.getPair());
 		
 		Image image3 = new Image(fileName+"pig(front).jpg",300,300,false,false);
 		Card pig1 = new Card(image3, "Pig", "Animal");
 		addCard(pig1);
-		addCard(pig1.getPair());
+//		addCard(pig1.getPair());
 
-//		Image image4 = new Image("file:Zebra.jpg", false);
+//		Image image4 = new Image("file:Zebra.jpeg",300,300,false,false);
 //		Card zebra = new Card(image4, "Zebra", "Animal");
 //		addCard(zebra);
 //		addCard(zebra.getPair());
+	}
+
+	@Override
+	public AbstractCardCollection getSomeCards(int number) {
+		
+		AbstractCardCollection temp = new AnimalCollection();
+		if (number>= temp.size) {
+			System.out.println("here");
+			return temp;
+		}
+		temp.shuffle();
+		int i = temp.getSize() - number;
+		System.out.println("Num: "+i);
+		while (i>0) {
+			temp.remove();
+			i--;
+		}
+		return temp;
 	}
 	
 	
