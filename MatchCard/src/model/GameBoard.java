@@ -127,10 +127,15 @@ public class GameBoard extends BorderPane{
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setDisable(true);
 				boardButtons[ndCardCords[0]][ndCardCords[1]].setVisible(false);
 				numOfPairs--;
+				
+				playerInformation.setMatch(true);
+				playerInformation.updateCurrScore();
 			}
 			else {
 				System.out.println("they are not a match");
 				flip();
+				playerInformation.setMatch(true);
+				playerInformation.updateCurrScore();
 			}
 			toCompare.clear();
 		}
