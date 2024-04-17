@@ -9,8 +9,8 @@ import javafx.scene.image.Image;
  */
 public abstract class AbstractCardCollection {
 
-	private ArrayList<Card> Cards;
-	private int size;
+	protected ArrayList<Card> Cards;
+	protected int size;
 	
 	/**
 	 * constructor for Abstract Card Collection
@@ -24,26 +24,18 @@ public abstract class AbstractCardCollection {
 	}
 	
 	public int getSize() {
-		return Cards.size();
+		return size;
 	}
 	
 	public void addCard(Card card) {
 		Cards.add(card);
 		size++;
-	};
+	}
 	
 	public Card getCard(int index) {
 		return Cards.get(index);
 	}
-	
-	public CardCollections getCollection(int num) {
-		if (num > Cards.size()) {
-			System.out.println("ISSUE: GET_COLLECTION");
-			return null;
-		}
-		return (CardCollections) Cards.subList(0, num);	
-	}
-	
+		
 	public ArrayList<Card> shuffle(){
 		Collections.shuffle(Cards);	
 		return Cards;

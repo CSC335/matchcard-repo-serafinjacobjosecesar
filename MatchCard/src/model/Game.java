@@ -8,7 +8,7 @@ public class Game {
 	private GameBoard gameboard;
 	private Card[][] gameboardArrRep;
 	//private Card[][] gameBoard;
-	private CardCollections deck;
+	private AbstractCardCollection deck;
 	private int numberOfPairs;
 	
 	public Game(Account player) {
@@ -18,10 +18,12 @@ public class Game {
 		 * set for 2x3
 		 *  is set for 6 cards (3 pairs of animals)
 		 */
-		deck = new CardCollections();
-		deck = deck.getAnimalCollection();
-		deck.shuffle();
+//		deck = new CardCollections();
+//		deck = deck.getAnimalCollection();
+//		deck.shuffle();
 		
+		deck = new AnimalCollection();
+		deck.shuffle();
 		gameboard = new GameBoard(deck,3,2);
 		
 		/*

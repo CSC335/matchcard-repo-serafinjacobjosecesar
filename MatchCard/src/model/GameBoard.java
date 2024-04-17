@@ -41,7 +41,7 @@ public class GameBoard extends BorderPane{
 	public Button newGame = new Button("New Game");
 	
 	
-	public GameBoard(CardCollections uniqueCards, int cols, int rows) {
+	public GameBoard(AbstractCardCollection uniqueCards, int cols, int rows) {
 		this.cols = cols;
 		this.rows = rows;
 		//construct takes in the deck of uniqueCards needed and the grid that
@@ -132,9 +132,10 @@ public class GameBoard extends BorderPane{
 		if(numOfPairs==0) {
 			win();
 		}
+		wait(false);
 	}
 
-	private void intializeArrCards(CardCollections uniqueCards,int cols,int rows) {
+	private void intializeArrCards(AbstractCardCollection uniqueCards,int cols,int rows) {
 		int currCard = 0;
 		for(int i=0; i < rows ; i++) {
 			for(int j=0; j < cols; j++) {
@@ -192,14 +193,14 @@ public class GameBoard extends BorderPane{
 						new Thread(() -> {
 						    try {
 						    	if (toCompare.size()== 2) {
-						    		stop(true);
+						    		wait(true);
 						    	}
 						    	
  						    	// Makes a pause so both cards face up, (shows the frontView)
 						        Thread.sleep(250);
 						        Platform.runLater(() -> {
 				                    check();
-				                    stop(false);
+				                    
 				                });
 						    } catch (InterruptedException e) {
 						        e.printStackTrace();
@@ -228,7 +229,11 @@ public class GameBoard extends BorderPane{
 	
 	
 	// POSSIBLE CHANGES NEEDED
-	private void stop(boolean val) {
+	/**
+	 * stop 
+	 * @param val
+	 */
+	private void wait(boolean val) {
 		System.out.println("here");
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
