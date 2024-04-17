@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.AnimalCollection;
 import model.CardCollections;
 import model.GameBoard;
 
@@ -52,8 +53,11 @@ public class testGameBoard2x3 extends Application {
 	}
 	
 	private void makeABoard() {
-		CardCollections deck = new CardCollections();
-		deck = deck.getAnimalCollection();
+//		CardCollections deck = new CardCollections();
+//		deck = deck.getAnimalCollection();
+//		deck.shuffle();
+		
+		AnimalCollection deck = new AnimalCollection();
 		deck.shuffle();
 		
 		gameboard = new GameBoard(deck,3,2);

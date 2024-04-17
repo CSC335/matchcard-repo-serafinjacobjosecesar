@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javafx.scene.image.Image;
 /**
@@ -9,14 +10,20 @@ import javafx.scene.image.Image;
  */
 public abstract class AbstractCardCollection {
 
-	private ArrayList<Card> Cards;
-	private int size;
+	protected ArrayList<Card> Cards;
+	protected ArrayList<Card> UniCards;
+	protected int size;
 	
 	/**
 	 * constructor for Abstract Card Collection
 	 */
 	public AbstractCardCollection() {
 		this.Cards = new ArrayList<Card>();
+		this.UniCards = new ArrayList<Card>();
+	}
+	
+	public void setAbstractCardCollection(ArrayList<Card> deck) {
+		Cards = deck;
 	}
 	
 	public ArrayList<Card> getArrayList(){
@@ -24,29 +31,49 @@ public abstract class AbstractCardCollection {
 	}
 	
 	public int getSize() {
-		return Cards.size();
+		return size;
 	}
 	
 	public void addCard(Card card) {
 		Cards.add(card);
+		UniCards.add(card);
 		size++;
-	};
+		Cards.add(card.getPair());
+	}
 	
 	public Card getCard(int index) {
 		return Cards.get(index);
 	}
 	
-	public CardCollections getCollection(int num) {
-		if (num > Cards.size()) {
-			System.out.println("ISSUE: GET_COLLECTION");
-			return null;
+	public ArrayList<Card> remove(int number) {
+		if (number > size) {
+			return Cards;
 		}
-		return (CardCollections) Cards.subList(0, num);	
-	}
-	
-	public ArrayList<Card> shuffle(){
-		Collections.shuffle(Cards);	
+		
+		Collections.shuffle(UniCards);	
+		ArrayList<Card> newDeck = new ArrayList<Card>();
+		size = number;
+		while (number > 0) {
+			Card temp = UniCards.get(number-1);
+			newDeck.add(temp);
+			newDeck.add(temp.getPair());
+			number--;
+		}
+		Cards = newDeck;
 		return Cards;
 	}
+		
+	public ArrayList<Card> shuffle(){
+		Collections.shuffle(Cards);
+		return Cards;
+	}
+	
+	public void printCards() {
+		for (Card card : Cards) {
+			System.out.println("Card:"+card.getName()+": "+card.getType());
+		}
+	}
+	
+	public abstract AbstractCardCollection getSomeCards(int number);
 
 }

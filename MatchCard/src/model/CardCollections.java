@@ -12,7 +12,13 @@ public class CardCollections {
 	
 	public CardCollections() {
 		Cards = new ArrayList<Card>();
+		
 	}
+	
+	public void setCardCollections(ArrayList<Card> Deck) {
+		Cards = Deck;
+	}
+	
 	
 	/**
 	 * getArrayList - Gives back the arraylist
@@ -47,31 +53,19 @@ public class CardCollections {
 		return Cards.get(index);
 	}
 	
+	public void setAllCollections() {
+		setAnimalCollection();
+	}
+	
 	/** 
 	 * 
 	 * @return
 	 */
-	public CardCollections getAnimalCollection() {
-		CardCollections AnimalsCards = new CardCollections();
-		
-		//double cards so they could have pairs inside the deck
-		
-		/*
-		 
-		 
-		if (userDir.substring(0, 1).equals("/")) {
-		    fileName = "file:" + userDir + "/songfiles/" + currSong.getPathfile();
-		} else {
-		        userDir = userDir.replace('\', '/');
-		    fileName = "file:/" + userDir + "/songfiles/" + currSong.getPathfile();}
-		userDir = System.getProperty("user.dir")
-		double '\" not ""
-		replace "/songfiles/" with "/Card Images/"
-		
-		
-		*/
-		
+	
+	private void setAnimalCollection() {
+		AnimalsCards = new CardCollections();
 		String userDir = System.getProperty("user.dir");
+		
 		String fileName = "";
 		
 		if (userDir.substring(0, 1).equals("/")) {
@@ -96,6 +90,8 @@ public class CardCollections {
 		Card pig1 = new Card(image3, "Pig", "Animal");
 		AnimalsCards.addCard(pig1);
 		AnimalsCards.addCard(pig1.getPair());
+		
+		
 
 		
 		//TODO temperarily disabled for testing 2x3
@@ -105,6 +101,9 @@ public class CardCollections {
 		AnimalsCards.addCard(zebra);
 		AnimalsCards.addCard(zebra);
 		*/
+	}
+	
+	public CardCollections getAnimalCollection() {		
 		return AnimalsCards;
 	}
 	
@@ -113,13 +112,7 @@ public class CardCollections {
 	 * @param num - int
 	 * @return
 	 */
-	public CardCollections getCollection(int num) {
-		if (num > Cards.size()) {
-			System.out.println("ISSUE: GET_COLLECTION");
-			return null;
-		}
-		return (CardCollections) AnimalsCards.getArrayList().subList(0, num);	
-	}
+	
 	
 	
 	/** shuffle - Shuffles the cards in the arraylist, then returns it 
@@ -132,3 +125,4 @@ public class CardCollections {
 	}
 	
 }
+

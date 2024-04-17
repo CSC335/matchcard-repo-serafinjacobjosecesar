@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 
 public class GameBoard extends BorderPane{
@@ -30,28 +32,29 @@ public class GameBoard extends BorderPane{
 	private Card[][] gameBoardArr;
 	private ArrayList<int[]> toCompare = new ArrayList<>();;
 	private int numOfPairs;
+	private int rows;
+	private int cols;
 	
-	private CardCollections deck;
-	private int colsForNewGame;
-	private int rowsForNewGame;
+	
+	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	
 	
-	public GameBoard(CardCollections uniqueCards, int cols, int rows) {
-
+	public GameBoard(AbstractCardCollection uniqueCards, int cols, int rows) {
+		this.cols = cols;
+		this.rows = rows;
 		//construct takes in the deck of uniqueCards needed and the grid that
 		//need to be made (cols X rows)
 		
-		numOfPairs = uniqueCards.getSize()/2;
+//		System.out.println(uniqueCards.getSize()/2);
+		// AbstractCardCollection counts only pairs
+		// thats why its no longer uniqueCards.getSize()/2
+		
+		numOfPairs = uniqueCards.getSize();
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
 		
-		//TODO change so that this is done within game 
-		deck = uniqueCards;
-		colsForNewGame = cols;
-		rowsForNewGame = rows;
-		//TODO
 		
 		//will make the gameBoardArr 
 		intializeArrCards(uniqueCards,cols,rows);
@@ -110,7 +113,6 @@ public class GameBoard extends BorderPane{
 	 * if thay are a match then the cards disappear from the board
 	 * else both cards get flipped and enabled for flipping 	
 	 */
-	
 		if(toCompare.size()==2) {
 			int [] stCardCords = toCompare.get(0);
 			int [] ndCardCords = toCompare.get(1);
@@ -130,13 +132,14 @@ public class GameBoard extends BorderPane{
 			}
 			toCompare.clear();
 		}
-		
+		System.out.println(numOfPairs);
 		if(numOfPairs==0) {
 			win();
 		}
+		wait(false);
 	}
 
-	private void intializeArrCards(CardCollections uniqueCards,int cols,int rows) {
+	private void intializeArrCards(AbstractCardCollection uniqueCards,int cols,int rows) {
 		int currCard = 0;
 		for(int i=0; i < rows ; i++) {
 			for(int j=0; j < cols; j++) {
@@ -163,17 +166,14 @@ public class GameBoard extends BorderPane{
 				final Card currCard = gameBoardArr[i][j];
 				
 				boardButtons[i][j] = new Button();
-				
 				ImageView backView = new ImageView(currCard.getBackOfCard());
 				ImageView frontView = new ImageView(currCard.getImage());
 				boardButtons[i][j].setGraphic(backView);
-				
 				
 				boardButtons[i][j].setId(currCard.getName());
 				buttonPane.add(boardButtons[i][j], j, i);
 				boardButtons[i][j].setMinSize(300, 300);
 				boardButtons[i][j].setPadding(new Insets(0));
-				
 				//Initializes all the events for the button cards 
 				boardButtons[i][j].setOnAction((event)->{ 
 					
@@ -193,12 +193,18 @@ public class GameBoard extends BorderPane{
 						currCard.flip();
 						System.out.println("FRONT");
 						toCompare.add(cords);
+						
 						new Thread(() -> {
 						    try {
-						    	// Makes a pause so both cards face up, (shows the frontView)
-						        Thread.sleep(1000);
+						    	if (toCompare.size()== 2) {
+						    		wait(true);
+						    	}
+						    	
+ 						    	// Makes a pause so both cards face up, (shows the frontView)
+						        Thread.sleep(250);
 						        Platform.runLater(() -> {
 				                    check();
+				                    
 				                });
 						    } catch (InterruptedException e) {
 						        e.printStackTrace();
@@ -208,7 +214,8 @@ public class GameBoard extends BorderPane{
 					}
 					else {
 						System.out.println("Nothing happened");
-					} 
+					}
+					
 				});
 			}
 		}
@@ -224,13 +231,29 @@ public class GameBoard extends BorderPane{
 
 	}
 	
+	
+	// POSSIBLE CHANGES NEEDED
+	/**
+	 * stop 
+	 * @param val
+	 */
+	private void wait(boolean val) {
+		System.out.println("here");
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				Button tempButton = boardButtons[i][j];
+				if (tempButton.isVisible() == true) {
+					tempButton.setOpacity(100);
+					tempButton.setDisable(val);
+				}
+			}
+		}
+	}
+	
+	
 	private void win() {
 		Label winPrompt = new Label("You Won!");
 		
-		//TODO implement !!!!
-		newGame.setOnAction(event->{
-			
-		});
 		
 		//TODO implement !!!!!
 		returnMainMenu.setOnAction(event->{
@@ -242,15 +265,15 @@ public class GameBoard extends BorderPane{
                 "-fx-text-fill: white; " +
                 "-fx-font-size: 30px;";
 		
-		newGame.setStyle(buttonStyles);
 		returnMainMenu.setStyle(buttonStyles);
 		
 		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
+		
 		//winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
 		
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(winPrompt,newGame,returnMainMenu);
+		outsideContainer.getChildren().addAll(winPrompt,returnMainMenu);
 		this.setCenter(outsideContainer);
 	}
 }
