@@ -182,7 +182,8 @@ public class GameBoard extends BorderPane{
 				
 				boardButtons[i][j].setId(currCard.getName());
 				buttonPane.add(boardButtons[i][j], j, i);
-				boardButtons[i][j].setMinSize(300, 300);
+				int scale = 850/cols;
+				boardButtons[i][j].setMinSize(scale, scale);
 				boardButtons[i][j].setPadding(new Insets(0));
 				//Initializes all the events for the button cards 
 				boardButtons[i][j].setOnAction((event)->{ 

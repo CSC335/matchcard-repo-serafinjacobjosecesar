@@ -21,10 +21,16 @@ public class Game {
 //		deck = new CardCollections();
 //		deck = deck.getAnimalCollection();
 //		deck.shuffle();
+		int col = 4;
+		int row = 2;
+		deck = new AnimalCollection(col);
 		
-		deck = new AnimalCollection();
-		deck = deck.getSomeCards(3);
-		gameboard = new GameBoard(player,deck,3,2);
+		int scale = 950 /row;
+		deck = deck.getSomeCards(col);
+		deck.shuffle();
+		
+//		gameboard = new GameBoard(player,deck,3,2);
+		gameboard = new GameBoard(player,deck,col,row);
 		
 		/*
 		for (int i = 0; i < 2; i++) {
@@ -34,7 +40,7 @@ public class Game {
 			deck.shuffle();
 		}
 		*/
-		numberOfPairs = deck.size;
+		numberOfPairs = deck.cols;
 //		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
 		

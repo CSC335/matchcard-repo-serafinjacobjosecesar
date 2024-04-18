@@ -9,17 +9,20 @@ import javafx.scene.image.Image;
  * Class represents a generic collection class for abstract card objects
  */
 public abstract class AbstractCardCollection {
-
+	protected int number;
 	protected ArrayList<Card> Cards;
 	protected ArrayList<Card> UniCards;
 	protected int size;
+	protected int cols;
 	
 	/**
 	 * constructor for Abstract Card Collection
 	 */
-	public AbstractCardCollection() {
+	public AbstractCardCollection(int num) {
 		this.Cards = new ArrayList<Card>();
 		this.UniCards = new ArrayList<Card>();
+		this.size = num;
+		this.cols = num;
 	}
 	
 	public void setAbstractCardCollection(ArrayList<Card> deck) {
@@ -45,7 +48,14 @@ public abstract class AbstractCardCollection {
 		return Cards.get(index);
 	}
 	
+	/**
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public ArrayList<Card> remove(int number) {
+		//
+		
 		if (number > size) {
 			return Cards;
 		}
@@ -53,6 +63,7 @@ public abstract class AbstractCardCollection {
 		Collections.shuffle(UniCards);	
 		ArrayList<Card> newDeck = new ArrayList<Card>();
 		size = number;
+		// Adds the 'number' of cards to a new deck of shuffled cards
 		while (number > 0) {
 			Card temp = UniCards.get(number-1);
 			newDeck.add(temp);

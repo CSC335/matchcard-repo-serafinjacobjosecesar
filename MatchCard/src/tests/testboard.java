@@ -15,8 +15,8 @@ public class testboard {
 //	deck = deck.getAnimalCollection();
 //	deck.shuffle();
 	
-	AbstractCardCollection deck = new AnimalCollection();
-	deck.shuffle();
+//	AbstractCardCollection deck = new AnimalCollection();
+//	deck.shuffle();
 //	GameBoard gameboard = new GameBoard(deck,3,2);
 	}
 }
