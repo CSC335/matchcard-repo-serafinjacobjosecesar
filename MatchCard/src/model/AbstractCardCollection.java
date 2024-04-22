@@ -14,9 +14,12 @@ public abstract class AbstractCardCollection {
 	protected ArrayList<Card> UniCards;
 	protected int size;
 	protected int cols;
+	private int scale;
 	
 	/**
-	 * constructor for Abstract Card Collection
+	 * AbstractCardCollection constructor for Card Collection class
+	 * initializes Collections - an array list of Card objects
+	 * @param int Integer dictates size of images(front/back of card)
 	 */
 	public AbstractCardCollection(int num) {
 		this.Cards = new ArrayList<Card>();
@@ -24,19 +27,27 @@ public abstract class AbstractCardCollection {
 		this.size = num;
 		this.cols = num;
 	}
-	
-	public void setAbstractCardCollection(ArrayList<Card> deck) {
-		Cards = deck;
-	}
-	
+
+	/**
+	 * getArrayList Returns the ArrayList with Card objects
+	 * @return ArrayList of Card objects
+	 */
 	public ArrayList<Card> getArrayList(){
 		return Cards;
 	}
 	
+	/**
+	 * getSize returns the size of the deck
+	 * @return int size of deck
+	 */
 	public int getSize() {
 		return size;
 	}
 	
+	/**
+	 * addCard adds a Card object to the deck
+	 * @param card Card object that will get added to the deck
+	 */
 	public void addCard(Card card) {
 		Cards.add(card);
 		UniCards.add(card);
@@ -44,47 +55,89 @@ public abstract class AbstractCardCollection {
 		Cards.add(card.getPair());
 	}
 	
+	public void addCard(String name, String type, String file, int num) {
+		scale = 850/num;
+		Image image = getFileName(file,type);
+		Card newCard = new Card(image,name, type, scale);
+		Cards.add(newCard);
+		UniCards.add(newCard);
+		size++;
+		Cards.add(newCard.getPair());
+	}
+	
+	private Image getFileName(String file, String type) {
+		String userDir = System.getProperty("user.dir");
+		String fileName = "";
+		
+		if (userDir.substring(0, 1).equals("/")) {
+		    fileName = "file:" + userDir + "/Card Images/"+type+"/";
+		} 
+		else {
+			userDir = userDir.replace('\\', '/');
+			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
+		}
+		System.out.println(fileName);
+		Image image1 = new Image(fileName+file,scale,scale,false,false);
+		return image1;
+	}	
+	
+	/**
+	 * getCard gets a Card object from the deck at the given index 
+	 * @param index int represents the index of a Card in the deck
+	 * @return
+	 */
 	public Card getCard(int index) {
 		return Cards.get(index);
 	}
 	
 	/**
-	 * 
-	 * @param number
-	 * @return
+	 * getDiffDeck creates a new deck with 'num' number of Cards and shuffles them,
+	 *  the original deck is still available
+	 * @param number int represents the wanted amount of Cards
+	 * @return ArrayList<Card> a new Deck with the wanted number of cards
 	 */
-	public ArrayList<Card> remove(int number) {
-		//
-		
-		if (number > size) {
-			return Cards;
+	public ArrayList<Card> getDiffDeck(int num) {	
+		if (number < size) {
+			/* Creates a new deck and adds num number of cards into the new deck
+			 * Then sets the new deck as Cards
+			 */
+			Collections.shuffle(UniCards);	
+			ArrayList<Card> newDeck = new ArrayList<Card>();
+			size = num;
+			while (num > 0) {
+				Card temp = UniCards.get(num-1);
+				newDeck.add(temp);
+				newDeck.add(temp.getPair());
+				num--;
+			}
+			Cards = newDeck;
 		}
-		
-		Collections.shuffle(UniCards);	
-		ArrayList<Card> newDeck = new ArrayList<Card>();
-		size = number;
-		// Adds the 'number' of cards to a new deck of shuffled cards
-		while (number > 0) {
-			Card temp = UniCards.get(number-1);
-			newDeck.add(temp);
-			newDeck.add(temp.getPair());
-			number--;
-		}
-		Cards = newDeck;
+		shuffle();
 		return Cards;
 	}
 		
+	/**
+	 * shuffle Shuffles the deck
+	 * @return ArrayList<Card> a shuffled version of the Deck
+	 */
 	public ArrayList<Card> shuffle(){
 		Collections.shuffle(Cards);
 		return Cards;
 	}
 	
+	/**
+	 * printCards prints out the cards in the Deck
+	 */
 	public void printCards() {
 		for (Card card : Cards) {
 			System.out.println("Card:"+card.getName()+": "+card.getType());
 		}
 	}
-	
-	public abstract AbstractCardCollection getSomeCards(int number);
+	/**
+	 * getNewDeck returns a new deck with 'number' of cards wanted
+	 * @param number int represents the size of the new deck
+	 * @return AbstractCardCollection the new deck of size 'number'
+	 */
+	public abstract AbstractCardCollection getNewDeck(int number);
 
 }
