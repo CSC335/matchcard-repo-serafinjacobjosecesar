@@ -83,7 +83,6 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
-		System.out.println(fileName);
 		Image image1 = new Image(fileName+file,scale,scale,false,false);
 		return image1;
 	}	
