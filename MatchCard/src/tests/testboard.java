@@ -3,7 +3,6 @@ package tests;
 import model.AbstractCardCollection;
 import model.Account;
 import model.AnimalCollection;
-import model.CardCollections;
 import model.GameBoard;
 
 public class testboard {

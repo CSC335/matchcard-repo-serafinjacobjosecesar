@@ -26,22 +26,6 @@ public class CarCollection extends AbstractCardCollection {
 		addCard("Limo",	"Car", 	"limo(front).png", 	cols );
 		addCard("Police","Car", "police(front).png",cols );
 		addCard("Truck","Car", 	"truck(front).png", cols );
-		
-//		Image image1 = new Image(fileName+"car(front).jpg",300,300,false,false);
-//		Card car = new Card(image1, "Car", "Car",scale);
-//		addCard(car);
-//		
-//		Image image2 = new Image(fileName+"limo(front).png",300,300,false,false);
-//		Card limo = new Card(image2, "Limo", "Car", scale);
-//		addCard(limo);
-//		
-//		Image image3 = new Image(fileName+"police(front).png",300,300,false,false);
-//		Card police = new Card(image3, "Police", "Car",scale);
-//		addCard(police);
-//
-//		Image image4 = new Image(fileName+"truck(front).png",300,300,false,false);
-//		Card truck = new Card(image4, "Truck", "Car",scale);
-//		addCard(truck);
 	}
 
 	@Override
