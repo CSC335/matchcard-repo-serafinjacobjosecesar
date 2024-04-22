@@ -18,6 +18,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.AbstractCardCollection;
+import model.Account;
 import model.AnimalCollection;
 import model.GameBoard;
 
@@ -29,6 +31,7 @@ public class testGameBoard2x3 extends Application {
 	
 	private GameBoard gameboard;
 	private BorderPane everything;
+	private AbstractCardCollection deck;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -50,14 +53,17 @@ public class testGameBoard2x3 extends Application {
 	}
 	
 	private void makeABoard() {
-//		CardCollections deck = new CardCollections();
-//		deck = deck.getAnimalCollection();
-//		deck.shuffle();
+		int col = 3;
+		int row = 2;
+		deck = new AnimalCollection(col);
 		
-//		AnimalCollection deck = new AnimalCollection();
+		int scale = 950 /row;
+		deck = deck.getNewDeck(col);
 //		deck.shuffle();
+		Account player = new Account("1","1");
+		gameboard = new GameBoard(player,deck,col,row);
 		
-//		gameboard = new GameBoard(deck,3,2);
+//		numberOfPairs = deck.cols;
 	}
 
 }
