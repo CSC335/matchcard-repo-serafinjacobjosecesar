@@ -157,17 +157,22 @@ public class MainGUI extends Application {
 			
 			Gamemode1.setOnAction(event2 ->{
 				game = new Game(loginPane.currentAcc,1);
+				GameBoard gameBoard = game.getGameBoardObj();
+				everything.setCenter(game.getGameBoardObj());
+				
+				gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+					LayoutMainMenu();
+				});
 			});
 			Gamemode2.setOnAction(event2 ->{
 				game = new Game(loginPane.currentAcc,2);
+				GameBoard gameBoard = game.getGameBoardObj();
+				everything.setCenter(game.getGameBoardObj());
+				
+				gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+					LayoutMainMenu();
+				});
 			});
-			GameBoard gameBoard = game.getGameBoardObj();
-			everything.setCenter(game.getGameBoardObj());
-			
-			gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event2 -> {
-				LayoutMainMenu();
-			});
-			
 		});
 		
 		profile.setOnAction(event->{

@@ -2,9 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class CarCollection extends AbstractCardCollection {
 

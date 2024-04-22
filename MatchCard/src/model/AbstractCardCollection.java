@@ -55,6 +55,13 @@ public abstract class AbstractCardCollection {
 		Cards.add(card.getPair());
 	}
 	
+	/**
+	 * addCard Creates a Card object from the given parameters and adds it to the Deck
+	 * @param name String reprensents the name
+	 * @param type String reprensents the type
+	 * @param file String reprensents the name of the file
+	 * @param num int reprensents the number of columns that the cards are going to be placed in
+	 */
 	public void addCard(String name, String type, String file, int num) {
 		scale = 850/num;
 		Image image = getFileName(file,type);
@@ -97,23 +104,24 @@ public abstract class AbstractCardCollection {
 	 * @return ArrayList<Card> a new Deck with the wanted number of cards
 	 */
 	public ArrayList<Card> getDiffDeck(int num) {	
+		ArrayList<Card> newDeck = Cards;
 		if (number < size) {
-			/* Creates a new deck and adds num number of cards into the new deck
-			 * Then sets the new deck as Cards
-			 */
-			Collections.shuffle(UniCards);	
-			ArrayList<Card> newDeck = new ArrayList<Card>();
-			size = num;
-			while (num > 0) {
-				Card temp = UniCards.get(num-1);
-				newDeck.add(temp);
-				newDeck.add(temp.getPair());
-				num--;
-			}
+			createNewDeck(num, newDeck);
 			Cards = newDeck;
 		}
 		shuffle();
 		return Cards;
+	}
+
+	private void createNewDeck(int num, ArrayList<Card> newDeck) {
+		Collections.shuffle(UniCards);	
+		size = num;
+		while (num > 0) {
+			Card temp = UniCards.get(num-1);
+			newDeck.add(temp);
+			newDeck.add(temp.getPair());
+			num--;
+		}
 	}
 		
 	/**
