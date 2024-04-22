@@ -111,13 +111,7 @@ public class MainGUI extends Application {
 		});
 	}
 
-//	private void LayoutGUI() {
-//		// login pane
-//		loginPane.setPadding(new Insets(10));
-//		playGame = new Button("Play Game");
-//		everything.setCenter(playGame);
-//		
-//	}
+
 	/**
 	 * LayoutMainMenu is responsible for creating design structures and placing them in stage
 	 */
@@ -151,7 +145,22 @@ public class MainGUI extends Application {
 	private void eventHandlers() {
 		
 		playgame.setOnAction(event->{
-			game = new Game(loginPane.currentAcc);
+			
+			Label Gamemode_label = new Label("Game Modes");
+			Button Gamemode1 = new Button("4 x 4");
+			Button Gamemode2 = new Button("3 rounds");
+			
+			VBox containerGamemodes = new VBox();
+			
+			containerGamemodes.getChildren().addAll(Gamemode_label,Gamemode1,Gamemode2);
+			everything.setCenter(containerGamemodes);
+			
+			Gamemode1.setOnAction(event2 ->{
+				game = new Game(loginPane.currentAcc,1);
+			});
+			Gamemode2.setOnAction(event2 ->{
+				game = new Game(loginPane.currentAcc,2);
+			});
 			GameBoard gameBoard = game.getGameBoardObj();
 			everything.setCenter(game.getGameBoardObj());
 			
@@ -159,10 +168,6 @@ public class MainGUI extends Application {
 				LayoutMainMenu();
 			});
 			
-//			gameBoard.newGame.addEventFilter(ActionEvent.ACTION, event2 -> {
-//				game = new Game(loginPane.currentAcc);
-//				everything.setCenter(game.getGameBoardObj());
-//			});
 		});
 		
 		profile.setOnAction(event->{
