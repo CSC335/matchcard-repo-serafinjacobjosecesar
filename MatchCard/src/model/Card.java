@@ -28,8 +28,6 @@ public class Card {
 		this.Name = name;
 		this.picture = img;
 		this.type = type;
-		//this will help for the event handler to know when they are flipped or not
-		System.out.println("f: "+scale);
 		this.flipped = false;
 		this.scale = scale;
 		this.backOfCard = getFileName("matchCard(backClose)");

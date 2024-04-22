@@ -4,8 +4,6 @@ import javafx.scene.layout.BorderPane;
 import java.time.LocalDate;
 import java.util.Optional;
 
-
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -21,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.AnimalCollection;
-import model.CardCollections;
 import model.GameBoard;
 
 public class testGameBoard2x3 extends Application {
