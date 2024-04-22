@@ -36,21 +36,12 @@ public class GameBoard extends BorderPane{
 	private int cols;
 	private Account playerInformation;
 	
-	
-	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
-	
 	
 	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows) {
 		this.cols = cols;
 		this.rows = rows;
-		//construct takes in the deck of uniqueCards needed and the grid that
-		//need to be made (cols X rows)
-		
-//		System.out.println(uniqueCards.getSize()/2);
-		// AbstractCardCollection counts only pairs
-		// thats why its no longer uniqueCards.getSize()/2
 		
 		playerInformation = player;
 		numOfPairs = uniqueCards.getSize();
@@ -64,16 +55,6 @@ public class GameBoard extends BorderPane{
 		// will make the button board for Gameboard Gui
 		intializePanel(cols,rows);
 	}
-	
-	
-	//TODO this should be done within game 
-//	public void newGameBoard() {
-//		numOfPairs = deck.getSize()/2;
-//		outsideContainer.getChildren().clear();
-//		deck.shuffle();
-//		intializeArrCards(deck,colsForNewGame,rowsForNewGame);
-//		intializePanel(colsForNewGame,rowsForNewGame);
-//	}
 	
 	//2D representation of GameBoard Gui
 	/**
