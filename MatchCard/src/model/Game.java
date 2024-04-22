@@ -11,7 +11,7 @@ public class Game {
 	private AbstractCardCollection deck;
 	private int numberOfPairs;
 	
-	public Game(Account player) {		
+	public Game(Account player, int mode) {		
 		/*TODO
 		 * set for 2x3
 		 *  is set for 6 cards (3 pairs of animals)
