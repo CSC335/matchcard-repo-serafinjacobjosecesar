@@ -151,7 +151,6 @@ public class MainGUI extends Application {
 	private void eventHandlers() {
 		
 		playgame.setOnAction(event->{
-			
 			game = new Game(loginPane.currentAcc);
 			GameBoard gameBoard = game.getGameBoardObj();
 			everything.setCenter(game.getGameBoardObj());

@@ -14,20 +14,26 @@ public class Card {
 	private String type;
 	private boolean flipped;
 	private String boardPos;
+	private int scale;
 	
 	/**
 	 * Card constructor uses an image, name and type to create a card object
 	 * @param img Image to be used by card
 	 * @param name String represents the card name
 	 * @param type String represents the card type
+	 * @param int Integer represents the size of the image
+	 *
 	 */
-	public Card(Image img, String name, String type) {
+	public Card(Image img, String name, String type, int scale) {
 		this.Name = name;
 		this.picture = img;
 		this.type = type;
-		this.backOfCard = getFileName("matchCard(backClose)");
 		//this will help for the event handler to know when they are flipped or not
+		System.out.println("f: "+scale);
 		this.flipped = false;
+		this.scale = scale;
+		this.backOfCard = getFileName("matchCard(backClose)");
+		
 	}
 	
 	/**
@@ -43,7 +49,7 @@ public class Card {
 	 * @return pair Card represents the pair of a given card
 	 */
 	public Card getPair() {
-		Card pair = new Card(this.picture, this.Name, this.type);
+		Card pair = new Card(this.picture, this.Name, this.type,this.scale);
 		return pair;
 	}
 	
@@ -128,7 +134,7 @@ public class Card {
 			fileName = "file:/" + userDir + "/Card Images/";
 		}
 
-		Image image1 = new Image(fileName+str+".jpg",300,300,false,false);
+		Image image1 = new Image(fileName+str+".jpg",scale,scale,false,false);
 		return image1;
 	}	
 
