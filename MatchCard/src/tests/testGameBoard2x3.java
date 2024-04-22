@@ -57,8 +57,8 @@ public class testGameBoard2x3 extends Application {
 //		deck = deck.getAnimalCollection();
 //		deck.shuffle();
 		
-		AnimalCollection deck = new AnimalCollection();
-		deck.shuffle();
+//		AnimalCollection deck = new AnimalCollection();
+//		deck.shuffle();
 		
 //		gameboard = new GameBoard(deck,3,2);
 	}

@@ -136,7 +136,7 @@ public class LoginPane extends BorderPane {
 			
 			else if (!checkAcc(name)) {
 				Account newAcc = new Account(name, passWord);
-				currentAcc = newAcc;
+				currentAcc = null;
 				accountCollections.addAccount(newAcc);
 				strLabel.setText("User Created. Please sign in.");
 				nameField.setText("");

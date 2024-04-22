@@ -18,13 +18,16 @@ public class Game {
 		 * set for 2x3
 		 *  is set for 6 cards (3 pairs of animals)
 		 */
-//		deck = new CardCollections();
-//		deck = deck.getAnimalCollection();
+		int col = 3;
+		int row = 2;
+		deck = new AnimalCollection(col);
+		
+		int scale = 950 /row;
+		deck = deck.getNewDeck(col);
 //		deck.shuffle();
 		
-		deck = new AnimalCollection();
-		deck = deck.getSomeCards(3);
-		gameboard = new GameBoard(player,deck,3,2);
+//		gameboard = new GameBoard(player,deck,3,2);
+		gameboard = new GameBoard(player,deck,col,row);
 		
 		/*
 		for (int i = 0; i < 2; i++) {
@@ -34,7 +37,7 @@ public class Game {
 			deck.shuffle();
 		}
 		*/
-		numberOfPairs = deck.size;
+		numberOfPairs = deck.cols;
 //		numberOfPairs = (gameboard.getGameBoardArr().length)/2;
 		
 		
