@@ -63,8 +63,6 @@ public class MainGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
 		
-
-		
 		// style for Main border pane HERE!!!
 		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
 		everything.setStyle(borderPaneStyle);
