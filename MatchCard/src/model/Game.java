@@ -23,11 +23,11 @@ public class Game {
 		deck = new AnimalCollection(col);
 		
 		int scale = 950 /row;
-		deck = deck.getNewDeck(col);
-//		deck.shuffle();
+		deck = deck.getNewDeck(col,scale);
+		deck.shuffle();
 		gameboard = new GameBoard(player,deck,col,row,mode);
 		
-		numberOfPairs = deck.cols;		
+		numberOfPairs = (row*col)/2;		
 		
 	}
 	

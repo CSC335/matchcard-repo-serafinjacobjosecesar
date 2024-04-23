@@ -18,12 +18,15 @@ public class AnimalCollection extends AbstractCardCollection {
 		addCard("Kangaroo",	"Animals", "kangaroo(front).png", 	cols );
 		addCard("Cat",		"Animals", "cat(front).png", 		cols );
 		addCard("Sheep",	"Animals", "sheep(front).png", 		cols );
+		addCard("Chicken",	"Animals", "chicken(front).png", 	cols );
+		addCard("Bull",		"Animals", "bull(front).png", 		cols );
+		addCard("Cow",		"Animals", "cow(front).png", 		cols );
 	}
 	@Override
-	public AbstractCardCollection getNewDeck(int number) {
+	public AbstractCardCollection getNewDeck(int number,int scale) {
 		System.out.println(number+ ": cards wanted");
-		AnimalCollection temp = new AnimalCollection(number);
-		temp.getDiffDeck(number);
+		AnimalCollection temp = new AnimalCollection(10);
+		temp.getDiffDeck(number,scale);
 		return temp;
 	}
 	

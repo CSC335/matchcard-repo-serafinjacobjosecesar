@@ -62,8 +62,7 @@ public abstract class AbstractCardCollection {
 	 * @param file String reprensents the name of the file
 	 * @param num int reprensents the number of columns that the cards are going to be placed in
 	 */
-	public void addCard(String name, String type, String file, int num) {
-		scale = 850/num;
+	public void addCard(String name, String type, String file, int scale) {
 		Image image = getFileName(file,type);
 		Card newCard = new Card(image,name, type, scale);
 		Cards.add(newCard);
@@ -83,7 +82,7 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
-		Image image1 = new Image(fileName+file,scale,scale,false,false);
+		Image image1 = new Image(fileName+file,100,100,false,false);
 		return image1;
 	}	
 	
@@ -102,19 +101,23 @@ public abstract class AbstractCardCollection {
 	 * @param number int represents the wanted amount of Cards
 	 * @return ArrayList<Card> a new Deck with the wanted number of cards
 	 */
-	public ArrayList<Card> getDiffDeck(int num) {	
+	public ArrayList<Card> getDiffDeck(int number, int scale) {	
+		number = number/2;
 		if (number < size) {
 			/* Creates a new deck and adds num number of cards into the new deck
 			 * Then sets the new deck as Cards
 			 */
 			Collections.shuffle(UniCards);	
 			ArrayList<Card> newDeck = new ArrayList<Card>();
-			size = num;
-			while (num > 0) {
-				Card temp = UniCards.get(num-1);
+			size = number;
+			while (number > 0) {
+				Card temp = UniCards.get(number-1);
+				
+				// String name, String type, String file, int scale
+//				Card scaledCard = new Card(temp.getName(), temp.getType(), temp.)
 				newDeck.add(temp);
 				newDeck.add(temp.getPair());
-				num--;
+				number--;
 			}
 			Cards = newDeck;
 		}
@@ -144,6 +147,6 @@ public abstract class AbstractCardCollection {
 	 * @param number int represents the size of the new deck
 	 * @return AbstractCardCollection the new deck of size 'number'
 	 */
-	public abstract AbstractCardCollection getNewDeck(int number);
+	public abstract AbstractCardCollection getNewDeck(int number, int scale);
 
 }

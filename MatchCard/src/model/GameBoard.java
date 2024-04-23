@@ -2,35 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.util.Duration;
-
-
-public class GameBoard extends BorderPane{
-	
-	private Label statusOfGame = new Label("Click to make a move");
-	private HBox moveContainer = new HBox(statusOfGame);
-	private VBox outsideContainer = new VBox();
+public class GameBoard{
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
-	private ArrayList<int[]> toCompare = new ArrayList<>();;
+	public ArrayList<int[]> toCompare = new ArrayList<>();
 	private int numOfPairs;
 	private int rows;
 	private int cols;
@@ -38,8 +16,6 @@ public class GameBoard extends BorderPane{
 	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
-	private int Gamemode;
-	private int rounds;
 	
 	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows, int mode) {
 		this.cols = cols;
@@ -47,17 +23,49 @@ public class GameBoard extends BorderPane{
 		
 		playerInformation = player;
 		numOfPairs = uniqueCards.getSize();
+		int scale = 850/cols;
+		uniqueCards = uniqueCards.getNewDeck(rows*cols, scale);
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
-		Gamemode = mode;
 		
 		//will make the gameBoardArr 
 		intializeArrCards(uniqueCards,cols,rows);
-		
-		// will make the button board for Gameboard Gui
-		intializePanel(cols,rows);
+		intializeButtons(cols,rows);
 	}
 	
+	public int getNumberOfPairs() {
+		return numOfPairs;
+	}
+	
+	public Button[][] getButtonArray(){
+		return boardButtons;
+	}
+	
+	public Card[][] getCardArr(){
+		return gameBoardArr;
+	}
+	
+	private void intializeButtons(int cols, int rows) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				Card currCard = gameBoardArr[i][j];
+				boardButtons[i][j] = new Button();
+				ImageView backView = new ImageView(currCard.getBackOfCard());
+				boardButtons[i][j].setGraphic(backView);
+				boardButtons[i][j].setId(currCard.getName());
+				int scale = 850/cols;
+				scale = (scale+170)/2;
+//				scale =100;
+				boardButtons[i][j].setMinSize(scale, scale);
+				boardButtons[i][j].setPadding(new Insets(0));
+				boardButtons[i][j].setFocusTraversable(false);
+				
+				
+				
+			}
+		}		
+	}
+
 	//2D representation of GameBoard Gui
 	/**
 	* returns an instance of a 2D array of Card objects
@@ -92,7 +100,7 @@ public class GameBoard extends BorderPane{
 	 */
 	}
 	
-	public void check() {
+	public boolean check() {
 	/*
 	 * once toCompare has 2 cards to compare it checks their name and 
 	 * if thay are a match then the cards disappear from the board
@@ -101,7 +109,9 @@ public class GameBoard extends BorderPane{
 		if(toCompare.size()==2) {
 			int [] stCardCords = toCompare.get(0);
 			int [] ndCardCords = toCompare.get(1);
-			
+			String s1 = gameBoardArr[stCardCords[0]][stCardCords[1]].getName();
+			String s2 = gameBoardArr[ndCardCords[0]][ndCardCords[1]].getName();
+			System.out.println("Name1: +"+s1 +"| Name2: "+s2);
 			if(gameBoardArr[stCardCords[0]][stCardCords[1]].sameComparison(gameBoardArr[ndCardCords[0]][ndCardCords[1]])) {
 				System.out.println("they are a match");
 				boardButtons[stCardCords[0]][stCardCords[1]].setDisable(true);
@@ -115,7 +125,6 @@ public class GameBoard extends BorderPane{
 				playerInformation.updateCurrScore();
 			}
 			else {
-				System.out.println("they are not a match");
 				flip();
 				playerInformation.setMatch(false);
 				playerInformation.updateCurrScore();
@@ -126,9 +135,10 @@ public class GameBoard extends BorderPane{
 		if(numOfPairs==0) {
 			playerInformation.setMatch(false);
 			playerInformation.win();
-			win();
+			return true;
 		}
 		wait(false);
+		return false;
 	}
 
 	private void intializeArrCards(AbstractCardCollection uniqueCards,int cols,int rows) {
@@ -140,100 +150,11 @@ public class GameBoard extends BorderPane{
 			}
 		}
 	}
-
-	private void intializePanel(int cols, int rows) {
-		// creates the gui buttons for the card game 
-		
-		GridPane buttonPane = new GridPane();
-		Font font = new Font("Courier New", 32);
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				
-				//Allows for row and col to be available in event
-				final int row = i;
-				final int col = j;
-				
-				
-				final Card currCard = gameBoardArr[i][j];
-				
-				boardButtons[i][j] = new Button();
-				ImageView backView = new ImageView(currCard.getBackOfCard());
-				ImageView frontView = new ImageView(currCard.getImage());
-				boardButtons[i][j].setGraphic(backView);
-				//boardButtons[i][j].setPadding(new Insets(10));
-				
-				boardButtons[i][j].setId(currCard.getName());
-				buttonPane.add(boardButtons[i][j], j, i);
-				int scale = 850/cols;
-				boardButtons[i][j].setMinSize(scale, scale);
-				boardButtons[i][j].setPadding(new Insets(0));
-				//Initializes all the events for the button cards 
-				boardButtons[i][j].setOnAction((event)->{ 
-					
-					int boardY = row;
-					int boardX = col;
-					int [] cords = {row,col};
-					
-					//for debug purposes - START {
-					System.out.println("this is the Pos: " + boardY + " x " + boardX);
-					String id = boardButtons[row][col].getId();
-					System.out.println("This is the id:"+id + "\n\n");
-					//for debug purposes - END }
-					
-					// flipped is a boolean in card when false shows BACK face 
-					if(!currCard.isItFlipped()) {
-						boardButtons[row][col].setGraphic(frontView);
-						currCard.flip();
-						System.out.println("FRONT");
-						toCompare.add(cords);
-						
-						new Thread(() -> {
-						    try {
-						    	if (toCompare.size()== 2) {
-						    		wait(true);
-						    	}
-						    	
- 						    	// Makes a pause so both cards face up, (shows the frontView)
-						        Thread.sleep(250);
-						        Platform.runLater(() -> {
-				                    check();
-				                    
-				                });
-						    } catch (InterruptedException e) {
-						        e.printStackTrace();
-						    }
-						}).start();						
-						
-					}
-					else {
-						System.out.println("Nothing happened");
-					}
-					
-				});
-			}
-		}
-		
-		//sets the gui in the borderpane parent 
-		outsideContainer.setSpacing(10);
-		outsideContainer.setAlignment(Pos.CENTER);
-		buttonPane.setAlignment(Pos.CENTER);
-		statusOfGame.setAlignment(Pos.CENTER);
-		moveContainer.setAlignment(Pos.CENTER);
-		buttonPane.setHgap(10);
-		buttonPane.setVgap(10);
-		outsideContainer.getChildren().addAll(buttonPane, moveContainer);
-		this.setCenter(outsideContainer);
-
-	}
-	
-	
-	// POSSIBLE CHANGES NEEDED
 	/**
 	 * stop 
 	 * @param val
 	 */
-	private void wait(boolean val) {
+	public void wait(boolean val) {
 		System.out.println("here");
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -244,32 +165,5 @@ public class GameBoard extends BorderPane{
 				}
 			}
 		}
-	}
-	
-	
-	private void win() {
-		Label winPrompt = new Label("You Won!");
-		
-		
-		//TODO implement !!!!!
-		returnMainMenu.setOnAction(event->{
-			
-		});
-		
-		//Styles for win condition HERE !!!!!
-		String buttonStyles = "-fx-background-color: #424549; " +
-                "-fx-text-fill: white; " +
-                "-fx-font-size: 30px;";
-		
-		returnMainMenu.setStyle(buttonStyles);
-		
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
-		
-		//winPrompt.setAlignment(Pos.CENTER);
-		winPrompt.setStyle(labelStyles);
-		
-		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(winPrompt,returnMainMenu);
-		this.setCenter(outsideContainer);
 	}
 }

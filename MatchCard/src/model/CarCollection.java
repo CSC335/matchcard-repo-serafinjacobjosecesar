@@ -26,9 +26,9 @@ public class CarCollection extends AbstractCardCollection {
 	}
 
 	@Override
-	public AbstractCardCollection getNewDeck(int number) {
+	public AbstractCardCollection getNewDeck(int number, int scale) {
 		CarCollection temp = new CarCollection(number);
-		temp.getDiffDeck(number);
+//		temp.getDiffDeck(number);
 		return temp;
 	}
 	

@@ -48,19 +48,19 @@ public class testGameBoard2x3 extends Application {
 	private void LayoutGUI() {
 		makeABoard();
 		everything = new BorderPane();
-		everything.setCenter(gameboard);
+//		everything.setCenter(gameboard);
 
 	}
 	
 	private void makeABoard() {
-		int col = 3;
-		int row = 2;
-		deck = new AnimalCollection(col);
-		
-		int scale = 950 /row;
-		deck = deck.getNewDeck(col);
-//		deck.shuffle();
-		Account player = new Account("1","1");
+//		int col = 3;
+//		int row = 2;
+//		deck = new AnimalCollection(col);
+//		
+//		int scale = 950 /row;
+//		deck = deck.getNewDeck(col);
+////		deck.shuffle();
+//		Account player = new Account("1","1");
 //		gameboard = new GameBoard(player,deck,col,row);
 		
 //		numberOfPairs = deck.cols;

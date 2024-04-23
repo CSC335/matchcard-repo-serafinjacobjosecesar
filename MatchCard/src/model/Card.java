@@ -132,7 +132,7 @@ public class Card {
 			fileName = "file:/" + userDir + "/Card Images/";
 		}
 
-		Image image1 = new Image(fileName+str+".jpg",scale,scale,false,false);
+		Image image1 = new Image(fileName+str+".jpg",100,100,false,false);
 		return image1;
 	}	
 

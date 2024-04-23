@@ -165,21 +165,21 @@ public class MainGUI extends Application {
 			containerGamemodes.getChildren().addAll(Gamemode_label,Gamemode1,Gamemode2);
 			everything.setCenter(containerGamemodes);
 			
+			// 2 by 4
 			Gamemode1.setOnAction(event2 ->{
-				game = new Game(loginPane.currentAcc,1);
-				GameBoard gameBoard = game.getGameBoardObj();
-				everything.setCenter(game.getGameBoardObj());
-				
-				gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
-					LayoutMainMenu();
-				});
+//				game = new Game(loginPane.currentAcc,1);
+//				GameMode1 game1 = new GameMode1(loginPane.currentAcc);
+//				everything.setCenter(game1);
+//				game1.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+//					LayoutMainMenu();
+//				});
 			});
+			
+			// 3 rounds
 			Gamemode2.setOnAction(event2 ->{
-				game = new Game(loginPane.currentAcc,2);
-				GameBoard gameBoard = game.getGameBoardObj();
-				everything.setCenter(game.getGameBoardObj());
-				
-				gameBoard.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+				GameMode1 game1 = new GameMode1(loginPane.currentAcc);
+				everything.setCenter(game1);
+				game1.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
 					LayoutMainMenu();
 				});
 			});
