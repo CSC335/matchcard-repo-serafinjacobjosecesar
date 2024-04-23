@@ -16,6 +16,7 @@ public class Game {
 		 * set for 2x3
 		 *  is set for 6 cards (3 pairs of animals)
 		 */
+		
 		int col = 4;
 		int row = 4;
 		deck = new AnimalCollection(col);

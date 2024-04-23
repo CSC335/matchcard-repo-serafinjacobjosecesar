@@ -18,6 +18,7 @@ public class AnimalCollection extends AbstractCardCollection {
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number) {
+		System.out.println(number+ ": cards wanted");
 		AnimalCollection temp = new AnimalCollection(number);
 		temp.getDiffDeck(number);
 		return temp;
