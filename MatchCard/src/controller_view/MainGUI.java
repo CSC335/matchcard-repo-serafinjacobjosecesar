@@ -167,12 +167,11 @@ public class MainGUI extends Application {
 			
 			// 2 by 4
 			Gamemode1.setOnAction(event2 ->{
-//				game = new Game(loginPane.currentAcc,1);
-//				GameMode1 game1 = new GameMode1(loginPane.currentAcc);
-//				everything.setCenter(game1);
-//				game1.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
-//					LayoutMainMenu();
-//				});
+				GameMode2 game2 = new GameMode2(loginPane.currentAcc);
+				everything.setCenter(game2);
+				game2.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+					LayoutMainMenu();
+				});
 			});
 			
 			// 3 rounds
