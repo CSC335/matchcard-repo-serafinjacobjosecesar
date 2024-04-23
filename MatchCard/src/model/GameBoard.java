@@ -247,7 +247,7 @@ public class GameBoard extends BorderPane{
 	
 	private void win() {
 		Label winPrompt = new Label("You Won!");
-		
+		intializePanel(4,4);
 		
 		//TODO implement !!!!!
 		returnMainMenu.setOnAction(event->{
