@@ -145,10 +145,23 @@ public class MainGUI extends Application {
 		playgame.setOnAction(event->{
 			
 			Label Gamemode_label = new Label("Game Modes");
-			Button Gamemode1 = new Button("4 x 4");
+			Button Gamemode1 = new Button("2 x 4");
 			Button Gamemode2 = new Button("3 rounds");
 			
+			String buttonStyles = "-fx-background-color: #424549; " +
+	                "-fx-text-fill: white; " +
+	                "-fx-font-size: 30px;";
+		
+			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
+			
+			
+			Gamemode_label.setStyle(labelStyles);
+			Gamemode1.setStyle(buttonStyles);
+			Gamemode2.setStyle(buttonStyles);
+			
 			VBox containerGamemodes = new VBox();
+			containerGamemodes.setAlignment(Pos.CENTER);
+			containerGamemodes.setSpacing(10);
 			
 			containerGamemodes.getChildren().addAll(Gamemode_label,Gamemode1,Gamemode2);
 			everything.setCenter(containerGamemodes);
