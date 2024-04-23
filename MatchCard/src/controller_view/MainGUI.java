@@ -154,7 +154,6 @@ public class MainGUI extends Application {
 		
 			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
 			
-			
 			Gamemode_label.setStyle(labelStyles);
 			Gamemode1.setStyle(buttonStyles);
 			Gamemode2.setStyle(buttonStyles);

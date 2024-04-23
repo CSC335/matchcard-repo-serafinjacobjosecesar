@@ -15,6 +15,9 @@ public class AnimalCollection extends AbstractCardCollection {
 		addCard("Monkey",	"Animals", "monkey(front).jpg", 	cols );
 		addCard("Pig",		"Animals", "pig(front).jpg",		cols );
 		addCard("Zebra",	"Animals", "zebra(front).jpg", 		cols );
+		addCard("Kangaroo",	"Animals", "kangaroo(front).png", 	cols );
+		addCard("Cat",		"Animals", "cat(front).png", 		cols );
+		addCard("Sheep",	"Animals", "sheep(front).png", 		cols );
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number) {

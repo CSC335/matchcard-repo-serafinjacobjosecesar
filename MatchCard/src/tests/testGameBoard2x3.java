@@ -61,7 +61,7 @@ public class testGameBoard2x3 extends Application {
 		deck = deck.getNewDeck(col);
 //		deck.shuffle();
 		Account player = new Account("1","1");
-		gameboard = new GameBoard(player,deck,col,row);
+//		gameboard = new GameBoard(player,deck,col,row);
 		
 //		numberOfPairs = deck.cols;
 	}
