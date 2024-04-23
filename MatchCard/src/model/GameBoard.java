@@ -38,8 +38,10 @@ public class GameBoard extends BorderPane{
 	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
+	private int Gamemode;
+	private int rounds;
 	
-	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows) {
+	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows, int mode) {
 		this.cols = cols;
 		this.rows = rows;
 		
@@ -47,7 +49,7 @@ public class GameBoard extends BorderPane{
 		numOfPairs = uniqueCards.getSize();
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
-		
+		Gamemode = mode;
 		
 		//will make the gameBoardArr 
 		intializeArrCards(uniqueCards,cols,rows);

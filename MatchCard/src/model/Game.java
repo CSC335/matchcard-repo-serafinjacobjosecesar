@@ -23,7 +23,7 @@ public class Game {
 		int scale = 950 /row;
 		deck = deck.getNewDeck(col);
 //		deck.shuffle();
-		gameboard = new GameBoard(player,deck,col,row);
+		gameboard = new GameBoard(player,deck,col,row,mode);
 		
 		numberOfPairs = deck.cols;		
 		
