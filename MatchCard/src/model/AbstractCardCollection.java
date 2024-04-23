@@ -83,7 +83,6 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
-		System.out.println(fileName);
 		Image image1 = new Image(fileName+file,scale,scale,false,false);
 		return image1;
 	}	
@@ -104,24 +103,23 @@ public abstract class AbstractCardCollection {
 	 * @return ArrayList<Card> a new Deck with the wanted number of cards
 	 */
 	public ArrayList<Card> getDiffDeck(int num) {	
-		ArrayList<Card> newDeck = Cards;
 		if (number < size) {
-			createNewDeck(num, newDeck);
+			/* Creates a new deck and adds num number of cards into the new deck
+			 * Then sets the new deck as Cards
+			 */
+			Collections.shuffle(UniCards);	
+			ArrayList<Card> newDeck = new ArrayList<Card>();
+			size = num;
+			while (num > 0) {
+				Card temp = UniCards.get(num-1);
+				newDeck.add(temp);
+				newDeck.add(temp.getPair());
+				num--;
+			}
 			Cards = newDeck;
 		}
 		shuffle();
 		return Cards;
-	}
-
-	private void createNewDeck(int num, ArrayList<Card> newDeck) {
-		Collections.shuffle(UniCards);	
-		size = num;
-		while (num > 0) {
-			Card temp = UniCards.get(num-1);
-			newDeck.add(temp);
-			newDeck.add(temp.getPair());
-			num--;
-		}
 	}
 		
 	/**
