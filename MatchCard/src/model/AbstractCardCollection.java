@@ -55,6 +55,13 @@ public abstract class AbstractCardCollection {
 		Cards.add(card.getPair());
 	}
 	
+	/**
+	 * addCard Creates a Card object from the given parameters and adds it to the Deck
+	 * @param name String reprensents the name
+	 * @param type String reprensents the type
+	 * @param file String reprensents the name of the file
+	 * @param num int reprensents the number of columns that the cards are going to be placed in
+	 */
 	public void addCard(String name, String type, String file, int num) {
 		scale = 850/num;
 		Image image = getFileName(file,type);
@@ -76,7 +83,6 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
-		System.out.println(fileName);
 		Image image1 = new Image(fileName+file,scale,scale,false,false);
 		return image1;
 	}	
