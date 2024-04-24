@@ -74,6 +74,8 @@ public class MainGUI extends Application {
 		// pull saved accounts
 		getSavedAccounts();
 		// handles the stage closing 
+		//TODO enable this feature
+		/*
 		quit.setOnAction(event -> {
 			System.out.println("Stage is closing");
             // Call Platform.exit() to quit the application
@@ -85,6 +87,7 @@ public class MainGUI extends Application {
 		    // Save file
 		    save();
 		});
+		*/
 		
 		LayoutMainMenu();
 		eventHandlers();
