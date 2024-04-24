@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Account implements Serializable {
 	private String userName,password;
-	private int longestStreak, currStreak, hiScore, currScore, points;
+	private int longestStreak, currStreak, hiScore, currScore, points, bestTimeGamemode2 = 0, bestTimeGamemode1 = 0;
 	private Boolean hadMatch;
 	
 	/**
@@ -152,7 +152,21 @@ public class Account implements Serializable {
 	public int getHighScore() {
 		return hiScore;
 	}
-	
-	
+	public void setGamemode2Hiscore(int time) {
+		if(time<this.bestTimeGamemode2) {
+			this.bestTimeGamemode2 = time;
+		}
+	}
+	public void setGamemode1Hiscore(int time) {
+		if(time<this.bestTimeGamemode1) {
+			this.bestTimeGamemode1 = time;
+		}
+	}
+	public int getG2Time() {
+		return this.bestTimeGamemode2;
+	}
+	public int getG1Time() {
+		return this.bestTimeGamemode1;
+	}
 
 }
