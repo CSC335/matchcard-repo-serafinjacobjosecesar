@@ -1,9 +1,13 @@
 package controller_view;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -11,11 +15,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import model.AbstractCardCollection;
 import model.Account;
 import model.AnimalCollection;
 import model.Card;
 import model.GameBoard;
+import model.WinScreen;
 
 public class GameMode1 extends BorderPane{
 	GridPane gridPane = new GridPane();
@@ -28,6 +36,7 @@ public class GameMode1 extends BorderPane{
 	private Card[][] cardArr;
 	private int col;
 	private int row;
+	private Group root = new Group();
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
@@ -106,6 +115,31 @@ public class GameMode1 extends BorderPane{
 		this.setCenter(outsideContainer);
 	}
 	
+    private Rectangle createConfettiPiece() {
+	    final Random rand = new Random();
+        Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+        rect.setX(rand.nextDouble() * 950);
+        rect.setY(rand.nextDouble() * 950);
+        rect.setRotate(rand.nextDouble() * 360);
+        return rect;
+    }
+    
+    private void moveConfetti(Group root) {
+	    final Random rand = new Random();
+        for (Object obj : root.getChildren()) {
+            if (obj instanceof Rectangle) {
+                Rectangle rect = (Rectangle) obj;
+                rect.setY(rect.getY() + 3);
+                rect.setRotate(rect.getRotate() + 1);
+
+                if (rect.getY() > 950) {
+                    rect.setY(-10);
+                    rect.setX(rand.nextDouble() * 950);
+                }
+            }
+        }
+    }
+	
 	public void win() {
 		if (round<2) {
 			round++; col++; row++;
@@ -119,27 +153,41 @@ public class GameMode1 extends BorderPane{
 			return;
 		}
 		
-		Label winPrompt = new Label("You Won!");
-		returnMainMenu.setOnAction(event->{
-			
-		});
-		
-		//Styles for win condition HERE !!!!!
-		String buttonStyles = "-fx-background-color: #424549; " +
-                "-fx-text-fill: white; " +
-                "-fx-font-size: 30px;";
-		
-		returnMainMenu.setStyle(buttonStyles);
-		
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
+
+	    Label winPrompt = new Label("You Won!");
+	    Button returnMainMenu = new Button("Main Menu");
+	    Button newGame = new Button("New Game");
+
+        VBox buttonsLayout = new VBox(10);
+        
+        //buttonsLayout.setTranslateX(950/2 - 200); // Adjust X as needed
+        //buttonsLayout.setTranslateY(); // Adjust Y as needed
+        String buttonStyles = "-fx-background-color: #424549; " +
+                              "-fx-text-fill: white; " +
+                              "-fx-font-size: 30px;";
+        returnMainMenu.setStyle(buttonStyles);
+        newGame.setStyle(buttonStyles);
+        buttonsLayout.getChildren().addAll(returnMainMenu, newGame);
+        String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
+        winPrompt.setStyle(labelStyles);
+
+
+        int confetti = 225;
+        for (int i = 0; i < confetti; i++) {
+            Rectangle rect = createConfettiPiece();
+            root.getChildren().add(rect);
+        }
+        root.getChildren().add(buttonsLayout);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> moveConfetti(root)));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 		
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(winPrompt,returnMainMenu);
+		outsideContainer.getChildren().addAll(root);
 		this.setCenter(outsideContainer);
 	}
-	
-
 
 }

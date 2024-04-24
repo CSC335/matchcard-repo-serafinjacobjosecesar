@@ -3,6 +3,8 @@ package controller_view;
 
 import java.util.ArrayList;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,11 +14,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.AbstractCardCollection;
 import model.Account;
 import model.AnimalCollection;
 import model.Card;
 import model.GameBoard;
+
 
 public class GameMode2 extends BorderPane{
 	GridPane gridPane = new GridPane();
@@ -36,6 +40,8 @@ public class GameMode2 extends BorderPane{
 	boolean flag =false;
 	int round = 0;
 	Account player;
+	private Label timerLabel;
+	private int clock = 0;
 	
 	public GameMode2(Account player) {
 		System.out.println("here");
@@ -108,8 +114,22 @@ public class GameMode2 extends BorderPane{
 		moveContainer.setAlignment(Pos.CENTER);
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
 		this.setCenter(outsideContainer);
+		initClock();
+		this.setTop(timerLabel);
 	}
 	
+	public void initClock() {
+		timerLabel = new Label("00 : 00");
+		Timeline timeline = new Timeline(
+				new KeyFrame(Duration.seconds(1), event -> {
+					clock++;
+					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
+					timerLabel.setText(timerStr);
+				})
+		);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
 	public void win() {
 		
 		Label winPrompt = new Label("You Won!");
