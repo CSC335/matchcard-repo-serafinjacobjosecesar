@@ -43,6 +43,7 @@ public class GameMode2 extends BorderPane{
 		row = 2;
 		this.player = player;
 		deck = new AnimalCollection(col);
+		
 		int scale = 850 /col;
 		deck = deck.getNewDeck(col*row,scale);
 		gameboard = new GameBoard(player,deck,col,row,0);

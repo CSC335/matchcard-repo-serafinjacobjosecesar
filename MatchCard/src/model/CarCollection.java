@@ -9,8 +9,9 @@ public class CarCollection extends AbstractCardCollection {
 	 * CarCollection acts as the collection class for the cards for Car Collection
 	 * @param num int is the scale for the images, front and back images of the Cards
 	 */
-	public CarCollection(int num) {
-		super(num);
+	public CarCollection(int cols) {
+		super(cols);
+		this.cols= cols;
 		setupDeck();
 	}
 	
@@ -19,16 +20,22 @@ public class CarCollection extends AbstractCardCollection {
 	 */
 	private void setupDeck() {
 		//String name, String type, String file, int num
-		addCard("Car",	"Car", 	"car(front).jpg", 	cols );
-		addCard("Limo",	"Car", 	"limo(front).png", 	cols );
-		addCard("Police","Car", "police(front).png",cols );
-		addCard("Truck","Car", 	"truck(front).png", cols );
+		addCard("Car",		"Cars", 	"car(front).jpg", 		cols );
+		addCard("Limo",		"Cars", 	"limo(front).png", 		cols );
+		addCard("Police",	"Cars", 	"police(front).png",	cols );
+		addCard("Truck",	"Cars", 	"truck(front).png", 	cols );
+		addCard("Ambulance","Cars", 	"ambulance(front).png", cols );
+		addCard("Bus",		"Cars", 	"bus(front).png", 		cols );
+		addCard("Firetruck","Cars", 	"firetruck(front).png", cols );
+		addCard("Jeep",		"Cars", 	"jeep(front).png", 		cols );
+		addCard("Tractor",	"Cars", 	"tractor(front).png", 	cols );
+		addCard("Van",		"Cars", 	"van(front).png", 		cols );
 	}
 
 	@Override
 	public AbstractCardCollection getNewDeck(int number, int scale) {
-		CarCollection temp = new CarCollection(number);
-//		temp.getDiffDeck(number);
+		CarCollection temp = new CarCollection(10);
+		temp.getDiffDeck(number,scale);
 		return temp;
 	}
 	
