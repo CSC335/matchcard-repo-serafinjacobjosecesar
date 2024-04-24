@@ -16,6 +16,7 @@ import model.Account;
 import model.AnimalCollection;
 import model.Card;
 import model.GameBoard;
+import model.WinScreen;
 
 public class GameMode1 extends BorderPane{
 	GridPane gridPane = new GridPane();
@@ -106,7 +107,7 @@ public class GameMode1 extends BorderPane{
 		this.setCenter(outsideContainer);
 	}
 	
-	public void win() {
+	public boolean win() {
 		if (round<2) {
 			round++; col++; row++;
 			deck = deck.getNewDeck(col*row, gameboard.buttonScale);
@@ -116,7 +117,7 @@ public class GameMode1 extends BorderPane{
 			GridPane newPane = new GridPane();
 			gridPane = newPane;
 			start();
-			return;
+			return false;
 		}
 		
 		Label winPrompt = new Label("You Won!");
