@@ -14,7 +14,7 @@ public abstract class AbstractCardCollection {
 	protected ArrayList<Card> UniCards;
 	protected int size;
 	protected int cols;
-	private int scale;
+	private String file;
 	
 	/**
 	 * AbstractCardCollection constructor for Card Collection class
@@ -34,6 +34,10 @@ public abstract class AbstractCardCollection {
 	 */
 	public ArrayList<Card> getArrayList(){
 		return Cards;
+	}
+	
+	public void setColumns(int col) {
+		cols = col;
 	}
 	
 	/**
@@ -65,6 +69,7 @@ public abstract class AbstractCardCollection {
 	public void addCard(String name, String type, String file, int scale) {
 		Image image = getFileName(file,type);
 		Card newCard = new Card(image,name, type, scale);
+		newCard.setPath(this.file);
 		Cards.add(newCard);
 		UniCards.add(newCard);
 		size++;
@@ -82,6 +87,7 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
+		this.file = fileName+file;
 		Image image1 = new Image(fileName+file,100,100,false,false);
 		return image1;
 	}	
@@ -112,9 +118,12 @@ public abstract class AbstractCardCollection {
 			size = number;
 			while (number > 0) {
 				Card temp = UniCards.get(number-1);
+				Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
+				Image scaledBack = temp.getFileName("matchCard(backClose)",scale);
+				temp.setScale(scale);
+				temp.setImage(scaledImage);
+				temp.scaleBack(scaledBack);
 				
-				// String name, String type, String file, int scale
-//				Card scaledCard = new Card(temp.getName(), temp.getType(), temp.)
 				newDeck.add(temp);
 				newDeck.add(temp.getPair());
 				number--;

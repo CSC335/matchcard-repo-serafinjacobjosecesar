@@ -13,6 +13,7 @@ public class GameBoard{
 	private int rows;
 	private int cols;
 	private Account playerInformation;
+	public int buttonScale=0;
 	
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
@@ -24,6 +25,7 @@ public class GameBoard{
 		playerInformation = player;
 		numOfPairs = uniqueCards.getSize();
 		int scale = 850/cols;
+		scale = (scale+170)/2;
 		uniqueCards = uniqueCards.getNewDeck(rows*cols, scale);
 		boardButtons = new Button[rows][cols];
 		gameBoardArr = new Card[rows][cols];
@@ -55,7 +57,8 @@ public class GameBoard{
 				boardButtons[i][j].setId(currCard.getName());
 				int scale = 850/cols;
 				scale = (scale+170)/2;
-//				scale =100;
+				this.buttonScale = scale;
+				
 				boardButtons[i][j].setMinSize(scale, scale);
 				boardButtons[i][j].setPadding(new Insets(0));
 				boardButtons[i][j].setFocusTraversable(false);
@@ -80,7 +83,6 @@ public class GameBoard{
 	 * flip - Flips both cards from the toCompare array to the back side of the card
 	 */
 	public void flip() {
-		System.out.println("Called");
 		int [] stCardCords = toCompare.get(0);
 		int [] ndCardCords = toCompare.get(1);
 
@@ -111,9 +113,7 @@ public class GameBoard{
 			int [] ndCardCords = toCompare.get(1);
 			String s1 = gameBoardArr[stCardCords[0]][stCardCords[1]].getName();
 			String s2 = gameBoardArr[ndCardCords[0]][ndCardCords[1]].getName();
-			System.out.println("Name1: +"+s1 +"| Name2: "+s2);
 			if(gameBoardArr[stCardCords[0]][stCardCords[1]].sameComparison(gameBoardArr[ndCardCords[0]][ndCardCords[1]])) {
-				System.out.println("they are a match");
 				boardButtons[stCardCords[0]][stCardCords[1]].setDisable(true);
 				boardButtons[stCardCords[0]][stCardCords[1]].setVisible(false);
 				
@@ -131,7 +131,6 @@ public class GameBoard{
 			}
 			toCompare.clear();
 		}
-		System.out.println(numOfPairs);
 		if(numOfPairs==0) {
 			playerInformation.setMatch(false);
 			playerInformation.win();
@@ -155,7 +154,6 @@ public class GameBoard{
 	 * @param val
 	 */
 	public void wait(boolean val) {
-		System.out.println("here");
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				Button tempButton = boardButtons[i][j];

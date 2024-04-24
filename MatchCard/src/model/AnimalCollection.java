@@ -11,6 +11,7 @@ public class AnimalCollection extends AbstractCardCollection {
 	}
 
 	private void setupDeck() {		
+		
 		addCard("Chameleon","Animals", "chameleon(front).jpg",	cols );
 		addCard("Monkey",	"Animals", "monkey(front).jpg", 	cols );
 		addCard("Pig",		"Animals", "pig(front).jpg",		cols );
@@ -24,7 +25,6 @@ public class AnimalCollection extends AbstractCardCollection {
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number,int scale) {
-		System.out.println(number+ ": cards wanted");
 		AnimalCollection temp = new AnimalCollection(10);
 		temp.getDiffDeck(number,scale);
 		return temp;

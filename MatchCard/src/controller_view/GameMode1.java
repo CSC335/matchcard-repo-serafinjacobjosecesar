@@ -28,7 +28,6 @@ public class GameMode1 extends BorderPane{
 	private Card[][] cardArr;
 	private int col;
 	private int row;
-	private int k=0;
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
@@ -37,26 +36,25 @@ public class GameMode1 extends BorderPane{
 	Account player;
 	
 	public GameMode1(Account player) {
-		System.out.println("here");
 		col = 3;
 		row = 2;
 		this.player = player;
+		int scale = 850/col;
+		scale = (scale+170)/2;
 		deck = new AnimalCollection(col);
-		int scale = 850 /col;
-		deck = deck.getNewDeck(col*row,scale);
+		deck = deck.getNewDeck(row*col, col);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
-		start(0);
+		start();
 	}
 
-	private void start(int t) {
-		k=t;
+	private void start() {
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
 		cardArr = gameboard.getCardArr();
-		for (int i = 0; i < row+k; i++) {
-			for (int j = 0; j < col+k; j++) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
 				final int row = i;
 				final int col = j;
 				final Card currCard = cardArr[i][j];
@@ -110,22 +108,14 @@ public class GameMode1 extends BorderPane{
 	
 	public void win() {
 		if (round<2) {
-			round++;
-			col++;
-			row++;
-			deck = new AnimalCollection(10);
-//			System.out.println("Col:"+col+"|Row:"+row);
-//			int scale = 850/col;
-//			scale = (scale+170)/2;
-			int scale =100;
-			deck = deck.getNewDeck(col*row, scale);
-			
+			round++; col++; row++;
+			deck = deck.getNewDeck(col*row, gameboard.buttonScale);
 			gameboard = new GameBoard(player,deck,col,row,0);
 			ButtonArr = gameboard.getButtonArray();
 			outsideContainer.getChildren().clear();
 			GridPane newPane = new GridPane();
 			gridPane = newPane;
-			start(0);
+			start();
 			return;
 		}
 		
