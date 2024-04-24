@@ -14,7 +14,7 @@ public abstract class AbstractCardCollection {
 	protected ArrayList<Card> UniCards;
 	protected int size;
 	protected int cols;
-	private int scale;
+	private String file;
 	
 	/**
 	 * AbstractCardCollection constructor for Card Collection class
@@ -34,6 +34,10 @@ public abstract class AbstractCardCollection {
 	 */
 	public ArrayList<Card> getArrayList(){
 		return Cards;
+	}
+	
+	public void setColumns(int col) {
+		cols = col;
 	}
 	
 	/**
@@ -62,10 +66,10 @@ public abstract class AbstractCardCollection {
 	 * @param file String reprensents the name of the file
 	 * @param num int reprensents the number of columns that the cards are going to be placed in
 	 */
-	public void addCard(String name, String type, String file, int num) {
-		scale = 850/num;
+	public void addCard(String name, String type, String file, int scale) {
 		Image image = getFileName(file,type);
 		Card newCard = new Card(image,name, type, scale);
+		newCard.setPath(this.file);
 		Cards.add(newCard);
 		UniCards.add(newCard);
 		size++;
@@ -83,7 +87,8 @@ public abstract class AbstractCardCollection {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
 		}
-		Image image1 = new Image(fileName+file,scale,scale,false,false);
+		this.file = fileName+file;
+		Image image1 = new Image(fileName+file,100,100,false,false);
 		return image1;
 	}	
 	
@@ -102,19 +107,26 @@ public abstract class AbstractCardCollection {
 	 * @param number int represents the wanted amount of Cards
 	 * @return ArrayList<Card> a new Deck with the wanted number of cards
 	 */
-	public ArrayList<Card> getDiffDeck(int num) {	
+	public ArrayList<Card> getDiffDeck(int number, int scale) {	
+		number = number/2;
 		if (number < size) {
 			/* Creates a new deck and adds num number of cards into the new deck
 			 * Then sets the new deck as Cards
 			 */
 			Collections.shuffle(UniCards);	
 			ArrayList<Card> newDeck = new ArrayList<Card>();
-			size = num;
-			while (num > 0) {
-				Card temp = UniCards.get(num-1);
+			size = number;
+			while (number > 0) {
+				Card temp = UniCards.get(number-1);
+				Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
+				Image scaledBack = temp.getFileName("matchCard(backClose)",scale);
+				temp.setScale(scale);
+				temp.setImage(scaledImage);
+				temp.scaleBack(scaledBack);
+				
 				newDeck.add(temp);
 				newDeck.add(temp.getPair());
-				num--;
+				number--;
 			}
 			Cards = newDeck;
 		}
@@ -144,6 +156,6 @@ public abstract class AbstractCardCollection {
 	 * @param number int represents the size of the new deck
 	 * @return AbstractCardCollection the new deck of size 'number'
 	 */
-	public abstract AbstractCardCollection getNewDeck(int number);
+	public abstract AbstractCardCollection getNewDeck(int number, int scale);
 
 }
