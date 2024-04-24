@@ -29,8 +29,4 @@ public class AnimalCollection extends AbstractCardCollection {
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}
-	
-	
-
-
 }
