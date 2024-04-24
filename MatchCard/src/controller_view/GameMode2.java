@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,6 +43,7 @@ public class GameMode2 extends BorderPane{
 	Account player;
 	private Label timerLabel;
 	private int clock = 0;
+	private Timeline timeline;
 	
 	public GameMode2(Account player) {
 		System.out.println("here");
@@ -114,12 +116,19 @@ public class GameMode2 extends BorderPane{
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
 		this.setCenter(outsideContainer);
 		initClock();
-		this.setTop(timerLabel);
+		VBox clockContainer = new VBox(timerLabel);
+		clockContainer.setAlignment(Pos.CENTER);
+		clockContainer.setMargin(timerLabel, new Insets(30));
+		this.setTop(clockContainer);
 	}
 	
 	public void initClock() {
 		timerLabel = new Label("00 : 00");
-		Timeline timeline = new Timeline(
+		
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
+		timerLabel.setStyle(labelStyles);
+		timerLabel.setAlignment(Pos.CENTER);
+		timeline = new Timeline(
 				new KeyFrame(Duration.seconds(1), event -> {
 					clock++;
 					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
@@ -129,8 +138,15 @@ public class GameMode2 extends BorderPane{
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 	}
+	
+	public void StopClock() {
+		timeline.stop();
+	}
 	public void win() {
+		this.player.setGamemode2Hiscore(clock);
+		System.out.println(String.valueOf(this.player.getG2Time()));
 		
+		StopClock();
 		Label winPrompt = new Label("You Won!");
 		returnMainMenu.setOnAction(event->{
 			
