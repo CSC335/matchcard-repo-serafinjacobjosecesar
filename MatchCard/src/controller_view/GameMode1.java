@@ -167,7 +167,7 @@ public class GameMode1 extends BorderPane{
                               "-fx-font-size: 30px;";
         returnMainMenu.setStyle(buttonStyles);
         newGame.setStyle(buttonStyles);
-
+        buttonsLayout.getChildren().addAll(returnMainMenu, newGame);
         String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
         winPrompt.setStyle(labelStyles);
 
