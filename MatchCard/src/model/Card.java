@@ -81,18 +81,24 @@ public class Card {
 		return picture;
 	}
 	
+	/**
+	 * rescale rescales the given card's picture
+	 * @param scale int the scale that the card will be sized at
+	 */
 	public void rescale(int scale) {
 		this.picture = new Image(filePath, scale, scale, false,false);
 		this.backOfCard = getFileName("matchCard(backClose)",scale);
 		
 	}
 	
-	public void setImage(Image image) {
+	/**
+	 * setImage sets the card's picture
+	 * @param image Image the picture that represents the subject
+	 */
+	public void setImage(Image image, Image back) {
 		picture = image;
-	}
-	
-	public void scaleBack(Image image) {
-		backOfCard = image;
+		backOfCard = back;
+		
 	}
 	
 	/**
