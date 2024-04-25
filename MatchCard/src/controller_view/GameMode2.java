@@ -2,12 +2,16 @@ package controller_view;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -15,6 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.AbstractCardCollection;
 import model.Account;
@@ -38,15 +44,16 @@ public class GameMode2 extends BorderPane{
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
+	private Group root = new Group();
 	boolean flag =false;
 	int round = 0;
 	Account player;
 	private Label timerLabel;
 	private int clock = 0;
 	private Timeline timeline;
+	private final Random rand = new Random();
 	
 	public GameMode2(Account player) {
-		System.out.println("here");
 		col = 4;
 		row = 2;
 		this.player = player;
@@ -143,32 +150,67 @@ public class GameMode2 extends BorderPane{
 	public void StopClock() {
 		timeline.stop();
 	}
+	
+	private Rectangle createConfettiPiece() {
+        Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
+        rect.setX(rand.nextDouble() * 950);
+        rect.setY(rand.nextDouble() * 950);
+        rect.setRotate(rand.nextDouble() * 360);
+        return rect;
+    }
+    
+    private void moveConfetti(Group root) {
+        for (Object obj : root.getChildren()) {
+            if (obj instanceof Rectangle) {
+                Rectangle rect = (Rectangle) obj;
+                rect.setY(rect.getY() + 3);
+                rect.setRotate(rect.getRotate() + 1);
+                
+                if (rect.getY() > 950) {
+                    rect.setY(-20);
+                    rect.setX(rand.nextDouble() * 950);
+                }
+            }
+        }
+    }
+    
 	public void win() {
-		this.player.setGamemode2Hiscore(clock);
-		System.out.println(String.valueOf(this.player.getG2Time()));
-		
 		StopClock();
-		Label winPrompt = new Label("You Won!");
-		returnMainMenu.setOnAction(event->{
-			
-		});
-		
-		//Styles for win condition HERE !!!!!
-		String buttonStyles = "-fx-background-color: #424549; " +
-                "-fx-text-fill: white; " +
-                "-fx-font-size: 30px;";
-		
-		returnMainMenu.setStyle(buttonStyles);
-		
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 100px;";
+	    Label winPrompt = new Label("You Won!");
+
+        VBox buttonsLayout = new VBox(10);
+        
+        //buttonsLayout.setTranslateX(950/2 - 200); // Adjust X as needed
+        //buttonsLayout.setTranslateY(); // Adjust Y as needed
+        String buttonStyles = "-fx-background-color: #424549; " +
+                              "-fx-text-fill: white; " +
+                              "-fx-font-size: 30px;";
+
+        returnMainMenu.setStyle(buttonStyles);
+        newGame.setStyle(buttonStyles);
+        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu, newGame);
+        String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
+        winPrompt.setStyle(labelStyles);
+        buttonsLayout.setAlignment(Pos.CENTER);
+        
+        int confetti = 500;
+        for (int i = 0; i < confetti; i++) {
+            Rectangle rect = createConfettiPiece();
+            root.getChildren().add(rect);
+        }
+        returnMainMenu.setOnAction(Event -> {});
+        newGame.setOnAction(Event -> {});
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 		
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
+		buttonsLayout.toFront();
+
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(winPrompt,returnMainMenu);
+		outsideContainer.getChildren().add(buttonsLayout);
+		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
 	}
-	
-
-
 }
