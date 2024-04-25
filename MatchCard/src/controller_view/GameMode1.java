@@ -52,6 +52,7 @@ public class GameMode1 extends BorderPane{
 		col = 3;
 		row = 2;
 		this.player = player;
+		
 		int scale = 850/col;
 		scale = (scale+170)/2;
 		
@@ -111,7 +112,6 @@ public class GameMode1 extends BorderPane{
 						
 					}
 					else {
-						System.out.println("Nothing happened");
 					}
 				});
 				
@@ -226,7 +226,7 @@ public class GameMode1 extends BorderPane{
 		outsideContainer.getChildren().clear();
 		outsideContainer.getChildren().addAll(returnMainMenu,root);
 		this.setCenter(outsideContainer);
-		this.player.setGamemode2Hiscore(clock);
+		this.player.setGamemode1Hiscore(clock);
 		
 	}
 

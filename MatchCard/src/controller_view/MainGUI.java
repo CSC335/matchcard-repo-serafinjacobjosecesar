@@ -209,6 +209,7 @@ public class MainGUI extends Application {
 			}
 			else {
 				int time = currAccount.getG1Time();
+				System.out.println(time+" |time?");
 				G1BestTime = new Label(String.format("%02d : %02d", time/60,time%60));
 			}
 			Label G2BestTime;

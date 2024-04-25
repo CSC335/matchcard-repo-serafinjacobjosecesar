@@ -111,7 +111,6 @@ public class GameMode2 extends BorderPane{
 						
 					}
 					else {
-						System.out.println("Nothing happened");
 					}
 				});
 				
@@ -212,5 +211,6 @@ public class GameMode2 extends BorderPane{
 		outsideContainer.getChildren().add(buttonsLayout);
 		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
+		this.player.setGamemode2Hiscore(clock);
 	}
 }
