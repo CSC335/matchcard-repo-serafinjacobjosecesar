@@ -82,6 +82,7 @@ public class LoginPane extends BorderPane {
 		logOutB.setStyle(buttonStyle);
 		createAcc.setStyle(buttonStyle);
 		
+		
 		accountNameLabel.setStyle(labelStyle);
 		passWordLabel.setStyle(labelStyle);
 		strLabel.setStyle(labelStyle);

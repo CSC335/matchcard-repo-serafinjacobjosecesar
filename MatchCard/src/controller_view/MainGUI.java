@@ -49,6 +49,7 @@ public class MainGUI extends Application {
 	private BorderPane everything;
 	//private Button playGame;
 	private Label mainMenu = new Label("Main Menu");
+	private Button shopButton = new Button("Shop");
 	private Button playgame = new Button("New Game");
 	private Button profile = new Button("Profile");
 	private Button quit = new Button("Quit");
@@ -136,9 +137,10 @@ public class MainGUI extends Application {
 		playgame.setStyle(buttonStyles);
 		profile.setStyle(buttonStyles);
 		quit.setStyle(buttonStyles);
+		shopButton.setStyle(buttonStyles);
 		
 		menuPane.setSpacing(20);
-		menuPane.getChildren().addAll(mainMenu,playgame,profile,quit);
+		menuPane.getChildren().addAll(mainMenu,playgame,shopButton,profile,quit);
 		everything.setCenter(menuPane);
 	}
 	
@@ -279,6 +281,12 @@ public class MainGUI extends Application {
 			statsPane.getChildren().addAll(passwordChangePrompt,user,bestTimeG1,G1BestTime,bestTimeG2,G2BestTime,longestStreak,highscore,
 					profileMainMenu,newPasswordField,changePasswordButton);
 			everything.setCenter(statsPane);
+		});
+		
+		shopButton.setOnAction(event -> {
+			Account currAccount = loginPane.currentAcc;
+			Shop shopDisplay = new Shop(currAccount);
+			everything.setCenter(shopDisplay);
 		});
 		
 	}
