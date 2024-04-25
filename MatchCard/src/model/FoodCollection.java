@@ -11,7 +11,6 @@ public class FoodCollection extends AbstractCardCollection {
 
 	private void setupDeck() {		
 		String type = "Food";
-		
 		addCard("Bacon-Eggs", 	type, "baconeggs(front).png",	cols);
 		addCard("Burger", 		type, "burger(front).png",		cols);
 		addCard("Hotdog", 		type, "hotdog(front).jpg",		cols);	
@@ -21,8 +20,7 @@ public class FoodCollection extends AbstractCardCollection {
 		addCard("Steak", 		type, "steak(front).png",		cols);
 		addCard("Sushi", 		type, "sushi(front).png",		cols);	
 		addCard("Taco", 		type, "taco(front).png",		cols);	
-		addCard("Wings", 		type, "wings(front).jpg",		cols);	
-		
+		addCard("Wings", 		type, "wings(front).jpg",		cols);
 		
 	}
 	@Override

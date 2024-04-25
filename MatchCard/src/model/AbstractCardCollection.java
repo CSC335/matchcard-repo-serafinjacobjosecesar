@@ -67,7 +67,7 @@ public abstract class AbstractCardCollection {
 	 * @param num int reprensents the number of columns that the cards are going to be placed in
 	 */
 	public void addCard(String name, String type, String file, int scale) {
-		Image image = getFileName(file,type);
+		Image image = getImage(file,type);
 		Card newCard = new Card(image,name, type, scale);
 		newCard.setPath(this.file);
 		Cards.add(newCard);
@@ -76,16 +76,22 @@ public abstract class AbstractCardCollection {
 		Cards.add(newCard.getPair());
 	}
 	
-	private Image getFileName(String file, String type) {
+	/**
+	 * getImage gets the image given the name of the file and folder
+	 * @param file String represents the name of the file
+	 * @param folder String represents the name of the folder
+	 * @return Image actual image of the subject
+	 */
+	private Image getImage(String file, String folder) {
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
 		
 		if (userDir.substring(0, 1).equals("/")) {
-		    fileName = "file:" + userDir + "/Card Images/"+type+"/";
+		    fileName = "file:" + userDir + "/Card Images/"+folder+"/";
 		} 
 		else {
 			userDir = userDir.replace('\\', '/');
-			fileName = "file:/" + userDir + "/Card Images/"+type+"/";
+			fileName = "file:/" + userDir + "/Card Images/"+folder+"/";
 		}
 		this.file = fileName+file;
 		Image image1 = new Image(fileName+file,100,100,false,false);
@@ -118,12 +124,7 @@ public abstract class AbstractCardCollection {
 			size = number;
 			while (number > 0) {
 				Card temp = UniCards.get(number-1);
-				Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
-				Image scaledBack = temp.getFileName("matchCard(backClose)",scale);
-				temp.setScale(scale);
-				temp.setImage(scaledImage);
-				temp.scaleBack(scaledBack);
-				
+				rescaleCard(scale, temp);
 				newDeck.add(temp);
 				newDeck.add(temp.getPair());
 				number--;
@@ -132,6 +133,13 @@ public abstract class AbstractCardCollection {
 		}
 		shuffle();
 		return Cards;
+	}
+
+	private void rescaleCard(int scale, Card temp) {
+		Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
+		Image scaledBack = temp.getFileName("matchCard(backClose)",scale);
+		temp.setScale(scale);
+		temp.setImage(scaledImage,scaledBack);
 	}
 		
 	/**
