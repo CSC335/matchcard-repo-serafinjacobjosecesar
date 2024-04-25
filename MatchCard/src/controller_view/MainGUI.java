@@ -137,6 +137,7 @@ public class MainGUI extends Application {
 		playgame.setStyle(buttonStyles);
 		profile.setStyle(buttonStyles);
 		quit.setStyle(buttonStyles);
+		shopButton.setStyle(buttonStyles);
 		
 		menuPane.setSpacing(20);
 		menuPane.getChildren().addAll(mainMenu,playgame,shopButton,profile,quit);
