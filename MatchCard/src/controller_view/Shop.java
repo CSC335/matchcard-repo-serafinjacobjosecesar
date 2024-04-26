@@ -20,6 +20,9 @@ public class Shop extends BorderPane{
 	private Button cardPreview = new Button();
 	private Label pointsAvaliabe = new Label();
 	private Account currAccount;
+	private int priceTierOne = 5;
+	private int priceTierTwo = 10;
+	private int priceTierThree = 15;
 	
 	public Shop(Account account) {
 		for (int row = 0; row < 2; row++) {
