@@ -12,6 +12,8 @@ public class Account implements Serializable {
 	private String userName,password;
 	private int longestStreak, currStreak, hiScore, currScore, points, bestTimeGamemode2 = 0, bestTimeGamemode1 = 0;
 	private Boolean hadMatch;
+	private String currCardBack;
+	private String currBackground = "-fx-background-color: #7e61ab;";
 	
 	/**
 	 * Account constructor 
