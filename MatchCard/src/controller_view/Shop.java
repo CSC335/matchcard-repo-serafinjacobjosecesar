@@ -18,6 +18,7 @@ public class Shop extends BorderPane{
 	private Button backgroundLeft = new Button();
 	private Button backgroundRight = new Button();
 	private Button cardPreview = new Button();
+	private Label pointsAvaliabe = new Label();
 	private Account currAccount;
 	
 	public Shop(Account account) {

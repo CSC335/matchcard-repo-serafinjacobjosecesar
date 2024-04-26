@@ -125,6 +125,10 @@ public class Account implements Serializable {
 		points += (points + currStreak);
 	}
 	
+	public void withdrawPoints(int withdraw) {
+		points -= withdraw;
+	}
+	
 	/**
 	 * getUsername return userName
 	 * @return userName String represents userName
