@@ -37,9 +37,9 @@ public class Shop extends BorderPane{
 		HBox secondRow = new HBox();
 		VBox shopContainer = new VBox();
 		
-		firstRow.getChildren().addAll(cardBackButtons[0][0], cardBackButtons[0][1], cardBackButtons[0][2]);
-		secondRow.getChildren().addAll(backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2]);
-		shopContainer.getChildren().addAll(firstRow, secondRow, mainMenu);
+		firstRow.getChildren().addAll(moveCardLeft, cardBackButtons[0][0], cardBackButtons[0][1], cardBackButtons[0][2], moveCardRight);
+		secondRow.getChildren().addAll(backgroundLeft, backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2], backgroundRight);
+		shopContainer.getChildren().addAll(cardPreview,firstRow, secondRow, mainMenu);
 		shopPane.setCenter(shopContainer);
 	}
 	
