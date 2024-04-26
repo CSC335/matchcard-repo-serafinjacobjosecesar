@@ -89,12 +89,12 @@ public class GameBoard{
 		Card card1 = gameBoardArr[stCardCords[0]][stCardCords[1]];
 		card1.flip();
 		ImageView backView1 = new ImageView(card1.getBackOfCard());
-		boardButtons[stCardCords[0]][stCardCords[1]].setGraphic(backView1);
+		//boardButtons[stCardCords[0]][stCardCords[1]].setGraphic(backView1);
 		
 		Card card2 = gameBoardArr[ndCardCords[0]][ndCardCords[1]];
 		card2.flip();
 		ImageView backView2 = new ImageView(card2.getBackOfCard());
-		boardButtons[ndCardCords[0]][ndCardCords[1]].setGraphic(backView2);
+		//boardButtons[ndCardCords[0]][ndCardCords[1]].setGraphic(backView2);
 		
 	/*
 	 * will be used for future iteration for the game flipping down both
