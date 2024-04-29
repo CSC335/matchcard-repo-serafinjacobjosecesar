@@ -1,5 +1,6 @@
 package controller_view;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -40,13 +41,24 @@ public class Shop extends BorderPane{
 	}
 
 	private void configLayout() {
-		HBox firstRow = new HBox();
-		HBox secondRow = new HBox();
+		HBox cardFirstRow = new HBox();
+		HBox cardSecondRow = new HBox();
+		HBox backgroundFirstRow = new HBox();
+		HBox backgroundSecondRow = new HBox();		
 		VBox shopContainer = new VBox();
 		
-		firstRow.getChildren().addAll(moveCardLeft, cardBackButtons[0][0], cardBackButtons[0][1], cardBackButtons[0][2], moveCardRight);
-		secondRow.getChildren().addAll(backgroundLeft, backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2], backgroundRight);
-		shopContainer.getChildren().addAll(pointsAvaliable, cardPreview,firstRow, secondRow, mainMenu);
+		cardFirstRow.getChildren().addAll(cardBackButtons[0][0], cardBackButtons[0][1], cardBackButtons[0][2]);
+		cardSecondRow.getChildren().addAll(cardBackButtons[1][0], cardBackButtons[1][1], cardBackButtons[1][2]);
+		backgroundFirstRow.getChildren().addAll(backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2]);
+		backgroundSecondRow.getChildren().addAll(backgroundButtons[1][0], backgroundButtons[1][1], backgroundButtons[1][2]);
+		shopContainer.getChildren().addAll(pointsAvaliable, cardPreview,cardFirstRow, cardSecondRow, backgroundFirstRow, backgroundSecondRow, mainMenu);
+		cardFirstRow.setAlignment(Pos.CENTER);
+		cardSecondRow.setAlignment(Pos.CENTER);
+		backgroundFirstRow.setAlignment(Pos.CENTER);
+		backgroundSecondRow.setAlignment(Pos.CENTER);
+		shopContainer.setAlignment(Pos.CENTER);
+		
+		
 		shopPane.setCenter(shopContainer);
 		this.setCenter(shopPane);
 	}
