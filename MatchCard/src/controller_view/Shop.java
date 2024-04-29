@@ -48,6 +48,7 @@ public class Shop extends BorderPane{
 		secondRow.getChildren().addAll(backgroundLeft, backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2], backgroundRight);
 		shopContainer.getChildren().addAll(pointsAvaliable, cardPreview,firstRow, secondRow, mainMenu);
 		shopPane.setCenter(shopContainer);
+		this.setCenter(shopPane);
 	}
 	
 	private void buttonHandlers() {
