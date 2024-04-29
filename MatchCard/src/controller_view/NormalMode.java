@@ -10,8 +10,6 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -25,11 +23,13 @@ import javafx.util.Duration;
 import model.AbstractCardCollection;
 import model.Account;
 import model.AnimalCollection;
+import model.CarCollection;
 import model.Card;
+import model.FoodCollection;
 import model.GameBoard;
 
 
-public class GameMode2 extends BorderPane{
+public class NormalMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -42,7 +42,6 @@ public class GameMode2 extends BorderPane{
 	private int row;
 	private int k=0;
 	public Button returnMainMenu = new Button("Main Menu");
-	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
 	private Group root = new Group();
 	boolean flag =false;
@@ -53,11 +52,11 @@ public class GameMode2 extends BorderPane{
 	private Timeline timeline;
 	private final Random rand = new Random();
 	
-	public GameMode2(Account player) {
+	public NormalMode(Account player) {
 		col = 4;
 		row = 2;
 		this.player = player;
-		deck = new AnimalCollection(col);
+		deck = new CarCollection(col);
 		
 		int scale = 850 /col;
 		deck = deck.getNewDeck(col*row,scale);
@@ -163,10 +162,9 @@ public class GameMode2 extends BorderPane{
             if (obj instanceof Rectangle) {
                 Rectangle rect = (Rectangle) obj;
                 rect.setY(rect.getY() + 3);
-                rect.setRotate(rect.getRotate() + 1);
-                
+                rect.setRotate(rect.getRotate());
                 if (rect.getY() > 950) {
-                    rect.setY(-20);
+                    rect.setY(-10);
                     rect.setX(rand.nextDouble() * 950);
                 }
             }
@@ -186,19 +184,18 @@ public class GameMode2 extends BorderPane{
                               "-fx-font-size: 30px;";
 
         returnMainMenu.setStyle(buttonStyles);
-        newGame.setStyle(buttonStyles);
-        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu, newGame);
+        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu);
         String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
         winPrompt.setStyle(labelStyles);
         buttonsLayout.setAlignment(Pos.CENTER);
         
-        int confetti = 500;
+        int confetti = 750;
         for (int i = 0; i < confetti; i++) {
             Rectangle rect = createConfettiPiece();
             root.getChildren().add(rect);
         }
+        
         returnMainMenu.setOnAction(Event -> {});
-        newGame.setOnAction(Event -> {});
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -206,9 +203,8 @@ public class GameMode2 extends BorderPane{
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
 		buttonsLayout.toFront();
-
+		setTop(buttonsLayout);
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().add(buttonsLayout);
 		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
 		this.player.setGamemode2Hiscore(clock);

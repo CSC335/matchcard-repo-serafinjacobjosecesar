@@ -26,7 +26,7 @@ import model.Card;
 import model.GameBoard;
 import model.WinScreen;
 
-public class GameMode1 extends BorderPane{
+public class RoundMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -39,7 +39,6 @@ public class GameMode1 extends BorderPane{
 	private int row;
 	private Group root = new Group();
 	public Button returnMainMenu = new Button("Main Menu");
-	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
 	boolean flag =false;
 	int round = 0;
@@ -48,7 +47,7 @@ public class GameMode1 extends BorderPane{
 	private Timeline timerliner;
 	private int clock =0;
 	
-	public GameMode1(Account player) {
+	public RoundMode(Account player) {
 		col = 3;
 		row = 2;
 		this.player = player;
@@ -117,16 +116,10 @@ public class GameMode1 extends BorderPane{
 				
 			}
 		}
-		
 		outsideContainer.setAlignment(Pos.CENTER);
 		statusOfGame.setAlignment(Pos.CENTER);
 		moveContainer.setAlignment(Pos.CENTER);
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
-//		initClock();
-//		VBox clockContainer = new VBox(timerLabel);
-//		clockContainer.setAlignment(Pos.CENTER);
-//		clockContainer.setMargin(timerLabel, new Insets(5));
-//		this.setTop(clockContainer);
 		this.setCenter(outsideContainer);
 	}
 	
@@ -145,7 +138,7 @@ public class GameMode1 extends BorderPane{
             if (obj instanceof Rectangle) {
                 Rectangle rect = (Rectangle) obj;
                 rect.setY(rect.getY() + 3);
-                rect.setRotate(rect.getRotate() + 1);
+                rect.setRotate(rect.getRotate() + 3);
 
                 if (rect.getY() > 950) {
                     rect.setY(-10);
@@ -175,24 +168,17 @@ public class GameMode1 extends BorderPane{
 		timerliner.stop();
 	}
 	
+	/**
+	 * win Goes to Win page until all 3 rounds of cards has been played
+	 */
 	public void win() {
-//		
 		if (round<2) {
-			round++; col++; row++;
-			deck = deck.getNewDeck(col*row, gameboard.buttonScale);
-			gameboard = new GameBoard(player,deck,col,row,0);
-			ButtonArr = gameboard.getButtonArray();
-			outsideContainer.getChildren().clear();
-			GridPane newPane = new GridPane();
-			gridPane = newPane;
+			updateGame();
 			start();
 			return;
 		}
-		
 		StopClock();
-		
 	    Label winPrompt = new Label("You Won!");
-	    Button newGame = new Button("New Game");
 
         VBox buttonsLayout = new VBox(10);
         
@@ -201,33 +187,47 @@ public class GameMode1 extends BorderPane{
         String buttonStyles = "-fx-background-color: #424549; " +
                               "-fx-text-fill: white; " +
                               "-fx-font-size: 30px;";
+
         returnMainMenu.setStyle(buttonStyles);
-        returnMainMenu.setOnAction(event->{
-		});
-        
-        newGame.setStyle(buttonStyles);
-        buttonsLayout.getChildren().addAll(returnMainMenu);
+        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu);
         String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
         winPrompt.setStyle(labelStyles);
-
-        int confetti = 500;
+        buttonsLayout.setAlignment(Pos.CENTER);
+        
+        int confetti = 750;
         for (int i = 0; i < confetti; i++) {
             Rectangle rect = createConfettiPiece();
             root.getChildren().add(rect);
         }
-        root.getChildren().add(buttonsLayout);
-//
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> moveConfetti(root)));
-        timeline.setCycleCount(timeline.INDEFINITE);
+        
+        returnMainMenu.setOnAction(Event -> {});
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-//		
+		
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
+		buttonsLayout.toFront();
+		setTop(buttonsLayout);
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(returnMainMenu,root);
+		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
-		this.player.setGamemode1Hiscore(clock);
-		
+		this.player.setGamemode2Hiscore(clock);
+	}
+
+	/**
+	 * updateGame Updates the game, adds another column and row to the board. Adds more cards to the deck
+	 */
+	private void updateGame() {
+		round++; 
+		col++; 
+		row++;
+		deck = deck.getNewDeck(col*row, gameboard.buttonScale);
+		gameboard = new GameBoard(player,deck,col,row,0);
+		ButtonArr = gameboard.getButtonArray();
+		outsideContainer.getChildren().clear();
+		GridPane newPane = new GridPane();
+		gridPane = newPane;
 	}
 
 }
