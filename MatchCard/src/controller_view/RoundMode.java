@@ -1,6 +1,5 @@
 package controller_view;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,8 +9,6 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -27,9 +24,9 @@ import model.Account;
 import model.AnimalCollection;
 import model.Card;
 import model.GameBoard;
+import model.WinScreen;
 
-
-public class GameMode2 extends BorderPane{
+public class RoundMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -40,40 +37,43 @@ public class GameMode2 extends BorderPane{
 	private Card[][] cardArr;
 	private int col;
 	private int row;
-	private int k=0;
-	public Button returnMainMenu = new Button("Main Menu");
-	public Button newGame = new Button("New Game");
-	private ArrayList<int[]> toCompare = new ArrayList<>();
 	private Group root = new Group();
+	public Button returnMainMenu = new Button("Main Menu");
+	private ArrayList<int[]> toCompare = new ArrayList<>();
 	boolean flag =false;
 	int round = 0;
 	Account player;
 	private Label timerLabel;
-	private int clock = 0;
-	private Timeline timeline;
-	private final Random rand = new Random();
+	private Timeline timerliner;
+	private int clock =0;
 	
-	public GameMode2(Account player) {
-		col = 4;
+	public RoundMode(Account player) {
+		col = 3;
 		row = 2;
 		this.player = player;
-		deck = new AnimalCollection(col);
 		
-		int scale = 850 /col;
-		deck = deck.getNewDeck(col*row,scale);
+		int scale = 850/col;
+		scale = (scale+170)/2;
+		
+		deck = new AnimalCollection(col);
+		deck = deck.getNewDeck(row*col, col);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
-		start(0);
+		initClock();
+		VBox clockContainer = new VBox(timerLabel);
+		clockContainer.setAlignment(Pos.CENTER);
+		clockContainer.setMargin(timerLabel, new Insets(5));
+		this.setTop(clockContainer);
+		start();
 	}
 
-	private void start(int t) {
-		k=t;
+	private void start() {
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
 		cardArr = gameboard.getCardArr();
-		for (int i = 0; i < row+k; i++) {
-			for (int j = 0; j < col+k; j++) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
 				final int row = i;
 				final int col = j;
 				final Card currCard = cardArr[i][j];
@@ -111,47 +111,20 @@ public class GameMode2 extends BorderPane{
 						
 					}
 					else {
-						System.out.println("Nothing happened");
 					}
 				});
 				
 			}
 		}
-		
 		outsideContainer.setAlignment(Pos.CENTER);
 		statusOfGame.setAlignment(Pos.CENTER);
 		moveContainer.setAlignment(Pos.CENTER);
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
 		this.setCenter(outsideContainer);
-		initClock();
-		VBox clockContainer = new VBox(timerLabel);
-		clockContainer.setAlignment(Pos.CENTER);
-		clockContainer.setMargin(timerLabel, new Insets(30));
-		this.setTop(clockContainer);
 	}
 	
-	public void initClock() {
-		timerLabel = new Label("00 : 00");
-		
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
-		timerLabel.setStyle(labelStyles);
-		timerLabel.setAlignment(Pos.CENTER);
-		timeline = new Timeline(
-				new KeyFrame(Duration.seconds(1), event -> {
-					clock++;
-					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
-					timerLabel.setText(timerStr);
-				})
-		);
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
-	}
-	
-	public void StopClock() {
-		timeline.stop();
-	}
-	
-	private Rectangle createConfettiPiece() {
+    private Rectangle createConfettiPiece() {
+	    final Random rand = new Random();
         Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         rect.setX(rand.nextDouble() * 950);
         rect.setY(rand.nextDouble() * 950);
@@ -160,21 +133,50 @@ public class GameMode2 extends BorderPane{
     }
     
     private void moveConfetti(Group root) {
+	    final Random rand = new Random();
         for (Object obj : root.getChildren()) {
             if (obj instanceof Rectangle) {
                 Rectangle rect = (Rectangle) obj;
                 rect.setY(rect.getY() + 3);
-                rect.setRotate(rect.getRotate() + 1);
-                
+                rect.setRotate(rect.getRotate() + 3);
+
                 if (rect.getY() > 950) {
-                    rect.setY(-20);
+                    rect.setY(-10);
                     rect.setX(rand.nextDouble() * 950);
                 }
             }
         }
     }
     
+    public void initClock() {
+		timerLabel = new Label("00 : 00");
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 20px;";
+		timerLabel.setStyle(labelStyles);
+		timerLabel.setAlignment(Pos.CENTER);
+		timerliner = new Timeline(
+				new KeyFrame(Duration.seconds(1), event -> {
+					clock++;
+					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
+					timerLabel.setText(timerStr);
+				})
+		);
+		timerliner.setCycleCount(Timeline.INDEFINITE);
+		timerliner.play();
+	}
+	
+	public void StopClock() {
+		timerliner.stop();
+	}
+	
+	/**
+	 * win Goes to Win page until all 3 rounds of cards has been played
+	 */
 	public void win() {
+		if (round<2) {
+			updateGame();
+			start();
+			return;
+		}
 		StopClock();
 	    Label winPrompt = new Label("You Won!");
 
@@ -187,19 +189,18 @@ public class GameMode2 extends BorderPane{
                               "-fx-font-size: 30px;";
 
         returnMainMenu.setStyle(buttonStyles);
-        newGame.setStyle(buttonStyles);
-        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu, newGame);
+        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu);
         String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
         winPrompt.setStyle(labelStyles);
         buttonsLayout.setAlignment(Pos.CENTER);
         
-        int confetti = 500;
+        int confetti = 750;
         for (int i = 0; i < confetti; i++) {
             Rectangle rect = createConfettiPiece();
             root.getChildren().add(rect);
         }
+        
         returnMainMenu.setOnAction(Event -> {});
-        newGame.setOnAction(Event -> {});
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -207,10 +208,26 @@ public class GameMode2 extends BorderPane{
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
 		buttonsLayout.toFront();
-
+		setTop(buttonsLayout);
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().add(buttonsLayout);
 		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
+		this.player.setGamemode2Hiscore(clock);
 	}
+
+	/**
+	 * updateGame Updates the game, adds another column and row to the board. Adds more cards to the deck
+	 */
+	private void updateGame() {
+		round++; 
+		col++; 
+		row++;
+		deck = deck.getNewDeck(col*row, gameboard.buttonScale);
+		gameboard = new GameBoard(player,deck,col,row,0);
+		ButtonArr = gameboard.getButtonArray();
+		outsideContainer.getChildren().clear();
+		GridPane newPane = new GridPane();
+		gridPane = newPane;
+	}
+
 }

@@ -1,5 +1,6 @@
 package controller_view;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,11 +23,13 @@ import javafx.util.Duration;
 import model.AbstractCardCollection;
 import model.Account;
 import model.AnimalCollection;
+import model.CarCollection;
 import model.Card;
+import model.FoodCollection;
 import model.GameBoard;
-import model.WinScreen;
 
-public class GameMode1 extends BorderPane{
+
+public class NormalMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
 	private HBox moveContainer = new HBox(statusOfGame);
@@ -37,43 +40,39 @@ public class GameMode1 extends BorderPane{
 	private Card[][] cardArr;
 	private int col;
 	private int row;
-	private Group root = new Group();
+	private int k=0;
 	public Button returnMainMenu = new Button("Main Menu");
-	public Button newGame = new Button("New Game");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
+	private Group root = new Group();
 	boolean flag =false;
 	int round = 0;
 	Account player;
 	private Label timerLabel;
-	private Timeline timerliner;
-	private int clock =0;
+	private int clock = 0;
+	private Timeline timeline;
+	private final Random rand = new Random();
 	
-	public GameMode1(Account player) {
-		col = 3;
+	public NormalMode(Account player) {
+		col = 4;
 		row = 2;
 		this.player = player;
-		int scale = 850/col;
-		scale = (scale+170)/2;
+		deck = new CarCollection(col);
 		
-		deck = new AnimalCollection(col);
-		deck = deck.getNewDeck(row*col, col);
+		int scale = 850 /col;
+		deck = deck.getNewDeck(col*row,scale);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
-		initClock();
-		VBox clockContainer = new VBox(timerLabel);
-		clockContainer.setAlignment(Pos.CENTER);
-		clockContainer.setMargin(timerLabel, new Insets(5));
-		this.setTop(clockContainer);
-		start();
+		start(0);
 	}
 
-	private void start() {
+	private void start(int t) {
+		k=t;
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
 		cardArr = gameboard.getCardArr();
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
+		for (int i = 0; i < row+k; i++) {
+			for (int j = 0; j < col+k; j++) {
 				final int row = i;
 				final int col = j;
 				final Card currCard = cardArr[i][j];
@@ -111,7 +110,6 @@ public class GameMode1 extends BorderPane{
 						
 					}
 					else {
-						System.out.println("Nothing happened");
 					}
 				});
 				
@@ -122,16 +120,36 @@ public class GameMode1 extends BorderPane{
 		statusOfGame.setAlignment(Pos.CENTER);
 		moveContainer.setAlignment(Pos.CENTER);
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
-//		initClock();
-//		VBox clockContainer = new VBox(timerLabel);
-//		clockContainer.setAlignment(Pos.CENTER);
-//		clockContainer.setMargin(timerLabel, new Insets(5));
-//		this.setTop(clockContainer);
 		this.setCenter(outsideContainer);
+		initClock();
+		VBox clockContainer = new VBox(timerLabel);
+		clockContainer.setAlignment(Pos.CENTER);
+		clockContainer.setMargin(timerLabel, new Insets(30));
+		this.setTop(clockContainer);
 	}
 	
-    private Rectangle createConfettiPiece() {
-	    final Random rand = new Random();
+	public void initClock() {
+		timerLabel = new Label("00 : 00");
+		
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
+		timerLabel.setStyle(labelStyles);
+		timerLabel.setAlignment(Pos.CENTER);
+		timeline = new Timeline(
+				new KeyFrame(Duration.seconds(1), event -> {
+					clock++;
+					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
+					timerLabel.setText(timerStr);
+				})
+		);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+	}
+	
+	public void StopClock() {
+		timeline.stop();
+	}
+	
+	private Rectangle createConfettiPiece() {
         Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         rect.setX(rand.nextDouble() * 950);
         rect.setY(rand.nextDouble() * 950);
@@ -140,13 +158,11 @@ public class GameMode1 extends BorderPane{
     }
     
     private void moveConfetti(Group root) {
-	    final Random rand = new Random();
         for (Object obj : root.getChildren()) {
             if (obj instanceof Rectangle) {
                 Rectangle rect = (Rectangle) obj;
                 rect.setY(rect.getY() + 3);
-                rect.setRotate(rect.getRotate() + 1);
-
+                rect.setRotate(rect.getRotate());
                 if (rect.getY() > 950) {
                     rect.setY(-10);
                     rect.setX(rand.nextDouble() * 950);
@@ -155,44 +171,9 @@ public class GameMode1 extends BorderPane{
         }
     }
     
-    public void initClock() {
-		timerLabel = new Label("00 : 00");
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 20px;";
-		timerLabel.setStyle(labelStyles);
-		timerLabel.setAlignment(Pos.CENTER);
-		timerliner = new Timeline(
-				new KeyFrame(Duration.seconds(1), event -> {
-					clock++;
-					String timerStr = String.format("%02d : %02d", clock/60,clock%60);
-					timerLabel.setText(timerStr);
-				})
-		);
-		timerliner.setCycleCount(Timeline.INDEFINITE);
-		timerliner.play();
-	}
-	
-	public void StopClock() {
-		timerliner.stop();
-	}
-	
 	public void win() {
-//		
-		if (round<2) {
-			round++; col++; row++;
-			deck = deck.getNewDeck(col*row, gameboard.buttonScale);
-			gameboard = new GameBoard(player,deck,col,row,0);
-			ButtonArr = gameboard.getButtonArray();
-			outsideContainer.getChildren().clear();
-			GridPane newPane = new GridPane();
-			gridPane = newPane;
-			start();
-			return;
-		}
-		
 		StopClock();
-		
 	    Label winPrompt = new Label("You Won!");
-	    Button newGame = new Button("New Game");
 
         VBox buttonsLayout = new VBox(10);
         
@@ -201,33 +182,31 @@ public class GameMode1 extends BorderPane{
         String buttonStyles = "-fx-background-color: #424549; " +
                               "-fx-text-fill: white; " +
                               "-fx-font-size: 30px;";
+
         returnMainMenu.setStyle(buttonStyles);
-        returnMainMenu.setOnAction(event->{
-		});
-        
-        newGame.setStyle(buttonStyles);
-        buttonsLayout.getChildren().addAll(returnMainMenu);
+        buttonsLayout.getChildren().addAll(winPrompt, returnMainMenu);
         String labelStyles = "-fx-text-fill: black; " + "-fx-font-size: 100px;";
         winPrompt.setStyle(labelStyles);
-
-        int confetti = 500;
+        buttonsLayout.setAlignment(Pos.CENTER);
+        
+        int confetti = 750;
         for (int i = 0; i < confetti; i++) {
             Rectangle rect = createConfettiPiece();
             root.getChildren().add(rect);
         }
-        root.getChildren().add(buttonsLayout);
-//
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(10), e -> moveConfetti(root)));
-        timeline.setCycleCount(timeline.INDEFINITE);
+        
+        returnMainMenu.setOnAction(Event -> {});
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-//		
+		
 		winPrompt.setAlignment(Pos.CENTER);
 		winPrompt.setStyle(labelStyles);
+		buttonsLayout.toFront();
+		setTop(buttonsLayout);
 		outsideContainer.getChildren().clear();
-		outsideContainer.getChildren().addAll(returnMainMenu,root);
+		outsideContainer.getChildren().add(root);
 		this.setCenter(outsideContainer);
 		this.player.setGamemode2Hiscore(clock);
-		
 	}
-
 }
