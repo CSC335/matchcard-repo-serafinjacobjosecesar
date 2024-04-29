@@ -18,7 +18,7 @@ public class Shop extends BorderPane{
 	private Button backgroundLeft = new Button();
 	private Button backgroundRight = new Button();
 	private Button cardPreview = new Button();
-	private Label pointsAvaliabe = new Label();
+	private Label pointsAvaliable;
 	private Account currAccount;
 	private int priceTierOne = 5;
 	private int priceTierTwo = 10;
@@ -32,7 +32,10 @@ public class Shop extends BorderPane{
 			}
 		}
 		currAccount = account;
+		pointsAvaliable = new Label("Points: " + currAccount.getPoints());
+		cardPreview.setDisable(true);
 		configLayout();
+		buttonHandlers();
 		mainMenu.setOnAction(event -> {});
 	}
 
@@ -43,10 +46,34 @@ public class Shop extends BorderPane{
 		
 		firstRow.getChildren().addAll(moveCardLeft, cardBackButtons[0][0], cardBackButtons[0][1], cardBackButtons[0][2], moveCardRight);
 		secondRow.getChildren().addAll(backgroundLeft, backgroundButtons[0][0], backgroundButtons[0][1], backgroundButtons[0][2], backgroundRight);
-		shopContainer.getChildren().addAll(cardPreview,firstRow, secondRow, mainMenu);
+		shopContainer.getChildren().addAll(pointsAvaliable, cardPreview,firstRow, secondRow, mainMenu);
 		shopPane.setCenter(shopContainer);
 	}
 	
-	
+	private void buttonHandlers() {
+		moveCardLeft.setOnAction(event -> {
+			
+		});
+		
+		moveCardRight.setOnAction(event -> {
+			
+		});
+		
+		backgroundLeft.setOnAction(event -> {
+			
+		});
+		
+		backgroundRight.setOnAction(event -> {
+			
+		});
+		
+		for (Button[] currButtons : cardBackButtons) {
+			for (Button button : currButtons) {
+				button.setOnAction(event -> {
+					
+				});
+			}
+		}
+	}
 
 }
