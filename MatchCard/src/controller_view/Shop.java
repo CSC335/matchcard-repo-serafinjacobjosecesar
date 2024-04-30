@@ -19,9 +19,8 @@ public class Shop extends BorderPane{
 	private Button cardPreview = new Button();
 	private Label pointsAvaliable;
 	private Account currAccount;
-	private int priceTierOne = 5;
-	private int priceTierTwo = 10;
-	private int priceTierThree = 15;
+	private int cardPrice = 100;
+	private int backgroundPrice = 200;
 	private Label tier1 = new Label("Tier 1");
 	private Label tier2 = new Label("Tier 2");
 	private Label tier3 = new Label("Tier 3");
@@ -29,6 +28,7 @@ public class Shop extends BorderPane{
 	
 	public Shop(Account account) {
 		
+		cardPreview.setPrefSize(100, 100);
 		if(account.getBack()!=null) {
 			Image back = new Image(account.getBack());
 			ImageView backView = new ImageView(back);
@@ -41,7 +41,6 @@ public class Shop extends BorderPane{
 
 		currAccount = account;
 		pointsAvaliable = new Label("Points: " + currAccount.getPoints());
-		cardPreview.setDisable(true);
 		configLayout();
 		buttonHandlers();
 		returnMainMenu.setOnAction(event -> {});
@@ -89,26 +88,59 @@ public class Shop extends BorderPane{
 	}
 	
 	private void buttonHandlers() {
-		
 		for (Button currItem : items)  {
 				currItem.setOnAction(event -> {
 					
-					if(currItem.getId().contains("-fx-background-color:")) {
-						String background = currItem.getId();
-						currAccount.setCurrBackground(background);
-						this.setStyle(background);
+					
+					if(!currAccount.inventory.contains(currItem.getId())) {
+						int price = getPrice(currItem);
+						if(currAccount.getPoints()>=price) {
+							purchase(price);
+							setItem(currItem);
+							currAccount.inventory.add(currItem.getId());
+							updatePoints();
+						}
 					}
 					else {
-						String cardBack = currItem.getId();
-						currAccount.setCurrCardBack(cardBack);
-						
-						Image cardBackImg = getFileName(cardBack,100);
-						ImageView cardBackView = new ImageView(cardBackImg);
-						cardPreview.setGraphic(cardBackView);
+						setItem(currItem);
 					}
+					
 				});
 		}
 		
+	}
+	
+	private void setItem(Button currItem) {
+		if(currItem.getId().contains("-fx-background-color:")) {
+			String background = currItem.getId();
+			currAccount.setCurrBackground(background);
+			this.setStyle(background);
+		}
+		else {
+				String cardBack = currItem.getId();
+				currAccount.setCurrCardBack(cardBack);
+				
+				Image cardBackImg = getFileName(cardBack,100);
+				ImageView cardBackView = new ImageView(cardBackImg);
+				cardPreview.setGraphic(cardBackView);
+				
+				}
+		}
+	
+	private int getPrice(Button currItem) {
+		if(currItem.getId().contains("-fx-background-color:")) {
+			return backgroundPrice;
+			}
+		return cardPrice;
+		}
+	
+	private void purchase(int price) {
+		currAccount.withdrawPoints(price);
+		updatePoints();
+	}
+	
+	private void updatePoints() {
+		pointsAvaliable.setText("Points: " + currAccount.getPoints());
 	}
 	
 	private void itemSetting() {
