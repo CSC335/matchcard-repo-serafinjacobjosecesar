@@ -134,6 +134,7 @@ public class Account implements Serializable {
 			return;
 		}
 		points += (points + currStreak);
+		System.out.println("(Account 137) points: " + points);
 	}
 	
 	public void withdrawPoints(int withdraw) {
