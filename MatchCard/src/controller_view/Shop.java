@@ -15,13 +15,12 @@ public class Shop extends BorderPane{
 	private BorderPane shopPane = new BorderPane();
 	private Label cardSkins = new Label("Card Skins");
 	private Button[] items = new Button[12];
-	private Button mainMenu = new Button("Main Menu");
+	public Button returnMainMenu = new Button("Main Menu");
 	private Button cardPreview = new Button();
 	private Label pointsAvaliable;
 	private Account currAccount;
-	private int priceTierOne = 5;
-	private int priceTierTwo = 10;
-	private int priceTierThree = 15;
+	private int cardPrice = 100;
+	private int backgroundPrice = 200;
 	private Label tier1 = new Label("Tier 1");
 	private Label tier2 = new Label("Tier 2");
 	private Label tier3 = new Label("Tier 3");
@@ -29,6 +28,7 @@ public class Shop extends BorderPane{
 	
 	public Shop(Account account) {
 		
+		cardPreview.setPrefSize(100, 100);
 		if(account.getBack()!=null) {
 			Image back = new Image(account.getBack());
 			ImageView backView = new ImageView(back);
@@ -41,10 +41,9 @@ public class Shop extends BorderPane{
 
 		currAccount = account;
 		pointsAvaliable = new Label("Points: " + currAccount.getPoints());
-		cardPreview.setDisable(true);
 		configLayout();
 		buttonHandlers();
-		mainMenu.setOnAction(event -> {});
+		returnMainMenu.setOnAction(event -> {});
 	}
 
 	private void configLayout() {
@@ -59,6 +58,7 @@ public class Shop extends BorderPane{
 		itemSetting();
 		for(Button currItem: items) {
 			if(currItem.getId().contains("-fx-background-color:")) {
+				currItem.setPrefSize(100, 100);
 				String background = currItem.getId();
 				currItem.setStyle(background);
 			}
@@ -76,7 +76,7 @@ public class Shop extends BorderPane{
 		tier2Row.getChildren().addAll(items[4],items[5],items[6],items[7]);
 		tier3Row.getChildren().addAll(items[8],items[9],items[10],items[11]);
 		shopContainer.getChildren().addAll(pointsAvaliable, cardPreview,sysReply,tier1,tier1Row,
-											tier2,tier2Row,tier3,tier3Row, mainMenu);
+											tier2,tier2Row,tier3,tier3Row, returnMainMenu);
 		tier1Row.setAlignment(Pos.CENTER);
 		tier2Row.setAlignment(Pos.CENTER);
 		tier3Row.setAlignment(Pos.CENTER);
@@ -88,25 +88,59 @@ public class Shop extends BorderPane{
 	}
 	
 	private void buttonHandlers() {
-		
 		for (Button currItem : items)  {
 				currItem.setOnAction(event -> {
 					
-					if(currItem.getId().contains("-fx-background-color:")) {
-						String background = currItem.getId();
-						currAccount.setCurrBackground(background);
+					
+					if(!currAccount.inventory.contains(currItem.getId())) {
+						int price = getPrice(currItem);
+						if(currAccount.getPoints()>=price) {
+							purchase(price);
+							setItem(currItem);
+							currAccount.inventory.add(currItem.getId());
+							updatePoints();
+						}
 					}
 					else {
-						String cardBack = currItem.getId();
-						currAccount.setCurrCardBack(cardBack);
-						
-						Image cardBackImg = getFileName(cardBack,100);
-						ImageView cardBackView = new ImageView(cardBackImg);
-						cardPreview.setGraphic(cardBackView);
+						setItem(currItem);
 					}
+					
 				});
 		}
 		
+	}
+	
+	private void setItem(Button currItem) {
+		if(currItem.getId().contains("-fx-background-color:")) {
+			String background = currItem.getId();
+			currAccount.setCurrBackground(background);
+			this.setStyle(background);
+		}
+		else {
+				String cardBack = currItem.getId();
+				currAccount.setCurrCardBack(cardBack);
+				
+				Image cardBackImg = getFileName(cardBack,100);
+				ImageView cardBackView = new ImageView(cardBackImg);
+				cardPreview.setGraphic(cardBackView);
+				
+				}
+		}
+	
+	private int getPrice(Button currItem) {
+		if(currItem.getId().contains("-fx-background-color:")) {
+			return backgroundPrice;
+			}
+		return cardPrice;
+		}
+	
+	private void purchase(int price) {
+		currAccount.withdrawPoints(price);
+		updatePoints();
+	}
+	
+	private void updatePoints() {
+		pointsAvaliable.setText("Points: " + currAccount.getPoints());
 	}
 	
 	private void itemSetting() {
@@ -114,20 +148,20 @@ public class Shop extends BorderPane{
 		//tier 1
 		items[0].setId("blackAndWhite(back_uneditted)");
 		items[1].setId("CartoonStyle(back_uneditted)");
-		items[2].setId("-fx-background-color: #7e61ab;");
-		items[3].setId("-fx-background-color: #7e61ab;");
+		items[2].setId("-fx-background-color: #61ab8c;");
+		items[3].setId("-fx-background-color: #61ab8c;");
 		
 		//tier 2
 		items[4].setId("cyberPunk(back_uneditted)");
 		items[5].setId("EightBit(back_uneditted)");
-		items[6].setId("-fx-background-color: #7e61ab;");
-		items[7].setId("-fx-background-color: #7e61ab;");
+		items[6].setId("-fx-background-color: #61ab8c;");
+		items[7].setId("-fx-background-color: #61ab8c;");
 		
 		//tier 3
 		items[8].setId("horseAss(back_uneditted)");
 		items[9].setId("steamPunk(back_uneditted)");
-		items[10].setId("-fx-background-color: #7e61ab;");
-		items[11].setId("-fx-background-color: #7e61ab;");
+		items[10].setId("-fx-background-color: #61ab8c;");
+		items[11].setId("-fx-background-color: #61ab8c;");
 	}
 	
 	public Image getFileName(String str, int scale) {

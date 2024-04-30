@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Account class that represents the user's account
@@ -16,6 +17,7 @@ public class Account implements Serializable {
 	private Boolean hadMatch;
 	private String currCardBack = null;
 	private String currBackground = "-fx-background-color: #7e61ab;";
+	public ArrayList<String> inventory = new ArrayList<>();
 	
 	/**
 	 * Account constructor 
@@ -29,7 +31,7 @@ public class Account implements Serializable {
 		currStreak = 0;
 		hiScore = 0;
 		currScore = 0;
-		points = 0;
+		points = 500;
 		hadMatch = false;
 	}
 	

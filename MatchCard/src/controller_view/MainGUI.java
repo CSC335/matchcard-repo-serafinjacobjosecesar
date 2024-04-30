@@ -195,6 +195,10 @@ public class MainGUI extends Application {
 			Account currAccount = loginPane.currentAcc;
 			Shop shopDisplay = new Shop(currAccount);
 			everything.setCenter(shopDisplay);
+			
+			shopDisplay.returnMainMenu.addEventFilter(ActionEvent.ACTION, event1 ->{
+				LayoutMainMenu();
+			});
 		});
 		
 		
