@@ -23,22 +23,17 @@ public abstract class AbstractCardCollection {
 	 * initializes Collections - an array list of Card objects
 	 * @param int Integer dictates size of images(front/back of card)
 	 */
-	public AbstractCardCollection(int num) {
-		this.Cards = new ArrayList<Card>();
-		this.UniCards = new ArrayList<Card>();
-		this.size = num;
-		this.cols = num;
-		this.backOfCard = "matchCard(backClose)";
-	}
-	
 	public AbstractCardCollection(int num, String newCardBack) {
 		this.Cards = new ArrayList<Card>();
 		this.UniCards = new ArrayList<Card>();
 		this.size = num;
 		this.cols = num;
-		
 		this.backOfCard = newCardBack;
 		
+	}
+	
+	public String getBackOfCard() {
+		return backOfCard;
 	}
 
 	/**
@@ -79,10 +74,9 @@ public abstract class AbstractCardCollection {
 	 * @param file String reprensents the name of the file
 	 * @param num int reprensents the number of columns that the cards are going to be placed in
 	 */
-	public void addCard(String name, String type, String file, int scale, String back) {
+	public void addCard(String name, String type, String file, int scale) {
 		Image image = getImage(file,type);
-		System.out.println("84: "+back);
-		Card newCard = new Card(image, name, type, scale, back);
+		Card newCard = new Card(image, name, type, scale, backOfCard);
 		newCard.setPath(this.file);
 		Cards.add(newCard);
 		UniCards.add(newCard);
@@ -152,7 +146,7 @@ public abstract class AbstractCardCollection {
 
 	private void rescaleCard(int scale, Card temp) {
 		Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
-		Image scaledBack = temp.getFileName(temp.fileBackOfCard,scale);
+		Image scaledBack = temp.getFileName(temp.getNameOfBackOfCard(),scale);
 		temp.setScale(scale);
 		temp.setImage(scaledImage,scaledBack);
 	}

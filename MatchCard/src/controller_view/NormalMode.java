@@ -57,7 +57,6 @@ public class NormalMode extends BorderPane{
 		row = 2;
 		this.player = player;
 		deck = new AnimalCollection(col, player.getCurrCardBack());
-		System.out.println(player.getCurrCardBack()+": 60");
 		int scale = 850 /col;
 		deck = deck.getNewDeck(col*row,scale);
 		gameboard = new GameBoard(player,deck,col,row,0);
