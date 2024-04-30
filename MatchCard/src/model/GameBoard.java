@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 public class GameBoard{
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
@@ -58,17 +59,13 @@ public class GameBoard{
 				int scale = 850/cols;
 				scale = (scale+170)/2;
 				this.buttonScale = scale;
-				
 				boardButtons[i][j].setMinSize(scale, scale);
 				boardButtons[i][j].setPadding(new Insets(0));
 				boardButtons[i][j].setFocusTraversable(false);
-				
-				
-				
 			}
 		}		
 	}
-
+	
 	//2D representation of GameBoard Gui
 	/**
 	* returns an instance of a 2D array of Card objects

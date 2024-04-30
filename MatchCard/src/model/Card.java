@@ -89,7 +89,11 @@ public class Card {
 	public void rescale(int scale) {
 		this.picture = new Image(filePath, scale, scale, false,false);
 		this.backOfCard = getFileName("matchCard(backClose)",scale);
-		
+	}
+	
+	public void rescale(String fileName) {
+		this.picture = new Image(filePath, scale, scale, false,false);
+		this.backOfCard = getFileName(fileName,scale);
 	}
 	
 	/**
