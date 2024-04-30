@@ -19,7 +19,7 @@ public class Game {
 		int col = 3;
 		int row = 2;
 
-		deck = new AnimalCollection(col);
+		deck = new AnimalCollection(col, player.getBack());
 		
 		int scale = 950 /row;
 		deck = deck.getNewDeck(col,scale);

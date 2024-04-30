@@ -55,7 +55,7 @@ public class RoundMode extends BorderPane{
 		int scale = 850/col;
 		scale = (scale+170)/2;
 		
-		deck = new AnimalCollection(col);
+		deck = new AnimalCollection(col,player.getBack());
 		deck = deck.getNewDeck(row*col, col);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
