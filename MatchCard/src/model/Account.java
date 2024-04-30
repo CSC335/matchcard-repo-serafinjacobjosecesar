@@ -14,7 +14,7 @@ public class Account implements Serializable {
 	private int bestTimeGamemode2=0;
 	private int bestTimeGamemode1=0;
 	private Boolean hadMatch;
-	private String currCardBack;
+	private String currCardBack = null;
 	private String currBackground = "-fx-background-color: #7e61ab;";
 	
 	/**
@@ -39,6 +39,14 @@ public class Account implements Serializable {
 	 */
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
+	}
+	
+	public void setCurrBackground(String newBack) {
+		this.currBackground = newBack;
+	}
+	
+	public void setCurrCardBack(String newBack) {
+		this.currCardBack = newBack;
 	}
 	
 	/**
@@ -157,6 +165,14 @@ public class Account implements Serializable {
 		return longestStreak;
 	}
 	
+	public String getCurrCardBack() {
+		return currCardBack;
+	}
+	
+	public String getCurrBackground() {
+		return currBackground;
+	}
+	
 	/**
 	 * getHighScore returns the account high score
 	 * @return int represents account high score
@@ -185,6 +201,11 @@ public class Account implements Serializable {
 	}
 	public int getG1Time() {
 		return bestTimeGamemode1;
+	}
+
+	public String getBack() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

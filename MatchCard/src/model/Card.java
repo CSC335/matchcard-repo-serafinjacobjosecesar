@@ -51,6 +51,7 @@ public class Card {
 		this.scale = scale;
 	}
 	
+	
 	public String getPath() {
 		return filePath;
 	}
