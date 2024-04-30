@@ -151,19 +151,19 @@ public class Shop extends BorderPane{
 		items[0].setId("blackAndWhite(back_uneditted)");
 		items[1].setId("CartoonStyle(back_uneditted)");
 		items[2].setId("-fx-background-color: #61ab8c;");
-		items[3].setId("-fx-background-color: #61ab8c;");
+		items[3].setId("-fx-background-color: #6b61ab;");
 		
 		//tier 2
 		items[4].setId("cyberPunk(back_uneditted)");
 		items[5].setId("EightBit(back_uneditted)");
-		items[6].setId("-fx-background-color: #61ab8c;");
-		items[7].setId("-fx-background-color: #61ab8c;");
+		items[6].setId("-fx-background-color: #9e7f57;");
+		items[7].setId("-fx-background-color: #9e5788;");
 		
 		//tier 3
 		items[8].setId("horseAss(back_uneditted)");
 		items[9].setId("steamPunk(back_uneditted)");
-		items[10].setId("-fx-background-color: #61ab8c;");
-		items[11].setId("-fx-background-color: #61ab8c;");
+		items[10].setId("-fx-background-color: #7a1815;");
+		items[11].setId("-fx-background-color: #bd7777;");
 	}
 	
 	public Image getFileName(String str, int scale) {
