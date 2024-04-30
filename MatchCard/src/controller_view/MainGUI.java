@@ -65,12 +65,20 @@ public class MainGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		everything = new BorderPane();
-		
-		// style for Main border pane HERE!!!
-		String borderPaneStyle = "-fx-background-color: #7e61ab; ";
-		everything.setStyle(borderPaneStyle);
-		
 		loginPane = new LoginPane();
+		// style for Main border pane HERE!!!
+		System.out.println("(MainGUI 70) loginPane.currAccount: " + loginPane.currentAcc);
+		if (loginPane.currentAcc != null) {
+			String borderPaneStyle = loginPane.currentAcc.getCurrBackground();
+			System.out.println("(MainGUI 72)borderPaneStyle: " + borderPaneStyle);
+			everything.setStyle(borderPaneStyle);
+		} else {
+			String borderPaneStyle = "-fx-background-color: #7e61ab;";
+			everything.setStyle(borderPaneStyle);
+		}
+		
+		
+		
 		
 		// pull saved accounts
 		getSavedAccounts();
@@ -142,7 +150,17 @@ public class MainGUI extends Application {
 		menuPane.setSpacing(20);
 		menuPane.getChildren().addAll(mainMenu,playgame,shopButton,profile,quit);
 		everything.setCenter(menuPane);
-	}
+		
+		if (loginPane.currentAcc != null) {
+			String borderPaneStyle = loginPane.currentAcc.getCurrBackground();
+			everything.setStyle(borderPaneStyle);
+		}
+    	 else {
+    		String borderPaneStyle = "-fx-background-color: #7e61ab;";
+			everything.setStyle(borderPaneStyle);
+    	}
+}
+	
 	
 	/**
 	 * eventHandlers for main GUI
