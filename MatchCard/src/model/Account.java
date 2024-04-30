@@ -33,6 +33,7 @@ public class Account implements Serializable {
 		currScore = 0;
 		points = 500;
 		hadMatch = false;
+		currCardBack = "matchCard(backClose)";
 	}
 	
 	/**

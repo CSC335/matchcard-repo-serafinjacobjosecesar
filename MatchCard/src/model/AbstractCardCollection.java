@@ -12,20 +12,28 @@ public abstract class AbstractCardCollection {
 	protected int number;
 	protected ArrayList<Card> Cards;
 	protected ArrayList<Card> UniCards;
+	
 	protected int size;
 	protected int cols;
 	private String file;
+	private String backOfCard;
 	
 	/**
 	 * AbstractCardCollection constructor for Card Collection class
 	 * initializes Collections - an array list of Card objects
 	 * @param int Integer dictates size of images(front/back of card)
 	 */
-	public AbstractCardCollection(int num) {
+	public AbstractCardCollection(int num, String newCardBack) {
 		this.Cards = new ArrayList<Card>();
 		this.UniCards = new ArrayList<Card>();
 		this.size = num;
 		this.cols = num;
+		this.backOfCard = newCardBack;
+		
+	}
+	
+	public String getBackOfCard() {
+		return backOfCard;
 	}
 
 	/**
@@ -68,11 +76,12 @@ public abstract class AbstractCardCollection {
 	 */
 	public void addCard(String name, String type, String file, int scale) {
 		Image image = getImage(file,type);
-		Card newCard = new Card(image,name, type, scale);
+		Card newCard = new Card(image, name, type, scale, backOfCard);
 		newCard.setPath(this.file);
 		Cards.add(newCard);
 		UniCards.add(newCard);
 		size++;
+		
 		Cards.add(newCard.getPair());
 	}
 	
@@ -137,7 +146,7 @@ public abstract class AbstractCardCollection {
 
 	private void rescaleCard(int scale, Card temp) {
 		Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
-		Image scaledBack = temp.getFileName("matchCard(backClose)",scale);
+		Image scaledBack = temp.getFileName(temp.getNameOfBackOfCard(),scale);
 		temp.setScale(scale);
 		temp.setImage(scaledImage,scaledBack);
 	}

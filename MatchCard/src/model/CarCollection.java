@@ -9,10 +9,12 @@ public class CarCollection extends AbstractCardCollection {
 	 * CarCollection acts as the collection class for the cards for Car Collection
 	 * @param num int is the scale for the images, front and back images of the Cards
 	 */
-	public CarCollection(int cols) {
-		super(cols);
+	private String backOfCard;
+	public CarCollection(int cols, String back) {
+		super(cols,back);
 		this.cols= cols;
 		setupDeck();
+		backOfCard = back;
 	}
 	
 	/**
@@ -34,7 +36,7 @@ public class CarCollection extends AbstractCardCollection {
 
 	@Override
 	public AbstractCardCollection getNewDeck(int number, int scale) {
-		CarCollection temp = new CarCollection(10);
+		CarCollection temp = new CarCollection(10,backOfCard);
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}

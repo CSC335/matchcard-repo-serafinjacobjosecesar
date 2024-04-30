@@ -3,15 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class AnimalCollection extends AbstractCardCollection {
-
-	public AnimalCollection(int cols) {
-		super(cols);
+	private String backOfCard;
+	public AnimalCollection(int cols, String back) {
+		super(cols,back);
 		this.cols= cols;
+		backOfCard = back;
 		setupDeck();
 	}
 
-	private void setupDeck() {		
-		
+	private void setupDeck() {	
 		addCard("Chameleon","Animals", "chameleon(front).jpg",	cols );
 		addCard("Monkey",	"Animals", "monkey(front).jpg", 	cols );
 		addCard("Pig",		"Animals", "pig(front).jpg",		cols );
@@ -25,7 +25,7 @@ public class AnimalCollection extends AbstractCardCollection {
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number,int scale) {
-		AnimalCollection temp = new AnimalCollection(10);
+		AnimalCollection temp = new AnimalCollection(10, backOfCard);
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}

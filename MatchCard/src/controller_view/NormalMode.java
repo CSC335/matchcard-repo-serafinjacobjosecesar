@@ -41,7 +41,6 @@ public class NormalMode extends BorderPane{
 	private int col;
 	private int row;
 	private int k=0;
-	
 	public Button returnMainMenu = new Button("Main Menu");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
 	private Group root = new Group();
@@ -57,8 +56,7 @@ public class NormalMode extends BorderPane{
 		col = 4;
 		row = 2;
 		this.player = player;
-		deck = new CarCollection(col);
-		
+		deck = new AnimalCollection(col, player.getCurrCardBack());
 		int scale = 850 /col;
 		deck = deck.getNewDeck(col*row,scale);
 		gameboard = new GameBoard(player,deck,col,row,0);

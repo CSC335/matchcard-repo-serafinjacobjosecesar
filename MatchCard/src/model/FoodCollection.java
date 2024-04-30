@@ -3,9 +3,11 @@ package model;
 
 public class FoodCollection extends AbstractCardCollection {
 
-	public FoodCollection(int cols) {
-		super(cols);
+	private String backOfCard;
+	public FoodCollection(int cols, String back) {
+		super(cols,back);
 		this.cols= cols;
+		backOfCard = back;
 		setupDeck();
 	}
 
@@ -25,7 +27,7 @@ public class FoodCollection extends AbstractCardCollection {
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number,int scale) {
-		FoodCollection temp = new FoodCollection(10);
+		FoodCollection temp = new FoodCollection(10, backOfCard);
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}
