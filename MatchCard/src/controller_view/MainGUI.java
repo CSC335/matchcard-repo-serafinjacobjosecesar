@@ -191,104 +191,23 @@ public class MainGUI extends Application {
 			});
 		});
 		
-		profile.setOnAction(event->{
-			final Label passwordChangePrompt = new Label();
-			Account currAccount = loginPane.currentAcc;
-			Label user = new Label(currAccount.getUsername());
-			Label longestStreak = new Label("Longest Streak: " + String.valueOf(currAccount.getLongestStreak()));
-			Label highscore = new Label("HighScore: " + String.valueOf(currAccount.getHighScore()));
-			Button profileMainMenu = new Button("Main Menu");
-			final TextField newPasswordField =  new TextField();
-			Button changePasswordButton = new Button("Change Password");
-			Label bestTimeG1 = new Label("Game mode 1 Best Time");
-			Label bestTimeG2 = new Label("Game mode 2 Best Time");
-			
-			Label G1BestTime;
-			if(currAccount.getG1Time()==0) {
-				G1BestTime = new Label("");
-			}
-			else {
-				int time = currAccount.getG1Time();
-				System.out.println(time+" |time?");
-				G1BestTime = new Label(String.format("%02d : %02d", time/60,time%60));
-			}
-			Label G2BestTime;
-			if(currAccount.getG2Time()==0) {
-				G2BestTime = new Label("");
-			}
-			else {
-				int time = currAccount.getG2Time();
-				G2BestTime = new Label(String.format("%02d : %02d", time/60,time%60));
-			}
-			
-			
-			
-			// Styling for stats page HERE !!!!
-			newPasswordField.setMaxWidth(100);
-			newPasswordField.setMaxHeight(50);
-			
-			String buttonStyles = "-fx-background-color: #424549; " +
-		                "-fx-text-fill: white; " +
-		                "-fx-font-size: 30px;";
-			
-			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
-			
-			
-			profileMainMenu.setStyle(buttonStyles);
-			changePasswordButton.setStyle(buttonStyles);
-			
-			bestTimeG1.setStyle(labelStyles);
-			bestTimeG2.setStyle(labelStyles);
-			G1BestTime.setStyle(labelStyles);
-			G2BestTime.setStyle(labelStyles);
-			user.setStyle(labelStyles);
-			longestStreak.setStyle(labelStyles);
-			highscore.setStyle(labelStyles);
-			
-			
-			profileMainMenu.setOnAction(event2->{
-				LayoutMainMenu();
-			});
-			
-			changePasswordButton.setOnAction(event2->{
-				Account currAcc = loginPane.currentAcc;
-				String newPass = newPasswordField.getText();
-				
-				String InvalidPassPromptStyle = "-fx-text-fill: #900D09; "
-						+ "-fx-font-size: 30px;";
-
-				if(newPass.equals("")) {
-					passwordChangePrompt.setStyle(InvalidPassPromptStyle);
-					passwordChangePrompt.setText("Invalid Password!");
-				}
-				else if(newPass.equals(currAcc.getPassWord())) {
-					passwordChangePrompt.setStyle(InvalidPassPromptStyle);
-					passwordChangePrompt.setText("Password Already in Use!");
-					newPasswordField.clear();
-				}
-				else {
-					currAcc.setPassword(newPass);
-					String passPromptStyle = "-fx-text-fill: white; "
-							+ "-fx-font-size: 30px;";
-					passwordChangePrompt.setStyle(passPromptStyle);
-					passwordChangePrompt.setText("Password Change Succesful!");
-					newPasswordField.clear();
-				}
-			});
-			
-			VBox statsPane = new VBox();
-			statsPane.setAlignment(Pos.CENTER);
-			statsPane.setSpacing(20);
-			statsPane.getChildren().addAll(passwordChangePrompt,user,bestTimeG1,G1BestTime,bestTimeG2,G2BestTime,longestStreak,highscore,
-					profileMainMenu,newPasswordField,changePasswordButton);
-			everything.setCenter(statsPane);
-		});
-		
 		shopButton.setOnAction(event -> {
 			Account currAccount = loginPane.currentAcc;
 			Shop shopDisplay = new Shop(currAccount);
 			everything.setCenter(shopDisplay);
 		});
+		
+		
+		profile.setOnAction(event->{
+		    System.out.println("RETURN MAIN HERE202");
+		    Account currAccount = loginPane.currentAcc;
+		    Profile prof = new Profile(currAccount);
+		    everything.setCenter(prof);
+		    prof.profileMainMenu.setOnAction(event2 -> {
+		        LayoutMainMenu();
+		    });
+		});
+		
 		
 	}
 	

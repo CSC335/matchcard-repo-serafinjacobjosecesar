@@ -41,6 +41,7 @@ public class NormalMode extends BorderPane{
 	private int col;
 	private int row;
 	private int k=0;
+	
 	public Button returnMainMenu = new Button("Main Menu");
 	private ArrayList<int[]> toCompare = new ArrayList<>();
 	private Group root = new Group();
@@ -196,6 +197,7 @@ public class NormalMode extends BorderPane{
         }
         
         returnMainMenu.setOnAction(Event -> {});
+        
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> moveConfetti(root)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();

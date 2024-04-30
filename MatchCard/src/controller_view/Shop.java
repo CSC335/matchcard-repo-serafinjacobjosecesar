@@ -32,6 +32,7 @@ public class Shop extends BorderPane{
 				backgroundButtons[row][col] = new Button();
 			}
 		}
+		
 		currAccount = account;
 		pointsAvaliable = new Label("Points: " + currAccount.getPoints());
 		cardPreview.setDisable(true);
