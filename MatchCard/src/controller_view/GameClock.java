@@ -9,13 +9,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+/**
+ * GameClock public class that generates a clock object to act as a game clock
+ */
 public class GameClock extends Application{
 	private int clock = 0;
-	
+	/**
+	 * main : public static void: launch gameClock as required by Application 
+	 * @param args : Array of args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	/**
+	 * start : initializes game clock
+	 * @param primaryStage : currrent stage object
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Label timerLabel = new Label("0");

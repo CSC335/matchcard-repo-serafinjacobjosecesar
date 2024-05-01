@@ -181,18 +181,20 @@ public class MainGUI extends Application {
 			Button animalCollection = new Button();
 			Button foodCollection = new Button();
 			
-			double size = 300.0;
+			double size = 150.0;
+			int picWidth = 250;
+			int picHeight = 350;
 			
 			
-			carCollection.setMinSize(size,size);
-			animalCollection.setMinSize(size, size);
-			foodCollection.setMinSize(size, size);
+			carCollection.setPrefSize(size,size);
+			animalCollection.setPrefSize(size, size);
+			foodCollection.setPrefSize(size, size);
 			
-			ImageView carDeckPic = new ImageView(getImage("carButton"));
+			ImageView carDeckPic = new ImageView(getImage("carButton", picWidth, picHeight));
 			carCollection.setGraphic(carDeckPic);
-			ImageView aniDeckPic = new ImageView(getImage("animalButton"));
+			ImageView aniDeckPic = new ImageView(getImage("animalButton",picWidth, picHeight));
 			animalCollection.setGraphic(aniDeckPic);
-			ImageView foodDeckPic = new ImageView(getImage("foodButton"));
+			ImageView foodDeckPic = new ImageView(getImage("foodButton",picWidth, picHeight));
 			foodCollection.setGraphic(foodDeckPic);
 			
 			
@@ -223,12 +225,35 @@ public class MainGUI extends Application {
 			containerGamemodes.setAlignment(Pos.CENTER);
 			containerGamemodes.setSpacing(10);
 			
+			VBox catagoriesContainer = new VBox();
 			HBox containerDeck = new HBox();
+			
+			VBox carsContainer = new VBox();
+			VBox foodContainer = new VBox();
+			VBox animalsContainer = new VBox();
+			
 			containerDeck.setAlignment(Pos.CENTER);
 			containerDeck.setSpacing(10);
 			
+			Label carLabel = new Label("Cars");
+			Label foodLabel = new Label("Food");
+			Label animalsLabel = new Label("Animals");
 			
-			containerDeck.getChildren().addAll(carCollection, foodCollection,animalCollection);
+			carLabel.setStyle(labelStyles);
+			foodLabel.setStyle(labelStyles);
+			animalsLabel.setStyle(labelStyles);
+			
+			carsContainer.getChildren().addAll(carLabel, carCollection);
+			carsContainer.setAlignment(Pos.CENTER);
+			carsContainer.setSpacing(5);
+			foodContainer.getChildren().addAll(foodLabel, foodCollection);
+			foodContainer.setAlignment(Pos.CENTER);
+			foodContainer.setSpacing(5);
+			animalsContainer.getChildren().addAll(animalsLabel, animalCollection);
+			animalsContainer.setAlignment(Pos.CENTER);
+			animalsContainer.setSpacing(5);
+			
+			containerDeck.getChildren().addAll(carsContainer, foodContainer,animalsContainer);
 			containerGamemodes.getChildren().addAll(Gamemode_label,Gamemode1,Gamemode2);
 			
 			VBox containerUni = new VBox();
@@ -306,7 +331,7 @@ public class MainGUI extends Application {
 		});
 	}
 	
-	private Image getImage(String file) {
+	private Image getImage(String file, int picWidth, int picHeight) {
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
 		
@@ -317,7 +342,7 @@ public class MainGUI extends Application {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/DeckImages/";
 		}
-		Image image1 = new Image(fileName+file+".png",300,300,false,false);
+		Image image1 = new Image(fileName+file+".png",picWidth, picHeight,false,false);
 		return image1;
 	}
 	

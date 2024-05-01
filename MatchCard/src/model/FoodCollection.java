@@ -17,7 +17,7 @@ public class FoodCollection extends AbstractCardCollection {
 		addCard("Salad", 		type, "salad(front).jpg",		cols);	
 		addCard("Steak", 		type, "steak(front).png",		cols);
 		addCard("Sushi", 		type, "sushi(front).png",		cols);	
-		addCard("Taco", 		type, "taco2(front).png",		cols);	
+		addCard("Taco", 		type, "taco_new(front).jpg",	cols);	
 		addCard("Wings", 		type, "wings(front).jpg",		cols);
 	}
 	@Override
