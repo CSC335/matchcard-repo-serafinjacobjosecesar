@@ -19,23 +19,24 @@ public class Shop extends BorderPane{
 	private Button cardPreview = new Button();
 	private Label pointsAvaliable;
 	private Account currAccount;
-	private int cardPrice = 100;
-	private int backgroundPrice = 200;
-	private Label tier1 = new Label("Tier 1");
-	private Label tier2 = new Label("Tier 2");
-	private Label tier3 = new Label("Tier 3");
+	private int cardPrice = 200;
+	private int backgroundPrice = 100;
 	private Button defaultCardBack = new Button("Default Card Back");
 	private Button defaultBackground = new Button("Default Background");
 	private Label sysReply = new Label("");
 	private String defaultCardBackStr = "matchCard(backClose)";
 	private String defaultBackgroundStr = "-fx-background-color: #7e61ab";
+	private int height = 100;
+	private int width = 75;
+	private Label priceCardBack = new Label("Price of CardBack: "+ cardPrice);
+	private Label priceBackground = new Label("Price of Background: "+ backgroundPrice);
 	
 	public Shop(Account account) {
 		currAccount = account;
 		
-		cardPreview.setPrefSize(100, 100);
-		
-		Image cardBackImg = getFileName(currAccount.getCurrCardBack(),100);
+		cardPreview.setPrefSize(150, 200);
+		cardPreview.setStyle(currAccount.getCurrBackground());
+		Image cardBackImg = getFileName(currAccount.getCurrCardBack(),150,200);
 		ImageView cardBackView = new ImageView(cardBackImg);
 		cardPreview.setGraphic(cardBackView);
 		
@@ -56,11 +57,18 @@ public class Shop extends BorderPane{
 	}
 
 	private void configLayout() {
-		tier1.setAlignment(Pos.CENTER);
-		tier2.setAlignment(Pos.CENTER);
-		tier3.setAlignment(Pos.CENTER);
+		
+		String buttonStyles = "-fx-background-color: #424549; " +
+                "-fx-text-fill: white; " +
+                "-fx-font-size: 20px;";
+		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 20px;";
+		
+		sysReply.setStyle(labelStyles);
+		pointsAvaliable.setStyle(labelStyles);
 		
 		HBox previewContainer = new HBox();
+		VBox cardBackContainer = new VBox();
+		VBox backgroundContainer = new VBox();
 		HBox tier1Row = new HBox();
 		HBox tier2Row = new HBox();
 		HBox tier3Row = new HBox();	
@@ -69,56 +77,75 @@ public class Shop extends BorderPane{
 		
 		itemSetting();
 		for(Button currItem: items) {
+			currItem.getStyleClass().add("no-focus-ring");
+			
 			if(currItem.getId().contains("-fx-background-color:")) {
-				currItem.setPrefSize(100, 100);
+				currItem.setPrefSize(width, height);
 				String background = currItem.getId();
 				currItem.setStyle(background);
 				System.out.println("(Shop 64) background: " + currAccount.getCurrBackground());
 			}
 			else {
+				currItem.setStyle("-fx-background-color:rgba(0, 0, 0, 0.5);");
+				currItem.setMinSize(width, height);
 				String cardBack = currItem.getId();
-				Image cardBackImg = getFileName(cardBack,100);
+				Image cardBackImg = getFileName(cardBack,width,height);
 				ImageView cardBackView = new ImageView(cardBackImg);
 				currItem.setGraphic(cardBackView);
 			}
 		}
 		
-		previewContainer.getChildren().addAll(defaultCardBack, cardPreview, defaultBackground);
+		priceCardBack.setStyle(labelStyles);
+		priceBackground.setStyle(labelStyles);
+		cardBackContainer.getChildren().addAll(priceCardBack,defaultCardBack);
+		cardBackContainer.setAlignment(Pos.CENTER);
+		cardBackContainer.setSpacing(15);
+		backgroundContainer.getChildren().addAll(priceBackground,defaultBackground);
+		backgroundContainer.setAlignment(Pos.CENTER);
+		backgroundContainer.setSpacing(15);
+		previewContainer.getChildren().addAll(cardBackContainer, cardPreview, backgroundContainer);
 		
 		tier1Row.getChildren().addAll(items[0],items[1],items[2],items[3]);
 		tier2Row.getChildren().addAll(items[4],items[5],items[6],items[7]);
 		tier3Row.getChildren().addAll(items[8],items[9],items[10],items[11]);
-		shopContainer.getChildren().addAll(pointsAvaliable, previewContainer,sysReply,tier1,tier1Row,
-											tier2,tier2Row,tier3,tier3Row, returnMainMenu);
+		shopContainer.getChildren().addAll(pointsAvaliable, previewContainer,sysReply,tier1Row,
+											tier2Row,tier3Row, returnMainMenu);
 		
 		previewContainer.setAlignment(Pos.CENTER);
 		tier1Row.setAlignment(Pos.CENTER);
 		tier2Row.setAlignment(Pos.CENTER);
 		tier3Row.setAlignment(Pos.CENTER);
 		
-		tier1Row.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-		tier2Row.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
-		tier3Row.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+		String tierStyle = "-fx-border-color: Black;"
+						 + " -fx-background-color: rgba(0, 0, 0, 0.5);"
+						 + "-fx-border-radius: 20px;"
+						 + "-fx-background-radius: 20px;"
+						 + "-fx-border-width: 5px";
+		int tierW = 500;
+		int tierH = 150;
 		
-		tier1Row.setMinSize(450, 150);
-		tier2Row.setMinSize(450, 150);
-		tier3Row.setMinSize(450, 150);
+		tier1Row.setStyle(tierStyle);
+		tier2Row.setStyle(tierStyle);
+		tier3Row.setStyle(tierStyle);
 		
-		tier1Row.setMaxSize(600, 150);
-		tier2Row.setMaxSize(600, 150);
-		tier3Row.setMaxSize(600, 150);
+		//tier1Row.setStyle("-fx-border-color: rgba(0,0,0,0.75)");
 		
-		previewContainer.setSpacing(25);
+		tier1Row.setMinSize(tierW, tierH);
+		tier2Row.setMinSize(tierW, tierH);
+		tier3Row.setMinSize(tierW, tierH);
+		
+		tier1Row.setMaxSize(tierW, tierH);
+		tier2Row.setMaxSize(tierW, tierH);
+		tier3Row.setMaxSize(tierW, tierH);
+		
+		previewContainer.setSpacing(10);
 		tier1Row.setSpacing(15);
 		tier2Row.setSpacing(15);
 		tier3Row.setSpacing(15);
+		shopContainer.setSpacing(5);
 		
 		shopContainer.setAlignment(Pos.CENTER);
 		
-		String buttonStyles = "-fx-background-color: #424549; " +
-                "-fx-text-fill: white; " +
-                "-fx-font-size: 30px;";
-		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
 		
 		returnMainMenu.setStyle(buttonStyles);
 		defaultCardBack.setStyle(buttonStyles);
@@ -141,9 +168,14 @@ public class Shop extends BorderPane{
 							currAccount.inventory.add(currItem.getId());
 							updatePoints();
 						}
+						else {
+							sysReply.setText("Insufficient Funds");
+						}
+						
 					}
 					else {
 						setItem(currItem);
+						sysReply.setText("Item Already Owned");
 					}
 					
 				});
@@ -151,14 +183,18 @@ public class Shop extends BorderPane{
 		
 		defaultCardBack.setOnAction(event -> {
 			currAccount.setCurrCardBack(defaultCardBackStr);
-			Image cardBackImg = getFileName(defaultCardBackStr,100);
+			Image cardBackImg = getFileName(defaultCardBackStr,150,200);
 			ImageView cardBackView = new ImageView(cardBackImg);
 			cardPreview.setGraphic(cardBackView);
+			sysReply.setText("Changed to default card back");
+			
 		});
 		
 		defaultBackground.setOnAction(event -> {
 			this.setStyle(defaultBackgroundStr);
 			currAccount.setCurrBackground(defaultBackgroundStr);
+			cardPreview.setStyle(currAccount.getCurrBackground());
+			sysReply.setText("Changed to default background");
 		});
 		
 	}
@@ -169,12 +205,13 @@ public class Shop extends BorderPane{
 			currAccount.setCurrBackground(background);
 			System.out.println("(Shop 118)currBackgrond: " + currAccount.getCurrBackground());
 			this.setStyle(background);
+			cardPreview.setStyle(background);
 		}
 		else {
 				String cardBack = currItem.getId();
 				currAccount.setCurrCardBack(cardBack);
 				
-				Image cardBackImg = getFileName(cardBack,100);
+				Image cardBackImg = getFileName(cardBack,150,200);
 				ImageView cardBackView = new ImageView(cardBackImg);
 				cardPreview.setGraphic(cardBackView);
 				
@@ -191,6 +228,7 @@ public class Shop extends BorderPane{
 	private void purchase(int price) {
 		currAccount.withdrawPoints(price);
 		updatePoints();
+		sysReply.setText("Purchase Successful!");
 	}
 	
 	private void updatePoints() {
@@ -218,7 +256,7 @@ public class Shop extends BorderPane{
 		items[11].setId("-fx-background-color: #bd7777;");
 	}
 	
-	public Image getFileName(String str, int scale) {
+	public Image getFileName(String str, int w, int h) {
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
 		
@@ -229,7 +267,7 @@ public class Shop extends BorderPane{
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/CardBacks/";
 		}
-		Image image1 = new Image(fileName+str+".jpg",scale,scale,false,false);
+		Image image1 = new Image(fileName+str+".jpg",w,h,false,false);
 		return image1;
 	}	
 
