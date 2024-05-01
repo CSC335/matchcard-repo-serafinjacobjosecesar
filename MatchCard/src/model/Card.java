@@ -1,12 +1,13 @@
 package model;
 
 import javafx.scene.image.Image;
+
 /**
  * Card class represent the card objects used in game, have attributes such as:
  * images for front and back, name, type, flipped status, and board position
  */
 public class Card {
-	
+
 	// private Image image = new Image("file:doge.jpeg", false);
 	private Image backOfCard;
 	private String fileBackOfCard;
@@ -17,17 +18,17 @@ public class Card {
 	private String boardPos;
 	private int scale;
 	private String filePath;
-	
+
 	/**
 	 * Card constructor uses an image, name and type to create a card object
-	 * @param img Image to be used by card
+	 * 
+	 * @param img  Image to be used by card
 	 * @param name String represents the card name
 	 * @param type String represents the card type
-	 * @param int Integer represents the size of the image
+	 * @param int  Integer represents the size of the image
 	 *
 	 */
 
-	
 	public Card(Image img, String name, String type, int scale, String backCard) {
 		this.Name = name;
 		this.picture = img;
@@ -35,162 +36,177 @@ public class Card {
 		this.flipped = false;
 		this.scale = scale;
 		this.fileBackOfCard = backCard;
-		this.backOfCard = getFileName(fileBackOfCard,scale);
-		
+		this.backOfCard = getFileName(fileBackOfCard, scale);
+
 	}
-	
+
 	public String getNameOfBackOfCard() {
 		return this.fileBackOfCard;
 	}
-	
+
 	/**
 	 * setId assigns id to boardPos
-	 * @param id String represents the unique id of the card object 
+	 * 
+	 * @param id String represents the unique id of the card object
 	 */
 	public void setId(String id) {
 		this.boardPos = id;
 	}
-	
+
 	/**
 	 * setPath sets the file path of the image of the subject
+	 * 
 	 * @param path
 	 */
 	public void setPath(String path) {
 		filePath = path;
 	}
-	
+
 	/**
 	 * setScale sets the scale of the image
+	 * 
 	 * @param scale
 	 */
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
-	
+
 	/**
 	 * gets the path of the file of the image
+	 * 
 	 * @return String gets the file path
 	 */
 	public String getPath() {
 		return filePath;
 	}
-	
+
 	/**
 	 * getPair returns the pair of a given card
+	 * 
 	 * @return pair Card represents the pair of a given card
 	 */
 	public Card getPair() {
-		Card pair = new Card(this.picture, this.Name, this.type,this.scale,this.fileBackOfCard);
+		Card pair = new Card(this.picture, this.Name, this.type, this.scale, this.fileBackOfCard);
 		return pair;
 	}
-	
+
 	/**
 	 * getBackOfCard returns the image used for the back of a card object
+	 * 
 	 * @return backOfCard Image the image on the back of cards
 	 */
 	public Image getBackOfCard() {
 		return backOfCard;
-		
+
 	}
-	
+
 	/**
 	 * getImage returns the front image of a card object
+	 * 
 	 * @return picture Image the image on the front of the card
 	 */
 	public Image getImage() {
 		return picture;
 	}
-	
+
 	/**
 	 * rescale rescales the given card's picture
+	 * 
 	 * @param scale int the scale that the card will be sized at
 	 */
 	public void rescale(int scale) {
-		this.picture = new Image(filePath, scale, scale, false,false);
-		this.backOfCard = getFileName(fileBackOfCard,scale);
+		this.picture = new Image(filePath, scale, scale, false, false);
+		this.backOfCard = getFileName(fileBackOfCard, scale);
 	}
-	
+
 	public void rescale(String fileName) {
-		this.picture = new Image(filePath, scale, scale, false,false);
-		this.backOfCard = getFileName(fileName,scale);
+		this.picture = new Image(filePath, scale, scale, false, false);
+		this.backOfCard = getFileName(fileName, scale);
 	}
-	
+
 	/**
 	 * setImage sets the card's picture
+	 * 
 	 * @param image Image the picture that represents the subject
 	 */
 	public void setImage(Image image, Image back) {
 		picture = image;
 		backOfCard = back;
-		
+
 	}
-	
+
 	/**
 	 * getName returns the name of the card object
+	 * 
 	 * @return Name String represents the name of the card
 	 */
 	public String getName() {
 		return this.Name;
 	}
-	
+
 	public String getType() {
 		return this.type;
 	}
-	
+
 	/**
 	 * flip inverts the flipped boolean status
 	 */
-	public void flip(){
+	public void flip() {
 		this.flipped = !this.flipped;
 	}
-	
+
 	/**
 	 * isItFlipped returns whether a card is flipped or not
+	 * 
 	 * @return flipped Boolean represents if a card is flipped
 	 */
 	public boolean isItFlipped() {
 		return this.flipped;
 	}
-	
+
 	/**
 	 * sameComparison checks if the name of one card == the name of other
+	 * 
 	 * @param card1 Card card object to compare current (this) card against
 	 * @return Boolean true if equals else return false
 	 */
 	public boolean sameComparison(Card card1) {
-		
+
 		return this.Name.equals(card1.Name);
 	}
-	
+
 	/**
 	 * typeComparsion checks if the type of one card == the type of other
+	 * 
 	 * @param card1 Card card object to compare current (this) card against
 	 * @return Boolean true if types are same else return false
 	 */
 	public boolean typeComparsion(Card card1) {
-		return (this.type.compareTo(card1.Name) ==0) ? true: false;
+		return (this.type.compareTo(card1.Name) == 0) ? true : false;
 	}
-	
+
 	/**
-	 * getFileName takes a str that represent the specifics of the card file name 
+	 * getFileName takes a str that represent the specifics of the card file name
 	 * and adds system specific file path elements to get correct card image
-	 * @param str String represents the elements of the file path unique to the specific card
-	 * @return image1 Image returns an image specific to the card file path generated by getFileName
+	 * 
+	 * @param str String represents the elements of the file path unique to the
+	 *            specific card
+	 * @return image1 Image returns an image specific to the card file path
+	 *         generated by getFileName
 	 */
 	public Image getFileName(String str, int scale) {
 //		System.out.println(str+": 173 ");
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
-		
+
 		if (userDir.substring(0, 1).equals("/")) {
-		    fileName = "file:" + userDir + "/Card Images/CardBacks/";
-		} 
-		else {
+			fileName = "file:" + userDir + "/Card Images/CardBacks/";
+		} else {
 			userDir = userDir.replace('\\', '/');
 			fileName = "file:/" + userDir + "/Card Images/Cardbacks/";
 		}
-		Image image1 = new Image(fileName+str+".jpg",scale,scale,false,false);
+		Image image1 = new Image(fileName + str + ".jpg", scale, scale, false, false);
 		return image1;
-	}	
+	}
 
 }
