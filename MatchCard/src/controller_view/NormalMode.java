@@ -57,7 +57,7 @@ public class NormalMode extends BorderPane{
 	/**
 	 * NormalMode : public constructor for normal game mode
 	 * @param player : Account object representing the current active account or player.
-	 * @param currDeck : AbstractCardCollection class, represents the current acctive card collection class
+	 * @param currDeck : AbstractCardCollection class, represents the current active card collection class
 	 */
 	public NormalMode(Account player, AbstractCardCollection currDeck) {
 		col = 4;
@@ -70,7 +70,11 @@ public class NormalMode extends BorderPane{
 		ButtonArr = gameboard.getButtonArray();
 		start(0);
 	}
-
+	
+	/**
+	 * start : initializes normal mode.
+	 * @param t : int represents an offset value to row and col 
+	 */
 	private void start(int t) {
 		k=t;
 		gridPane.setAlignment(Pos.CENTER);
@@ -133,6 +137,9 @@ public class NormalMode extends BorderPane{
 		this.setTop(clockContainer);
 	}
 	
+	/**
+	 * initClock : initialize a clock object for normal mode
+	 */
 	public void initClock() {
 		timerLabel = new Label("00 : 00");
 		
@@ -154,6 +161,10 @@ public class NormalMode extends BorderPane{
 		timeline.stop();
 	}
 	
+	/**
+	 * createConfettiPiece : generates "confetti" for win screen.
+	 * @return rect : Rectangle object that represents the confetti pieces
+	 */
 	private Rectangle createConfettiPiece() {
         Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         rect.setX(rand.nextDouble() * 950);
@@ -162,6 +173,10 @@ public class NormalMode extends BorderPane{
         return rect;
     }
     
+	/**
+	 * moveConfetti : updates the position of the "confetti" objects
+	 * @param root : Group object that groups all "confetti" objects generated
+	 */
     private void moveConfetti(Group root) {
         for (Object obj : root.getChildren()) {
             if (obj instanceof Rectangle) {
@@ -175,7 +190,9 @@ public class NormalMode extends BorderPane{
             }
         }
     }
-    
+    /**
+     * win : writes to display win screen
+     */
 	public void win() {
 		StopClock();
 	    Label winPrompt = new Label("You Won!");

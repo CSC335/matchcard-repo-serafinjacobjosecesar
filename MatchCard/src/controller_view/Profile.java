@@ -8,19 +8,28 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Account;
-
+/**
+ * Profile : public class that extends Border Pane displays user name and stats
+ */
 public class Profile extends BorderPane{
 	private Account currAcc;
 	public Button profileMainMenu;
 	private BorderPane profilePane = new BorderPane();
 	public Button changePasswordButton;
 	
+	/**
+	 * Profile : public constructor for profile pane object
+	 * @param account : Account object that represents the current active user
+	 */
 	public Profile (Account account) {
 		currAcc = account;
 		configLayout();
 		
 	}
 	
+	/**
+	 * configLayout : configures the layout of profile
+	 */
 	private void configLayout() {
 		final Label passwordChangePrompt = new Label();
 		Account currAccount = currAcc;
@@ -31,8 +40,8 @@ public class Profile extends BorderPane{
 		final TextField newPasswordField =  new TextField();
 		changePasswordButton = new Button("Change Password");
 		
-		Label bestTimeG1 = new Label("Game mode 1 Best Time");
-		Label bestTimeG2 = new Label("Game mode 2 Best Time");
+		Label bestTimeG1 = new Label("Normal Mode Best Time");
+		Label bestTimeG2 = new Label("Round Mode Best Time");
 		
 		Label G1BestTime;
 		if(currAccount.getG1Time()==0) {

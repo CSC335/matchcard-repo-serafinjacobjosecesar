@@ -25,7 +25,9 @@ import model.AnimalCollection;
 import model.Card;
 import model.GameBoard;
 import model.WinScreen;
-
+/**
+ * RoundMode public class that extends Border Pane represents a round based game mode
+ */
 public class RoundMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
@@ -47,6 +49,11 @@ public class RoundMode extends BorderPane{
 	private Timeline timerliner;
 	private int clock =0;
 	
+	/**
+	 * RoundMode : public constructor that generates the round based game mode
+	 * @param player : Account object that represents the current active account
+	 * @param currDeck : AbstractCardCollection that represents the current card collection in play
+	 */
 	public RoundMode(Account player, AbstractCardCollection currDeck) {
 		col = 3;
 		row = 2;
@@ -66,7 +73,10 @@ public class RoundMode extends BorderPane{
 		this.setTop(clockContainer);
 		start();
 	}
-
+	
+	/**
+	 * start : drives round mode
+	 */
 	private void start() {
 		gridPane.setAlignment(Pos.CENTER);
 		gridPane.setHgap(10);
@@ -123,6 +133,10 @@ public class RoundMode extends BorderPane{
 		this.setCenter(outsideContainer);
 	}
 	
+	/**
+	 * createConfettiPiece : generates "confetti" objects
+	 * @return rect : Rectangle object that acts as the "confetti"
+	 */
     private Rectangle createConfettiPiece() {
 	    final Random rand = new Random();
         Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
@@ -132,6 +146,10 @@ public class RoundMode extends BorderPane{
         return rect;
     }
     
+    /**
+     * moveConfetti : updates the position of the "confetti" objects
+     * @param root : Group that holds all "confetti" objects
+     */
     private void moveConfetti(Group root) {
 	    final Random rand = new Random();
         for (Object obj : root.getChildren()) {
@@ -148,6 +166,9 @@ public class RoundMode extends BorderPane{
         }
     }
     
+    /**
+     * initClock : initializes the clock object for round mode
+     */
     public void initClock() {
 		timerLabel = new Label("00 : 00");
 		String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 20px;";
@@ -164,6 +185,9 @@ public class RoundMode extends BorderPane{
 		timerliner.play();
 	}
 	
+    /**
+     * stopClock : stops the game clock
+     */
 	public void StopClock() {
 		timerliner.stop();
 	}
