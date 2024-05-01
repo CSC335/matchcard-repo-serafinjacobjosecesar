@@ -30,8 +30,7 @@ import model.GameBoard;
  */
 public class NormalMode extends BorderPane {
 	GridPane gridPane = new GridPane();
-	private Label statusOfGame = new Label("Click to make a move");
-	private HBox moveContainer = new HBox(statusOfGame);
+	private HBox moveContainer = new HBox();
 	private VBox outsideContainer = new VBox();
 	private AbstractCardCollection deck;
 	private GameBoard gameboard;
@@ -129,7 +128,6 @@ public class NormalMode extends BorderPane {
 		}
 
 		outsideContainer.setAlignment(Pos.CENTER);
-		statusOfGame.setAlignment(Pos.CENTER);
 		moveContainer.setAlignment(Pos.CENTER);
 		outsideContainer.getChildren().addAll(gridPane, moveContainer);
 		this.setCenter(outsideContainer);

@@ -151,9 +151,6 @@ public class MainGUI extends Application {
 			Button randomCollection = new Button();
 			randomCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 
-//			double size = 150.0;
-//			int picWidth = 250;
-//			int picHeight = 350;
 			double size = 125.0;
 			int picWidth = 200;
 			int picHeight = 300;
@@ -276,7 +273,6 @@ public class MainGUI extends Application {
 		});
 
 		profile.setOnAction(event -> {
-			System.out.println("RETURN MAIN HERE202");
 			Account currAccount = loginPane.currentAcc;
 			Profile prof = new Profile(currAccount);
 			everything.setCenter(prof);
