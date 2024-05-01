@@ -51,15 +51,26 @@ public class Card {
 		this.boardPos = id;
 	}
 	
+	/**
+	 * setPath sets the file path of the image of the subject
+	 * @param path
+	 */
 	public void setPath(String path) {
 		filePath = path;
 	}
 	
+	/**
+	 * setScale sets the scale of the image
+	 * @param scale
+	 */
 	public void setScale(int scale) {
 		this.scale = scale;
 	}
 	
-	
+	/**
+	 * gets the path of the file of the image
+	 * @return String gets the file path
+	 */
 	public String getPath() {
 		return filePath;
 	}

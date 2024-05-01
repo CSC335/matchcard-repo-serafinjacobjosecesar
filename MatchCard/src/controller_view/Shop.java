@@ -10,7 +10,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Account;
-
+/**
+ * Shop public class that extends Border Pane represents the shop which holds new card backs and backgrounds
+ */
 public class Shop extends BorderPane{
 	private BorderPane shopPane = new BorderPane();
 	private Label cardSkins = new Label("Card Skins");
@@ -31,6 +33,10 @@ public class Shop extends BorderPane{
 	private Label priceCardBack = new Label("Price of CardBack: "+ cardPrice);
 	private Label priceBackground = new Label("Price of Background: "+ backgroundPrice);
 	
+	/**
+	 * Shop : public constructor for shop
+	 * @param account : Account object represents the active user account
+	 */
 	public Shop(Account account) {
 		currAccount = account;
 		
@@ -55,7 +61,10 @@ public class Shop extends BorderPane{
 		buttonHandlers();
 		returnMainMenu.setOnAction(event -> {});
 	}
-
+	
+	/**
+	 * configLayout : configures the layout of shop
+	 */
 	private void configLayout() {
 		
 		String buttonStyles = "-fx-background-color: #424549; " +
@@ -83,7 +92,6 @@ public class Shop extends BorderPane{
 				currItem.setPrefSize(width, height);
 				String background = currItem.getId();
 				currItem.setStyle(background);
-				System.out.println("(Shop 64) background: " + currAccount.getCurrBackground());
 			}
 			else {
 				currItem.setStyle("-fx-background-color:rgba(0, 0, 0, 0.5);");
@@ -155,6 +163,9 @@ public class Shop extends BorderPane{
 		this.setCenter(shopPane);
 	}
 	
+	/**
+	 * buttonHandlers : acts as the button handlers for shop
+	 */
 	private void buttonHandlers() {
 		for (Button currItem : items)  {
 				currItem.setOnAction(event -> {
@@ -199,11 +210,14 @@ public class Shop extends BorderPane{
 		
 	}
 	
+	/**
+	 * setItem : updates elements in shop to the selected element
+	 * @param currItem : Button that represents the selected item from shop
+	 */
 	private void setItem(Button currItem) {
 		if(currItem.getId().contains("-fx-background-color:")) {
 			String background = currItem.getId();
 			currAccount.setCurrBackground(background);
-			System.out.println("(Shop 118)currBackgrond: " + currAccount.getCurrBackground());
 			this.setStyle(background);
 			cardPreview.setStyle(background);
 		}
@@ -218,6 +232,11 @@ public class Shop extends BorderPane{
 				}
 		}
 	
+	/**
+	 * getPrice : gets the price of the item selected
+	 * @param currItem : Button that represents the selected item from shop
+	 * @return cardPrice : int that represents the cost of the element
+	 */
 	private int getPrice(Button currItem) {
 		if(currItem.getId().contains("-fx-background-color:")) {
 			return backgroundPrice;
@@ -225,16 +244,26 @@ public class Shop extends BorderPane{
 		return cardPrice;
 		}
 	
+	/**
+	 * purchase : updates account to withdraw cost of new element
+	 * @param price : int that represent the cost of the element
+	 */
 	private void purchase(int price) {
 		currAccount.withdrawPoints(price);
 		updatePoints();
 		sysReply.setText("Purchase Successful!");
 	}
 	
+	/**
+	 * updates the display of players current points 
+	 */
 	private void updatePoints() {
 		pointsAvaliable.setText("Points: " + currAccount.getPoints());
 	}
 	
+	/**
+	 * itemSetting : sets the items in the shop
+	 */
 	private void itemSetting() {
 		
 		//tier 1
@@ -259,6 +288,13 @@ public class Shop extends BorderPane{
 		
 	}
 	
+	/**
+	 * getFileName : gets the file name of the provided string
+	 * @param str : String that represents the file name
+	 * @param w : int that represent the width of the image
+	 * @param h : int that represents the height of the image
+	 * @return image1 : Image object that is the image to display on the shop buttons
+	 */
 	public Image getFileName(String str, int w, int h) {
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";

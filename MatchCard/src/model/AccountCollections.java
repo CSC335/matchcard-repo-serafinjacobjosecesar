@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * AccountCollections acts as the collection class for accounts
- * uses ArrayList<Account> as underlining data structure
+ * uses ArrayList as underlining data structure
  */
 public class AccountCollections implements Serializable {
 	private ArrayList<Account> accounts;
@@ -36,7 +36,7 @@ public class AccountCollections implements Serializable {
 	
 	/**
 	 * returnAccouts returns the AccountCollections ArrayList
-	 * @return accounts ArrayList<Account> the array list of account objects
+	 * @return accounts : ArrayList an array list of account objects
 	 */
 	public ArrayList<Account> returnAccounts() {
 		return accounts;
