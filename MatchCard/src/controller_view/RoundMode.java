@@ -47,7 +47,7 @@ public class RoundMode extends BorderPane{
 	private Timeline timerliner;
 	private int clock =0;
 	
-	public RoundMode(Account player) {
+	public RoundMode(Account player, AbstractCardCollection currDeck) {
 		col = 3;
 		row = 2;
 		this.player = player;
@@ -55,8 +55,8 @@ public class RoundMode extends BorderPane{
 		int scale = 850/col;
 		scale = (scale+170)/2;
 		
-		deck = new AnimalCollection(col, player.getCurrCardBack());
-		deck = deck.getNewDeck(row*col, col);
+//		deck = new AnimalCollection(col, player.getCurrCardBack());
+		deck = currDeck.getNewDeck(row*col, col);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
 		initClock();

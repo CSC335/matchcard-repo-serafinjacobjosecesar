@@ -52,13 +52,13 @@ public class NormalMode extends BorderPane{
 	private Timeline timeline;
 	private final Random rand = new Random();
 	
-	public NormalMode(Account player) {
+	public NormalMode(Account player, AbstractCardCollection currDeck) {
 		col = 4;
 		row = 2;
 		this.player = player;
-		deck = new AnimalCollection(col, player.getCurrCardBack());
+//		deck = new AnimalCollection(col, player.getCurrCardBack());
 		int scale = 850 /col;
-		deck = deck.getNewDeck(col*row,scale);
+		deck = currDeck.getNewDeck(col*row,scale);
 		gameboard = new GameBoard(player,deck,col,row,0);
 		ButtonArr = gameboard.getButtonArray();
 		start(0);

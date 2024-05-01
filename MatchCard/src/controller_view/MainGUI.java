@@ -27,13 +27,19 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.AbstractCardCollection;
 import model.Account;
 import model.AccountCollections;
+import model.AnimalCollection;
+import model.CarCollection;
+import model.FoodCollection;
 import model.Game;
 import model.GameBoard;
 
@@ -54,6 +60,7 @@ public class MainGUI extends Application {
 	private Button profile = new Button("Profile");
 	private Button quit = new Button("Quit");
 	private Game game;
+	private AbstractCardCollection currDeck;
 	
 	/**
 	 * Standard Start method
@@ -169,9 +176,32 @@ public class MainGUI extends Application {
 		
 		playgame.setOnAction(event->{
 			
+			Label Collection_label = new Label("Card Decks");
+			Button carCollection = new Button();
+			Button animalCollection = new Button();
+			Button foodCollection = new Button();
+			
+			double size = 300.0;
+			
+			
+			carCollection.setMinSize(size,size);
+			animalCollection.setMinSize(size, size);
+			foodCollection.setMinSize(size, size);
+			
+			ImageView carDeckPic = new ImageView(getImage("carButton"));
+			carCollection.setGraphic(carDeckPic);
+			ImageView aniDeckPic = new ImageView(getImage("animalButton"));
+			animalCollection.setGraphic(aniDeckPic);
+			ImageView foodDeckPic = new ImageView(getImage("foodButton"));
+			foodCollection.setGraphic(foodDeckPic);
+			
+			
 			Label Gamemode_label = new Label("Game Modes");
 			Button Gamemode1 = new Button("2 x 4");
 			Button Gamemode2 = new Button("3 rounds");
+			Gamemode1.setMinSize(size,size);
+			Gamemode2.setMinSize(size,size);
+			
 			
 			String buttonStyles = "-fx-background-color: #424549; " +
 	                "-fx-text-fill: white; " +
@@ -183,31 +213,51 @@ public class MainGUI extends Application {
 			Gamemode1.setStyle(buttonStyles);
 			Gamemode2.setStyle(buttonStyles);
 			
+			Collection_label.setStyle(labelStyles);
+//			carCollection.setStyle(buttonStyles);
+//			foodCollection.setStyle(buttonStyles);
+//			animalCollection.setStyle(buttonStyles);
+			
+			
 			VBox containerGamemodes = new VBox();
 			containerGamemodes.setAlignment(Pos.CENTER);
 			containerGamemodes.setSpacing(10);
 			
+			HBox containerDeck = new HBox();
+			containerDeck.setAlignment(Pos.CENTER);
+			containerDeck.setSpacing(10);
+			
+			
+			containerDeck.getChildren().addAll(carCollection, foodCollection,animalCollection);
 			containerGamemodes.getChildren().addAll(Gamemode_label,Gamemode1,Gamemode2);
-			everything.setCenter(containerGamemodes);
 			
-			// 2 by 4
-			Gamemode1.setOnAction(event2 ->{
-				NormalMode game2 = new NormalMode(loginPane.currentAcc);
-				everything.setCenter(game2);
-				game2.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
-					LayoutMainMenu();
-				});
+			VBox containerUni = new VBox();
+			containerUni.setAlignment(Pos.CENTER);
+			containerUni.setSpacing(10);
+			
+			containerUni.getChildren().addAll(Collection_label,containerDeck);
+			
+			everything.setCenter(containerUni);
+			
+			currDeck = null;
+			carCollection.setOnMouseClicked( event1 ->{
+				currDeck = new CarCollection(10,loginPane.currentAcc.getCurrCardBack() );
+				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
+				
 			});
 			
-			// 3 rounds
-			Gamemode2.setOnAction(event2 ->{
-				RoundMode game1 = new RoundMode(loginPane.currentAcc);
-				everything.setCenter(game1);
-				game1.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
-					LayoutMainMenu();
-				});
+			foodCollection.setOnMouseClicked( event2 ->{
+				currDeck = new FoodCollection(10,loginPane.currentAcc.getCurrCardBack() );
+				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
 			});
+			
+			animalCollection.setOnMouseClicked( event2 ->{
+				currDeck = new AnimalCollection(10,loginPane.currentAcc.getCurrCardBack() );
+				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
+			});	
+			
 		});
+		
 		
 		shopButton.setOnAction(event -> {
 			Account currAccount = loginPane.currentAcc;
@@ -231,6 +281,44 @@ public class MainGUI extends Application {
 		});
 		
 		
+	}
+
+
+	private void chooseGameMode(Button Gamemode1, Button Gamemode2, VBox containerGamemodes, VBox containerUni) {
+		containerUni.getChildren().clear();
+		containerUni.getChildren().add(containerGamemodes);
+		// 2 by 4
+		Gamemode1.setOnAction(event2 ->{
+			NormalMode game2 = new NormalMode(loginPane.currentAcc, currDeck);
+			everything.setCenter(game2);
+			game2.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+				LayoutMainMenu();
+			});
+		});
+		
+		// 3 rounds
+		Gamemode2.setOnAction(event2 ->{
+			RoundMode game1 = new RoundMode(loginPane.currentAcc, currDeck);
+			everything.setCenter(game1);
+			game1.returnMainMenu.addEventFilter(ActionEvent.ACTION, event3 -> {
+				LayoutMainMenu();
+			});
+		});
+	}
+	
+	private Image getImage(String file) {
+		String userDir = System.getProperty("user.dir");
+		String fileName = "";
+		
+		if (userDir.substring(0, 1).equals("/")) {
+		    fileName = "file:" + userDir + "/Card Images/DeckImages/";
+		} 
+		else {
+			userDir = userDir.replace('\\', '/');
+			fileName = "file:/" + userDir + "/Card Images/DeckImages/";
+		}
+		Image image1 = new Image(fileName+file+".png",300,300,false,false);
+		return image1;
 	}
 	
 	/**
