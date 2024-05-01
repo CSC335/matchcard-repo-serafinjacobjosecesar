@@ -143,9 +143,8 @@ public class Account implements Serializable {
 	private void updatePoints() {
 		if (currStreak < 2) {
 			points++;
-			return;
 		}
-		points += (points + currStreak);
+		points = (points + currStreak);
 	}
 
 	/**
