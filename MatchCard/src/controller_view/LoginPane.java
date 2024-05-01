@@ -2,8 +2,6 @@ package controller_view;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -16,8 +14,9 @@ import javafx.scene.layout.GridPane;
 import model.Account;
 import model.AccountCollections;
 
-/**Public class that is used to generate a login pane in main GUI
- * extends Border Pane
+/**
+ * Public class that is used to generate a login pane in main GUI extends Border
+ * Pane
  */
 
 public class LoginPane extends BorderPane {
@@ -26,7 +25,7 @@ public class LoginPane extends BorderPane {
 	int numOfSongs = 0;
 	ArrayList<Account> accounts = new ArrayList<Account>();
 	AccountCollections accountCollections = new AccountCollections();
-	
+
 	Label accountNameLabel = new Label("Acccount Name");
 	Label passWordLabel = new Label("Password");
 	String str = "Login First";
@@ -38,7 +37,7 @@ public class LoginPane extends BorderPane {
 	Button loginB = new Button("Login");
 	Button logOutB = new Button("Log out");
 	Button createAcc = new Button("Create new Account");
-	
+
 	/**
 	 * Constructor for login pane
 	 */
@@ -60,36 +59,32 @@ public class LoginPane extends BorderPane {
 		setButtonHandler();
 		this.setCenter(gridPane);
 	}
-	
+
 	/**
 	 * setStyles: Used to standardized style in login pane
 	 */
 	public void setStyles() {
-	    String buttonStyle = "-fx-background-color: #7e61ab; " +
-                "-fx-text-fill: white; " +
-                "-fx-font-size: 16px;";
+		String buttonStyle = "-fx-background-color: #7e61ab; " + "-fx-text-fill: white; " + "-fx-font-size: 16px;";
 
 		String labelStyle = "-fx-font-size: 16px; " + "-fx-text-fill: white;";
-		
+
 		String backgroundColor = "-fx-background-color: linear-gradient(to right top, #070747, #E34379);";
-		
-	    String textFieldStyle = "-fx-font-size: 16px; ";
-	    
-	    nameField.setStyle(textFieldStyle);
-	    passwordField.setStyle(textFieldStyle);
+
+		String textFieldStyle = "-fx-font-size: 16px; ";
+
+		nameField.setStyle(textFieldStyle);
+		passwordField.setStyle(textFieldStyle);
 		gridPane.setStyle(backgroundColor);
 		loginB.setStyle(buttonStyle);
 		logOutB.setStyle(buttonStyle);
 		createAcc.setStyle(buttonStyle);
-		
-		
+
 		accountNameLabel.setStyle(labelStyle);
 		passWordLabel.setStyle(labelStyle);
 		strLabel.setStyle(labelStyle);
 
-
 	}
-	
+
 	/**
 	 * setButtonHandler : Action event handlers for login pane
 	 */
@@ -100,7 +95,7 @@ public class LoginPane extends BorderPane {
 			boolean flag = false;
 			String user = nameField.getText();
 			String passW = passwordField.getText();
-			accounts = accountCollections.returnAccounts();			
+			accounts = accountCollections.returnAccounts();
 			for (Account acc : accounts) {
 				if (acc.getUsername().equals(user) && acc.getPassWord().equals(passW)) {
 					currentAcc = acc;
@@ -134,7 +129,7 @@ public class LoginPane extends BorderPane {
 			if (name == "" || passWord == "") {
 				strLabel.setText("Invalid login");
 			}
-			
+
 			else if (!checkAcc(name)) {
 				Account newAcc = new Account(name, passWord);
 				currentAcc = null;
@@ -142,8 +137,7 @@ public class LoginPane extends BorderPane {
 				strLabel.setText("User Created. Please sign in.");
 				nameField.setText("");
 				passwordField.setText("");
-			}
-			else {
+			} else {
 				currentAcc = null;
 				nameField.setText("");
 				passwordField.setText("");
@@ -155,16 +149,16 @@ public class LoginPane extends BorderPane {
 			}
 		});
 	}
-	
-	
+
 	/**
-	* checks accounts an array of Account objects in order to find the account
-	* with the username that matches the attempted string 
-	*
-	* @param name a string attempting to find a username that matches it in accounts collection
-	*
-	* @return A boolean value if name is found inside any account inside accounts
-	*/
+	 * checks accounts an array of Account objects in order to find the account with
+	 * the username that matches the attempted string
+	 *
+	 * @param name a string attempting to find a username that matches it in
+	 *             accounts collection
+	 *
+	 * @return A boolean value if name is found inside any account inside accounts
+	 */
 	private boolean checkAcc(String name) {
 		for (Account acc : accounts) {
 			if (acc.getUsername().equals(name)) {
