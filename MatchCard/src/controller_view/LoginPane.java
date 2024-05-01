@@ -17,7 +17,7 @@ import model.Account;
 import model.AccountCollections;
 
 /**Public class that is used to generate a login pane in main GUI
- * 
+ * extends Border Pane
  */
 
 public class LoginPane extends BorderPane {
@@ -62,7 +62,7 @@ public class LoginPane extends BorderPane {
 	}
 	
 	/**
-	 * Used to standardized style in login pane
+	 * setStyles: Used to standardized style in login pane
 	 */
 	public void setStyles() {
 	    String buttonStyle = "-fx-background-color: #7e61ab; " +
@@ -91,7 +91,7 @@ public class LoginPane extends BorderPane {
 	}
 	
 	/**
-	 * Action event handlers for login pane
+	 * setButtonHandler : Action event handlers for login pane
 	 */
 	public void setButtonHandler() {
 

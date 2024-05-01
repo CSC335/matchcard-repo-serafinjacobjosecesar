@@ -28,7 +28,9 @@ import model.Card;
 import model.FoodCollection;
 import model.GameBoard;
 
-
+/**
+ * NormalMode class that extends Border Pane : represents the single round game mode
+ */
 public class NormalMode extends BorderPane{
 	GridPane gridPane = new GridPane();
 	private Label statusOfGame = new Label("Click to make a move");
@@ -52,6 +54,11 @@ public class NormalMode extends BorderPane{
 	private Timeline timeline;
 	private final Random rand = new Random();
 	
+	/**
+	 * NormalMode : public constructor for normal game mode
+	 * @param player : Account object representing the current active account or player.
+	 * @param currDeck : AbstractCardCollection class, represents the current acctive card collection class
+	 */
 	public NormalMode(Account player, AbstractCardCollection currDeck) {
 		col = 4;
 		row = 2;

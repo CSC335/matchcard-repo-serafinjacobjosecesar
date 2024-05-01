@@ -24,7 +24,7 @@ public class GameClock extends Application{
 	
 	/**
 	 * start : initializes game clock
-	 * @param primaryStage : currrent stage object
+	 * @param primaryStage : current stage object
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {

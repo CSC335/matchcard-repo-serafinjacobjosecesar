@@ -136,7 +136,12 @@ public class GameBoard{
 		wait(false);
 		return false;
 	}
-
+	/**
+	 * 
+	 * @param uniqueCards
+	 * @param cols
+	 * @param rows
+	 */
 	private void intializeArrCards(AbstractCardCollection uniqueCards,int cols,int rows) {
 		int currCard = 0;
 		for(int i=0; i < rows ; i++) {
@@ -147,7 +152,7 @@ public class GameBoard{
 		}
 	}
 	/**
-	 * stop 
+	 * wait public void - delays button inputs 
 	 * @param val
 	 */
 	public void wait(boolean val) {

@@ -308,7 +308,13 @@ public class MainGUI extends Application {
 		
 	}
 
-
+	/**
+	 * chooseGameMode : action event handlers to allow user to select game mode
+	 * @param Gamemode1 : Button that represents the first game mode
+	 * @param Gamemode2 : Button that represents the second game mode
+	 * @param containerGamemodes : a VBox to act as a container for buttons
+	 * @param containerUni : VBox overall container for all elements
+	 */
 	private void chooseGameMode(Button Gamemode1, Button Gamemode2, VBox containerGamemodes, VBox containerUni) {
 		containerUni.getChildren().clear();
 		containerUni.getChildren().add(containerGamemodes);
@@ -330,7 +336,13 @@ public class MainGUI extends Application {
 			});
 		});
 	}
-	
+	/**
+	 * getImage : uses user's system to generate an appropriate file path  
+	 * @param file : String that represents the requested image file name
+	 * @param picWidth : int that represents the width of the image 
+	 * @param picHeight : int that represents the height of the image 
+	 * @return : Image : an image object that is the image required.
+	 */
 	private Image getImage(String file, int picWidth, int picHeight) {
 		String userDir = System.getProperty("user.dir");
 		String fileName = "";
@@ -357,7 +369,9 @@ public class MainGUI extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * getSavedAccounts : reads from .ser file account objects
+	 */
 	private void getSavedAccounts() {
 		FileInputStream fileIn;
 		try {
