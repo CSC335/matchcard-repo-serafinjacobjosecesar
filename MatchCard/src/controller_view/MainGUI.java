@@ -66,14 +66,16 @@ public class MainGUI extends Application {
 		}
 
 		getSavedAccounts();
-		// handles the stage closing
-		// TODO enable this feature
-		/*
-		 * quit.setOnAction(event -> { System.out.println("Stage is closing"); // Call
-		 * Platform.exit() to quit the application save(); Platform.exit(); });
-		 * primaryStage.setOnCloseRequest(event -> {
-		 * System.out.println("Stage is closing"); // Save file save(); });
-		 */
+		
+		quit.setOnAction(event ->{
+			save();
+			Platform.exit();
+		});
+		
+		primaryStage.setOnCloseRequest(event ->{
+			save();
+		});
+		
 
 		LayoutMainMenu();
 		eventHandlers();
