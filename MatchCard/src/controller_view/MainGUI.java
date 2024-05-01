@@ -84,10 +84,6 @@ public class MainGUI extends Application {
 			everything.setStyle(borderPaneStyle);
 		}
 		
-		
-		
-		
-		// pull saved accounts
 		getSavedAccounts();
 		// handles the stage closing 
 		//TODO enable this feature
