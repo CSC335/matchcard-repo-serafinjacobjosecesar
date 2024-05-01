@@ -240,10 +240,19 @@ public class Account implements Serializable {
 	public int getG2Time() {
 		return bestTimeGamemode2;
 	}
+	
+	/**
+	 * getG1Time : getter for game mode 1 best time
+	 * @return bestTimeGamemode1 : int that represents game mode 1 best time
+	 */
 	public int getG1Time() {
 		return bestTimeGamemode1;
 	}
-
+	
+	/**
+	 * getBack : getter for back
+	 * @return String that represents the back
+	 */
 	public String getBack() {
 		// TODO Auto-generated method stub
 		return null;
