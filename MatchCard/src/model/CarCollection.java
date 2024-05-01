@@ -7,7 +7,8 @@ public class CarCollection extends AbstractCardCollection {
 
 	/**
 	 * CarCollection acts as the collection class for the cards for Car Collection
-	 * @param num int is the scale for the images, front and back images of the Cards
+	 * @param cols : int that represents the number of columns
+	 * @param back : String that represents the back of the card
 	 */
 	public CarCollection(int cols, String back) {
 		super(cols,back);

@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * tracks longest streak, current streak, high score, current score
  * and points.
  */
-
 public class Account implements Serializable {
 	private String userName,password;
 	private int longestStreak, currStreak, hiScore, currScore, points;
@@ -44,10 +43,18 @@ public class Account implements Serializable {
 		this.password = newPassword;
 	}
 	
+	/**
+	 * setCurrBackground : setter for currBackground
+	 * @param newBack : String that represents the new background to set
+	 */
 	public void setCurrBackground(String newBack) {
 		this.currBackground = newBack;
 	}
 	
+	/**
+	 * setCurrCardBack : setter for currCardBack
+	 * @param newBack : String that represents the new card back 
+	 */
 	public void setCurrCardBack(String newBack) {
 		this.currCardBack = newBack;
 	}
@@ -136,10 +143,18 @@ public class Account implements Serializable {
 		points += (points + currStreak);
 	}
 	
+	/**
+	 * withdrawPoints : updates points to reflect a withdraw of points.
+	 * @param withdraw : int that represents the amount of points to withdraw
+	 */
 	public void withdrawPoints(int withdraw) {
 		points -= withdraw;
 	}
 	
+	/**
+	 * getPoints : getter for points 
+	 * @return points : int that represents the current amount of points
+	 */
 	public int getPoints() {
 		return points;
 	}
@@ -168,10 +183,18 @@ public class Account implements Serializable {
 		return longestStreak;
 	}
 	
+	/**
+	 * getCurrCardBack : getter for currCardBack
+	 * @return currCardBack : String that represents the current card back
+	 */
 	public String getCurrCardBack() {
 		return currCardBack;
 	}
 	
+	/**
+	 * getCurrBackground : gettter for current background
+	 * @return currBackground : String that represents the current background
+	 */
 	public String getCurrBackground() {
 		return currBackground;
 	}
@@ -183,6 +206,11 @@ public class Account implements Serializable {
 	public int getHighScore() {
 		return hiScore;
 	}
+	
+	/**
+	 * setGamemode2Hiscore : update game mode 2 best time
+	 * @param time : int the time to update best time to
+	 */
 	public void setGamemode2Hiscore(int time) {
 		if(time<bestTimeGamemode2) {
 			bestTimeGamemode2 = time;
@@ -191,6 +219,11 @@ public class Account implements Serializable {
 			bestTimeGamemode2 = time;
 		}
 	}
+	
+	/**
+	 * setGamemode1Hiscore : update game mode 1 best time
+	 * @param time
+	 */
 	public void setGamemode1Hiscore(int time) {
 		if(time<bestTimeGamemode1) {
 			bestTimeGamemode1 = time;
@@ -199,6 +232,11 @@ public class Account implements Serializable {
 			bestTimeGamemode1 = time;
 		}
 	}
+	
+	/**
+	 * getG2Time : getter for game mode 2 best time
+	 * @return bestTimeGamemode2
+	 */
 	public int getG2Time() {
 		return bestTimeGamemode2;
 	}
