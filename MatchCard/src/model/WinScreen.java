@@ -15,6 +15,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import java.util.Random;
 
+/**
+ * WinScreen is a demo win screen used to format active win screen
+ */
 public class WinScreen extends Application {
     private static final int WIDTH = 950;
     private static final int HEIGHT = 800;
@@ -23,7 +26,11 @@ public class WinScreen extends Application {
     private Label winPrompt = new Label("You Won!");
     private Button returnMainMenu = new Button("Main Menu");
     private Button newGame = new Button("New Game");
-
+    
+    /**
+     * start : starts the application
+     * @param stage : Stage current stage
+     */
     @Override
     public void start(Stage stage) {
         Group root = new Group();
@@ -61,7 +68,11 @@ public class WinScreen extends Application {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
+    
+    /**
+     * createConfettiPieces : creates the "confetti" pieces
+     * @return rect : Rectangle object to be used as confetti
+     */
     private Rectangle createConfettiPiece() {
         Rectangle rect = new Rectangle(10, 20, Color.rgb(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)));
         rect.setX(rand.nextDouble() * WIDTH);
@@ -69,7 +80,11 @@ public class WinScreen extends Application {
         rect.setRotate(rand.nextDouble() * 360);
         return rect;
     }
-
+    
+    /**
+     * moveConfetti : updates the position of the confetti
+     * @param root : Group groups all confetti pieces
+     */
     private void moveConfetti(Group root) {
         for (Object obj : root.getChildren()) {
             if (obj instanceof Rectangle) {
@@ -85,6 +100,10 @@ public class WinScreen extends Application {
         }
     }
     
+    /**
+     * setListeners : creates listeners for action events
+     * @param stage : Stage current stage
+     */
     public void setListeners(Stage stage) {
 		returnMainMenu.setOnAction(event->{
 			stage.setScene(null);
@@ -95,6 +114,10 @@ public class WinScreen extends Application {
     
     }
 
+    /**
+     * main : acts as the main
+     * @param args : String[] array of current args
+     */
     public static void main(String[] args) {
         launch(args);
     }

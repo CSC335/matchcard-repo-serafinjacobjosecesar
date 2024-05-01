@@ -42,6 +42,10 @@ public class AccountCollections implements Serializable {
 		return accounts;
 	}
 	
+	/**
+	 * set : sets acconts to the given array list
+	 * @param arr : ArrayList of account objects
+	 */
 	public void set(ArrayList<Account> arr) {
 		accounts = arr;
 	}
