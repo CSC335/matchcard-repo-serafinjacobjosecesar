@@ -38,18 +38,35 @@ public class GameBoard{
 		intializeButtons(cols,rows);
 	}
 	
+	/**
+	 * getter for the number of pairs 
+	 * @return numOfPairs int number of pairs 
+	 */
 	public int getNumberOfPairs() {
 		return numOfPairs;
 	}
 	
+	/**
+	 * getter for a 2d button array of the gameboard 
+	 * @return boardButtons 2d array of button representation
+	 */
 	public Button[][] getButtonArray(){
 		return boardButtons;
 	}
 	
+	/**
+	 * getter for a card representation of the gameboard 
+	 * @return gameBoardArr 2d array of type Card that represents the board
+	 */
 	public Card[][] getCardArr(){
 		return gameBoardArr;
 	}
 	
+	/**
+	 * Initializes the board buttons for the gameboard 
+	 * @param cols int that represents columns 
+	 * @param rows int that represents rows
+	 */
 	private void intializeButtons(int cols, int rows) {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
@@ -68,7 +85,7 @@ public class GameBoard{
 		}		
 	}
 	
-	//2D representation of GameBoard Gui
+
 	/**
 	* returns an instance of a 2D array of Card objects
 	*
@@ -78,9 +95,9 @@ public class GameBoard{
 		return gameBoardArr;
 	}
 	
-	/*
+	/**
 	 * flip - Flips both cards from the toCompare array to the back side of the card
-	 */
+	 **/
 	public void flip() {
 		int [] stCardCords = toCompare.get(0);
 		int [] ndCardCords = toCompare.get(1);
@@ -95,18 +112,17 @@ public class GameBoard{
 		ImageView backView2 = new ImageView(card2.getBackOfCard());
 		boardButtons[ndCardCords[0]][ndCardCords[1]].setGraphic(backView2);
 		
-	/*
-	 * will be used for future iteratbuttonsLayoution for the game flipping down both
-	 * cards if they are not a match 	
-	 */
+	
 	}
 	
-	public boolean check() {
-	/*
-	 * once toCompare has 2 cards to compare it checks their name and 
+	
+	/**
+	 *once toCompare has 2 cards to compare it checks their name and 
 	 * if thay are a match then the cards disappear from the board
-	 * else both cards get flipped and enabled for flipping 	
+	 * else both cards get flipped and enabled for flipping  
+	 * @return boolean representing if a pair gets found
 	 */
+	public boolean check() {
 		if(toCompare.size()==2) {
 			int [] stCardCords = toCompare.get(0);
 			int [] ndCardCords = toCompare.get(1);
@@ -158,8 +174,8 @@ public class GameBoard{
 		return false;
 	}
 	/**
-	 * 
-	 * @param uniqueCards
+	 * intializes the 2d array of cards to the button array
+	 * @param uniqueCards 
 	 * @param cols
 	 * @param rows
 	 */
@@ -173,7 +189,7 @@ public class GameBoard{
 		}
 	}
 	/**
-	 * wait public void - delays button inputs 
+	 * wait public void delays button inputs 
 	 * @param val
 	 */
 	public void wait(boolean val) {
