@@ -112,7 +112,6 @@ public class GameBoard{
 	 * else both cards get flipped and enabled for flipping 	
 	 */
 		if(toCompare.size()==2) {
-			wait(false);
 			int [] stCardCords = toCompare.get(0);
 			int [] ndCardCords = toCompare.get(1);
 			String s1 = gameBoardArr[stCardCords[0]][stCardCords[1]].getName();
@@ -136,7 +135,11 @@ public class GameBoard{
 			toCompare.clear();
 		}
 		
+			
+			
+		
 		if(numOfPairs==0) {
+			
 			playerInformation.setMatch(false);
 			playerInformation.win();
 			return true;
@@ -168,7 +171,7 @@ public class GameBoard{
 	        @Override
 	        protected Void call() throws Exception {
 	            // Simulate delay
-	            Thread.sleep(10000); // Adjust the delay time as needed
+	            Thread.sleep(1000); // Adjust the delay time as needed
 	            return null;
 	        }
 	    };

@@ -106,7 +106,7 @@ public class RoundMode extends BorderPane{
 						    		gameboard.wait(true);
 						    	}
  						    	// Makes a pause so both cards face up, (shows the frontView)
-						        Thread.sleep(250);
+						        Thread.sleep(150);
 						        Platform.runLater(() -> {
 						        	flag = gameboard.check();
 						        	if (flag) {

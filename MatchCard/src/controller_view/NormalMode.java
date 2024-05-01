@@ -102,16 +102,16 @@ public class NormalMode extends BorderPane{
 						new Thread(() -> {
 						    try {
  						    	// Makes a pause so both cards face up, (shows the frontView)
-						        Thread.sleep(250);
+						        Thread.sleep(150);
 						        
 						        Platform.runLater(() -> {
-						        	gameboard.wait(true);
 						        	if (gameboard.check()) {
 						        		win();
 						        	}
 						        	gameboard.wait(false);
 				                    
 				                });
+						        
 						    } catch (InterruptedException e) {
 						        e.printStackTrace();
 						    }
