@@ -31,7 +31,7 @@ public class Account implements Serializable {
 		currStreak = 0;
 		hiScore = 0;
 		currScore = 0;
-		points = 500;
+		points = 0;
 		hadMatch = false;
 		currCardBack = "matchCard(backClose)";
 	}
