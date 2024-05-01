@@ -21,7 +21,8 @@ public abstract class AbstractCardCollection {
 	/**
 	 * AbstractCardCollection constructor for Card Collection class
 	 * initializes Collections - an array list of Card objects
-	 * @param int Integer dictates size of images(front/back of card)
+	 * @param num : int dictates size of images(front/back of card)
+	 * @param newCardBack : String that represents the new card back 
 	 */
 	public AbstractCardCollection(int num, String newCardBack) {
 		this.Cards = new ArrayList<Card>();
@@ -32,6 +33,10 @@ public abstract class AbstractCardCollection {
 		
 	}
 	
+	/**
+	 * getBackOfCard : getter for back of card
+	 * @return backOfCard : String that represents the back of the card
+	 */
 	public String getBackOfCard() {
 		return backOfCard;
 	}
@@ -44,6 +49,10 @@ public abstract class AbstractCardCollection {
 		return Cards;
 	}
 	
+	/**
+	 * setColumns : setter for columns
+	 * @param col : int Col that represents the number of colums
+	 */
 	public void setColumns(int col) {
 		cols = col;
 	}
@@ -72,7 +81,7 @@ public abstract class AbstractCardCollection {
 	 * @param name String reprensents the name
 	 * @param type String reprensents the type
 	 * @param file String reprensents the name of the file
-	 * @param num int reprensents the number of columns that the cards are going to be placed in
+	 * @param scale int reprensents the number of columns that the cards are going to be placed in
 	 */
 	public void addCard(String name, String type, String file, int scale) {
 		Image image = getImage(file,type);
@@ -120,7 +129,7 @@ public abstract class AbstractCardCollection {
 	 * getDiffDeck creates a new deck with 'num' number of Cards and shuffles them,
 	 *  the original deck is still available
 	 * @param number int represents the wanted amount of Cards
-	 * @return ArrayList<Card> a new Deck with the wanted number of cards
+	 * @return ArrayList a new Deck with the wanted number of cards
 	 */
 	public ArrayList<Card> getDiffDeck(int number, int scale) {	
 		number = number/2;
@@ -144,6 +153,11 @@ public abstract class AbstractCardCollection {
 		return Cards;
 	}
 
+	/**
+	 * rescaleCard : rescales a card object by a given scale
+	 * @param scale : int that represents the scaler
+	 * @param temp : Card object that is the card to scale
+	 */
 	private void rescaleCard(int scale, Card temp) {
 		Image scaledImage = new Image(temp.getPath(), scale, scale, false,false);
 		Image scaledBack = temp.getFileName(temp.getNameOfBackOfCard(),scale);
@@ -153,7 +167,7 @@ public abstract class AbstractCardCollection {
 		
 	/**
 	 * shuffle Shuffles the deck
-	 * @return ArrayList<Card> a shuffled version of the Deck
+	 * @return ArrayList a shuffled version of the Deck
 	 */
 	public ArrayList<Card> shuffle(){
 		Collections.shuffle(Cards);
