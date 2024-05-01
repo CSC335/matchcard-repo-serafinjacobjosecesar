@@ -178,8 +178,11 @@ public class MainGUI extends Application {
 			
 			Label Collection_label = new Label("Card Decks");
 			Button carCollection = new Button();
+			carCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 			Button animalCollection = new Button();
+			animalCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 			Button foodCollection = new Button();
+			foodCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 			
 			double size = 150.0;
 			int picWidth = 250;
