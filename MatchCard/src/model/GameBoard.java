@@ -2,8 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 public class GameBoard{
@@ -128,7 +130,26 @@ public class GameBoard{
 			}
 			toCompare.clear();
 		}
+		if (toCompare.size() > 2) {
+			
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < cols; j++) {
+					Button tempButton = boardButtons[i][j];
+					if (tempButton.isVisible() == true) {
+						tempButton.setOpacity(100);
+						Card card1 = gameBoardArr[0][0];
+						ImageView backView1 = new ImageView(card1.getBackOfCard());
+						tempButton.setGraphic(backView1);
+					}
+				}
+			}
+			toCompare.clear();
+		}
+			
+			
+		
 		if(numOfPairs==0) {
+			
 			playerInformation.setMatch(false);
 			playerInformation.win();
 			return true;
