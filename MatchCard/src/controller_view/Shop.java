@@ -218,7 +218,6 @@ public class Shop extends BorderPane{
 		if(currItem.getId().contains("-fx-background-color:")) {
 			String background = currItem.getId();
 			currAccount.setCurrBackground(background);
-			System.out.println("(Shop 118)currBackgrond: " + currAccount.getCurrBackground());
 			this.setStyle(background);
 			cardPreview.setStyle(background);
 		}
