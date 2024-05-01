@@ -155,8 +155,8 @@ public class MainGUI extends Application {
 //			int picWidth = 250;
 //			int picHeight = 350;
 			double size = 100.0;
-			int picWidth = 250;
-			int picHeight = 350;
+			int picWidth = 150;
+			int picHeight = 250;
 
 			carCollection.setPrefSize(size, size);
 			animalCollection.setPrefSize(size, size);
@@ -169,7 +169,7 @@ public class MainGUI extends Application {
 			animalCollection.setGraphic(aniDeckPic);
 			ImageView foodDeckPic = new ImageView(getImage("foodButton", picWidth, picHeight));
 			foodCollection.setGraphic(foodDeckPic);
-			ImageView randomCollectionPic = new ImageView(getImage("carButton", picWidth, picHeight));
+			ImageView randomCollectionPic = new ImageView(getImage("randomButton(front)", picWidth, picHeight));
 			randomCollection.setGraphic(randomCollectionPic);
 
 			Label Gamemode_label = new Label("Game Modes");
