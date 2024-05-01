@@ -2,12 +2,8 @@ package model;
 
 
 public class FoodCollection extends AbstractCardCollection {
-
-	private String backOfCard;
 	public FoodCollection(int cols, String back) {
 		super(cols,back);
-		this.cols= cols;
-		backOfCard = back;
 		setupDeck();
 	}
 
@@ -23,11 +19,10 @@ public class FoodCollection extends AbstractCardCollection {
 		addCard("Sushi", 		type, "sushi(front).png",		cols);	
 		addCard("Taco", 		type, "taco(front).png",		cols);	
 		addCard("Wings", 		type, "wings(front).jpg",		cols);
-		
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number,int scale) {
-		FoodCollection temp = new FoodCollection(10, backOfCard);
+		FoodCollection temp = new FoodCollection(10, super.getBackOfCard());
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}

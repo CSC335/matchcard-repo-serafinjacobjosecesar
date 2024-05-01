@@ -90,14 +90,10 @@ public class NormalMode extends BorderPane{
 						gameboard.toCompare.add(cords);
 						new Thread(() -> {
 						    try {
-						    	if (toCompare.size()== 2) {
-						    		gameboard.wait(true);
-						    	}
  						    	// Makes a pause so both cards face up, (shows the frontView)
 						        Thread.sleep(250);
 						        Platform.runLater(() -> {
-						        	flag = gameboard.check();
-						        	if (flag) {
+						        	if (gameboard.check()) {
 						        		win();
 						        	}
 				                    

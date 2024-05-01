@@ -3,11 +3,8 @@ package model;
 import java.util.ArrayList;
 
 public class AnimalCollection extends AbstractCardCollection {
-	private String backOfCard;
 	public AnimalCollection(int cols, String back) {
 		super(cols,back);
-		this.cols= cols;
-		backOfCard = back;
 		setupDeck();
 	}
 
@@ -25,7 +22,7 @@ public class AnimalCollection extends AbstractCardCollection {
 	}
 	@Override
 	public AbstractCardCollection getNewDeck(int number,int scale) {
-		AnimalCollection temp = new AnimalCollection(10, backOfCard);
+		AnimalCollection temp = new AnimalCollection(10, super.getBackOfCard());
 		temp.getDiffDeck(number,scale);
 		return temp;
 	}
