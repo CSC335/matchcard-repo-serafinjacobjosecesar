@@ -12,6 +12,10 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 
+
+/**
+ * public class GameBoard()
+ */
 public class GameBoard{
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
@@ -25,6 +29,14 @@ public class GameBoard{
 	public Button returnMainMenu = new Button("Main Menu");
 	public Button newGame = new Button("New Game");
 	
+	/**
+	 *  public GameBoard ()
+	 * @param player : Account object 
+	 * @param uniqueCards : AbstractCardCollection object 
+	 * @param cols : int number of columns
+	 * @param rows : int number of rows 
+	 * @param mode : mode of the game
+	 */
 	public GameBoard(Account player,AbstractCardCollection uniqueCards, int cols, int rows, int mode) {
 		this.cols = cols;
 		this.rows = rows;
