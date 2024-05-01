@@ -25,6 +25,7 @@ import model.AccountCollections;
 import model.AnimalCollection;
 import model.CarCollection;
 import model.FoodCollection;
+import model.RandomCollection;
 
 /**
  * Class represents the Main GUI, creates the required stages.
@@ -147,14 +148,20 @@ public class MainGUI extends Application {
 			animalCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 			Button foodCollection = new Button();
 			foodCollection.setStyle(loginPane.currentAcc.getCurrBackground());
+			Button randomCollection = new Button();
+			randomCollection.setStyle(loginPane.currentAcc.getCurrBackground());
 
-			double size = 150.0;
-			int picWidth = 250;
-			int picHeight = 350;
+//			double size = 150.0;
+//			int picWidth = 250;
+//			int picHeight = 350;
+			double size = 125.0;
+			int picWidth = 200;
+			int picHeight = 300;
 
 			carCollection.setPrefSize(size, size);
 			animalCollection.setPrefSize(size, size);
 			foodCollection.setPrefSize(size, size);
+			randomCollection.setPrefSize(size, size);
 
 			ImageView carDeckPic = new ImageView(getImage("carButton", picWidth, picHeight));
 			carCollection.setGraphic(carDeckPic);
@@ -162,6 +169,8 @@ public class MainGUI extends Application {
 			animalCollection.setGraphic(aniDeckPic);
 			ImageView foodDeckPic = new ImageView(getImage("foodButton", picWidth, picHeight));
 			foodCollection.setGraphic(foodDeckPic);
+			ImageView randomCollectionPic = new ImageView(getImage("randomButton", picWidth, picHeight));
+			randomCollection.setGraphic(randomCollectionPic);
 
 			Label Gamemode_label = new Label("Game Modes");
 			Button Gamemode1 = new Button("2 x 4");
@@ -170,7 +179,6 @@ public class MainGUI extends Application {
 			Gamemode2.setMinSize(size, size);
 
 			String buttonStyles = "-fx-background-color: #424549; " + "-fx-text-fill: white; " + "-fx-font-size: 30px;";
-
 			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
 
 			Gamemode_label.setStyle(labelStyles);
@@ -188,6 +196,7 @@ public class MainGUI extends Application {
 			VBox carsContainer = new VBox();
 			VBox foodContainer = new VBox();
 			VBox animalsContainer = new VBox();
+			VBox randContainer = new VBox();
 
 			containerDeck.setAlignment(Pos.CENTER);
 			containerDeck.setSpacing(10);
@@ -195,22 +204,30 @@ public class MainGUI extends Application {
 			Label carLabel = new Label("Cars");
 			Label foodLabel = new Label("Food");
 			Label animalsLabel = new Label("Animals");
+			Label randLabel = new Label("Random");
 
 			carLabel.setStyle(labelStyles);
 			foodLabel.setStyle(labelStyles);
 			animalsLabel.setStyle(labelStyles);
+			randLabel.setStyle(labelStyles);
 
 			carsContainer.getChildren().addAll(carLabel, carCollection);
 			carsContainer.setAlignment(Pos.CENTER);
 			carsContainer.setSpacing(5);
+			
 			foodContainer.getChildren().addAll(foodLabel, foodCollection);
 			foodContainer.setAlignment(Pos.CENTER);
 			foodContainer.setSpacing(5);
+			
 			animalsContainer.getChildren().addAll(animalsLabel, animalCollection);
 			animalsContainer.setAlignment(Pos.CENTER);
 			animalsContainer.setSpacing(5);
+			
+			randContainer.getChildren().addAll(randLabel, randomCollection);
+			randContainer.setAlignment(Pos.CENTER);
+			randContainer.setSpacing(5);
 
-			containerDeck.getChildren().addAll(carsContainer, foodContainer, animalsContainer);
+			containerDeck.getChildren().addAll(carsContainer, foodContainer, animalsContainer,randContainer);
 			containerGamemodes.getChildren().addAll(Gamemode_label, Gamemode1, Gamemode2);
 
 			VBox containerUni = new VBox();
@@ -222,6 +239,9 @@ public class MainGUI extends Application {
 			everything.setCenter(containerUni);
 
 			currDeck = null;
+			
+			
+			
 			carCollection.setOnMouseClicked(event1 -> {
 				currDeck = new CarCollection(10, loginPane.currentAcc.getCurrCardBack());
 				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
@@ -236,6 +256,12 @@ public class MainGUI extends Application {
 			animalCollection.setOnMouseClicked(event2 -> {
 				currDeck = new AnimalCollection(10, loginPane.currentAcc.getCurrCardBack());
 				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
+			});
+			
+			randomCollection.setOnMouseClicked(event2 -> {
+				currDeck = new RandomCollection(10, loginPane.currentAcc.getCurrCardBack());
+				chooseGameMode(Gamemode1, Gamemode2, containerGamemodes, containerUni);
+
 			});
 
 		});
