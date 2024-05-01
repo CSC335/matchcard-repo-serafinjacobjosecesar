@@ -7,15 +7,16 @@ import javafx.event.ActionEvent;
 public class Game {
 	private GameBoard gameboard;
 	private Card[][] gameboardArrRep;
-	//private Card[][] gameBoard;
 	private AbstractCardCollection deck;
 	private int numberOfPairs;
 	
+	/**
+	 * public Game that handles creating a game object 
+	 * @param player: Account object 
+	 * @param mode: int that indicates the gamemode 
+	 */
+	
 	public Game(Account player, int mode) {		
-		/*TODO
-		 * set for 2x3
-		 *  is set for 6 cards (3 pairs of animals)
-		 */
 		int col = 3;
 		int row = 2;
 
@@ -49,11 +50,17 @@ public class Game {
 		return gameboard;
 	}
 	
+	/**
+	 * lowers the amount of pairs on the board
+	 */
 	public void updatePairs() {
 		numberOfPairs--;
 	}
 	
-	// TODO provide javadoc for func
+	/**
+	 * 
+	 * @return numberOfPairs: boolean that return true when pairs is 0 signifying a win
+	 */
 	public boolean isWin() {
 		return numberOfPairs == 0;
 	}

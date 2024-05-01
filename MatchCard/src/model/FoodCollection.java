@@ -2,11 +2,19 @@ package model;
 
 
 public class FoodCollection extends AbstractCardCollection {
+	/**
+	 * FoodCollection instructor
+	 * @param cols the number of columns needed
+	 * @param back the image of the card back
+	 */
 	public FoodCollection(int cols, String back) {
 		super(cols,back);
 		setupDeck();
 	}
 
+	/**
+	 * setupDeck sets up the deck with pre-chosen cards
+	 */
 	private void setupDeck() {		
 		String type = "Food";
 		addCard("Bacon-Eggs", 	type, "baconeggs(front).png",	cols);
@@ -21,6 +29,9 @@ public class FoodCollection extends AbstractCardCollection {
 		addCard("Wings", 		type, "wings(front).jpg",		cols);
 	}
 	@Override
+	/**
+	 * getNewDeck gets a new deck with the new desired number of cards
+	 */
 	public AbstractCardCollection getNewDeck(int number,int scale) {
 		FoodCollection temp = new FoodCollection(10, super.getBackOfCard());
 		temp.getDiffDeck(number,scale);
