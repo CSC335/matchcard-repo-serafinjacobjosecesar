@@ -8,6 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+
 public class GameBoard{
 	private Button[][] boardButtons;
 	private Card[][] gameBoardArr;
@@ -108,6 +112,7 @@ public class GameBoard{
 	 * else both cards get flipped and enabled for flipping 	
 	 */
 		if(toCompare.size()==2) {
+			wait(false);
 			int [] stCardCords = toCompare.get(0);
 			int [] ndCardCords = toCompare.get(1);
 			String s1 = gameBoardArr[stCardCords[0]][stCardCords[1]].getName();
@@ -130,26 +135,8 @@ public class GameBoard{
 			}
 			toCompare.clear();
 		}
-		if (toCompare.size() > 2) {
-			
-			for (int i = 0; i < rows; i++) {
-				for (int j = 0; j < cols; j++) {
-					Button tempButton = boardButtons[i][j];
-					if (tempButton.isVisible() == true) {
-						tempButton.setOpacity(100);
-						Card card1 = gameBoardArr[0][0];
-						ImageView backView1 = new ImageView(card1.getBackOfCard());
-						tempButton.setGraphic(backView1);
-					}
-				}
-			}
-			toCompare.clear();
-		}
-			
-			
 		
 		if(numOfPairs==0) {
-			
 			playerInformation.setMatch(false);
 			playerInformation.win();
 			return true;
@@ -177,14 +164,33 @@ public class GameBoard{
 	 * @param val
 	 */
 	public void wait(boolean val) {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				Button tempButton = boardButtons[i][j];
-				if (tempButton.isVisible() == true) {
-					tempButton.setOpacity(100);
-					tempButton.setDisable(val);
-				}
-			}
-		}
+		Task<Void> task = new Task<Void>() {
+	        @Override
+	        protected Void call() throws Exception {
+	            // Simulate delay
+	            Thread.sleep(10000); // Adjust the delay time as needed
+	            return null;
+	        }
+	    };
+
+	    // Event handler for when the task is finished
+	    task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	        @Override
+	        public void handle(WorkerStateEvent event) {
+	            // Re-enable buttons after the delay
+	            for (int i = 0; i < rows; i++) {
+	                for (int j = 0; j < cols; j++) {
+	                    Button tempButton = boardButtons[i][j];
+	                    if (tempButton.isVisible()) {
+	                        tempButton.setOpacity(1.0); // Reset opacity
+	                        tempButton.setDisable(val);
+	                    }
+	                }
+	            }
+	        }
+	    });
+
+	    // Start the task
+	    new Thread(task).start();
 	}
 }
