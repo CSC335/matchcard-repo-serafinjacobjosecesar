@@ -211,8 +211,8 @@ public class MainGUI extends Application {
 			String labelStyles = "-fx-text-fill: white; " + "-fx-font-size: 30px;";
 			
 			Gamemode_label.setStyle(labelStyles);
-			Gamemode1.setStyle(buttonStyles);
-			Gamemode2.setStyle(buttonStyles);
+			Gamemode1.setStyle(buttonStyles+"-fx-border-radius: 50px;");
+			Gamemode2.setStyle(buttonStyles+"-fx-border-radius: 50px;");
 			
 			Collection_label.setStyle(labelStyles);
 //			carCollection.setStyle(buttonStyles);
